@@ -1,219 +1,292 @@
-<?php 
-	require('./getID3/getid3/getid3.php');
-	
+<?php
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
 
-	$songs = new RecursiveDirectoryIterator('./songs');
-	$songs->setFlags(RecursiveDirectoryIterator::SKIP_DOTS);
-	$songs = new RecursiveIteratorIterator($songs, RecursiveIteratorIterator::SELF_FIRST);
+/*
+ *---------------------------------------------------------------
+ * APPLICATION ENVIRONMENT
+ *---------------------------------------------------------------
+ *
+ * You can load different configurations depending on your
+ * current environment. Setting the environment also influences
+ * things like logging and error reporting.
+ *
+ * This can be set to anything, but default usage is:
+ *
+ *     development
+ *     testing
+ *     production
+ *
+ * NOTE: If you change these, also change the error_reporting() code below
+ */
+	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 
-	/*RENAME FILENAME FOR URL: Need to be remove*/
-	foreach ($songs as $old_name) {
-		rename($old_name->getPathname(), str_replace(' ', '-', $old_name->getPathname()));
+/*
+ *---------------------------------------------------------------
+ * ERROR REPORTING
+ *---------------------------------------------------------------
+ *
+ * Different environments will require different levels of error reporting.
+ * By default development will show errors but testing and live will hide them.
+ */
+switch (ENVIRONMENT)
+{
+	case 'development':
+		error_reporting(-1);
+		ini_set('display_errors', 1);
+	break;
+
+	case 'testing':
+	case 'production':
+		ini_set('display_errors', 0);
+		if (version_compare(PHP_VERSION, '5.3', '>='))
+		{
+			error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
+		}
+		else
+		{
+			error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
+		}
+	break;
+
+	default:
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'The application environment is not set correctly.';
+		exit(1); // EXIT_ERROR
+}
+
+/*
+ *---------------------------------------------------------------
+ * SYSTEM FOLDER NAME
+ *---------------------------------------------------------------
+ *
+ * This variable must contain the name of your "system" folder.
+ * Include the path if the folder is not in the same directory
+ * as this file.
+ */
+	$system_path = 'system';
+
+/*
+ *---------------------------------------------------------------
+ * APPLICATION FOLDER NAME
+ *---------------------------------------------------------------
+ *
+ * If you want this front controller to use a different "application"
+ * folder than the default one you can set its name here. The folder
+ * can also be renamed or relocated anywhere on your server. If
+ * you do, use a full server path. For more info please see the user guide:
+ * http://codeigniter.com/user_guide/general/managing_apps.html
+ *
+ * NO TRAILING SLASH!
+ */
+	$application_folder = 'application';
+
+/*
+ *---------------------------------------------------------------
+ * VIEW FOLDER NAME
+ *---------------------------------------------------------------
+ *
+ * If you want to move the view folder out of the application
+ * folder set the path to the folder here. The folder can be renamed
+ * and relocated anywhere on your server. If blank, it will default
+ * to the standard location inside your application folder. If you
+ * do move this, use the full server path to this folder.
+ *
+ * NO TRAILING SLASH!
+ */
+	$view_folder = '';
+
+
+/*
+ * --------------------------------------------------------------------
+ * DEFAULT CONTROLLER
+ * --------------------------------------------------------------------
+ *
+ * Normally you will set your default controller in the routes.php file.
+ * You can, however, force a custom routing by hard-coding a
+ * specific controller class/function here. For most applications, you
+ * WILL NOT set your routing here, but it's an option for those
+ * special instances where you might want to override the standard
+ * routing in a specific front controller that shares a common CI installation.
+ *
+ * IMPORTANT: If you set the routing here, NO OTHER controller will be
+ * callable. In essence, this preference limits your application to ONE
+ * specific controller. Leave the function name blank if you need
+ * to call functions dynamically via the URI.
+ *
+ * Un-comment the $routing array below to use this feature
+ */
+	// The directory name, relative to the "controllers" folder.  Leave blank
+	// if your controller is not in a sub-folder within the "controllers" folder
+	// $routing['directory'] = '';
+
+	// The controller class file name.  Example:  mycontroller
+	// $routing['controller'] = '';
+
+	// The controller function you wish to be called.
+	// $routing['function']	= '';
+
+
+/*
+ * -------------------------------------------------------------------
+ *  CUSTOM CONFIG VALUES
+ * -------------------------------------------------------------------
+ *
+ * The $assign_to_config array below will be passed dynamically to the
+ * config class when initialized. This allows you to set custom config
+ * items or override any default config values found in the config.php file.
+ * This can be handy as it permits you to share one application between
+ * multiple front controller files, with each file containing different
+ * config values.
+ *
+ * Un-comment the $assign_to_config array below to use this feature
+ */
+	// $assign_to_config['name_of_config_item'] = 'value of config item';
+
+
+
+// --------------------------------------------------------------------
+// END OF USER CONFIGURABLE SETTINGS.  DO NOT EDIT BELOW THIS LINE
+// --------------------------------------------------------------------
+
+/*
+ * ---------------------------------------------------------------
+ *  Resolve the system path for increased reliability
+ * ---------------------------------------------------------------
+ */
+
+	// Set the current directory correctly for CLI requests
+	if (defined('STDIN'))
+	{
+		chdir(dirname(__FILE__));
 	}
-	
-	
-	function limitString($string) {
-		return strlen($string) > 25 ? substr($string,0,25)."..." : $string;
+
+	if (($_temp = realpath($system_path)) !== FALSE)
+	{
+		$system_path = $_temp.'/';
+	}
+	else
+	{
+		// Ensure there's a trailing slash
+		$system_path = rtrim($system_path, '/').'/';
 	}
 
- 
-	
+	// Is the system path correct?
+	if ( ! is_dir($system_path))
+	{
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'Your system folder path does not appear to be set correctly. Please open the following file and correct this: '.pathinfo(__FILE__, PATHINFO_BASENAME);
+		exit(3); // EXIT_CONFIG
+	}
 
+/*
+ * -------------------------------------------------------------------
+ *  Now that we know the path, set the main path constants
+ * -------------------------------------------------------------------
+ */
+	// The name of THIS file
+	define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
 
-?>
+	// Path to the system folder
+	define('BASEPATH', str_replace('\\', '/', $system_path));
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Music Player</title>
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/style.css">
-	<link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
-	<link href="https://fonts.googleapis.com/css?family=Lilita+One|Pontano+Sans" rel="stylesheet">
+	// Path to the front controller (this file)
+	define('FCPATH', dirname(__FILE__).'/');
 
-</head>
-<body>
-	<div class="container">
-		<!-- MENU -->
-		<br>
-		
-		<div class="dropdown pull-right">
-		  <button class="menu dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    <img src="./assets/download.png" alt="Profile" id="profile"><span class="title">Jack Owen</span>
-		  </button>
-		  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-		    <a class="dropdown-item" href="#">Profile</a>
-		    <a class="dropdown-item" href="#">logout</a>
-		    <a class="dropdown-item" href="#">Something else here</a>
-		  </div>
-		</div>
-	
-		<br><br>
-		<!-- PLAYER -->
-		<div id="player">
-			<div id="main">
-				<img src="assets/album-cover.jpg" alt="" class="img-responsive" id="album-art" width="260px" height="260px" >
-				<h2 id="playing"></h2>
-				<span id="artist"></span>
-			</div>
-			<div id="side">
-				<span id="shuffle" class="control-widget"><i class="fa fa-random"></i></span> <br>
-				<span id="repeat" class="control-widget"><i class="fa fa-exchange"></i></span> <br>
-				<span id="coffee" class="control-widget"><i class="fa fa-coffee"></i></span> <br>
-				<span id="heart" class="control-widget"><i class="fa fa-heart"></i></span> <br>
-				<span id="zoom" class="control-widget"><i class="fa fa-expand"></i></span> <br>
-				<span id="dark-mode" class="control-widget"><i class="fa fa-adjust"></i></span>
-			</div>
-		</div>
+	// Name of the "system folder"
+	define('SYSDIR', trim(strrchr(trim(BASEPATH, '/'), '/'), '/'));
 
-		<div id="controls">
-			<button class="control-btn" id="prev"><i class="fa fa-step-backward"></i>&nbsp;Prev</button>
-			<button class="control-btn" id="next"><i class="fa fa-step-forward"></i>&nbsp;Next</button>
-			<audio controls id="audio">
-				<source src="" type="audio/mp3">
-			</audio>	
-		</div>
-		<div class="row">
-			<div class="col-lg-3">
-			<!-- AVAILABLE PLAYLISTS -->
-				<h3 class="title">Your Playlists</h3>
-				<a href="index.php" class="folder-playlist" id="all-songs-trigger">All Songs</a> <br>
-				<?php foreach($songs as $folder) :?>	
-					<?php if($folder->isDir()) :?>
-						<a class="folder-playlist" href="<?=$folder->getFilename()?>"><?=str_replace('-',' ', $folder->getFilename())?></a> <br>
-					<?php endif ;?>
-				<?php endforeach; ?>
-			</div>
-			<div class="col-lg-9">
-				<div id="playlist">
-					<h3 id="playlist-title" class="title">Tracks</h3>
-					<!-- HIDDEN PLAYLISTS -->
-					<div id="container">
-					<?php foreach($songs as $className) :?>	
-						<?php if($className->isDir()) :?>
-							
-								<div class="hidden-playlists" id="<?=$className->getFilename()?>">
-									<?php 
-										$id3v2 = new getID3;
-										$songsUnderPlaylist = new FilesystemIterator($className->getPathname());
-									?>
-									<?php foreach($songsUnderPlaylist as $song) : ?>
-										<?php if($song->isFile()) : ?>
-											<?php if($song->getExtension() != 'mp3') : ?>
-												<a href="<?=$song->getPathname()?>" class="list-group-item"><?=$song->getFilename()?><kbd class="pull-right">Not Supported</kbd></a>
-											<?php else : ?>
-												<a href="<?=$song->getPathname()?>" class="list-group-item"><?=str_replace('-',' ', $song->getBasename('.mp3'))?><span class="pull-right"><i class="fa fa-ellipsis-v"></i></span></a>
-												<ul>
-													<?php 
-														$metadata = $id3v2->analyze('./songs/mean.mp3');
-													?>
-													<li><?=$metadata['id3v2']['comments']['album'][0]?></li>
-													<li><?=$metadata['id3v2']['comments']['genre'][0]?></li>
-													</ul>
-											<?php endif; ?>
-										<?php endif; ?>
-									<?php endforeach; ?>
-								</div>
-							
-						<?php endif ;?>
-					<?php endforeach; ?>
-					</div>
-					<!-- ALL SONGS -->
+	// The path to the "application" folder
+	if (is_dir($application_folder))
+	{
+		if (($_temp = realpath($application_folder)) !== FALSE)
+		{
+			$application_folder = $_temp;
+		}
 
-					<!-- table -->
-					<table class="table table-striped table-condensed table-condensed" style="white-space: nowrap;">
-							<thead>
-								<tr>
-									<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-									<th>Song</th>
-									<th>Artist</th>
-									<th>Album</th>
-									<th>Genre</th>
-									
-								</tr>
-							</thead>
-							<tbody id="all-songs">
-							<?php foreach($songs as $song) : ?>
-								<?php if($song->isFile()) : ?>
-									<?php if($song->getExtension() != 'mp3') : ?>
-										<tr>
-											<td>
-												<a href="" class="music-entry"><i class="fa fa-times"></i></a>
-											</td>
-											<td>
-												<?=limitString($song->getFilename())?><kbd class="pull-right">Not Supported</kbd>
-											</td>
-											<td>
-												
-											</td>
-											<td></td>
-											<td></td>
-											
-											
-										</tr>
-									<?php else : ?>
-										<?php 
-											/*GET ID3 TAGS*/
-											$metadata = $id3v2->analyze($song->getPathname());
-											getid3_lib::CopyTagsToComments($metadata);
-										?>
-										<tr>
-											<td>
-												<a href="<?=$song->getPathname()?>" class="music-entry"><i class="fa fa-play-circle-o"></i></a>
-											</td>
-											<td>
-												<?php 
-													
-													$album_art = '';
-													if(isset($metadata['comments']['picture'][0])) {
-														
-														 $album_art='data:'.$metadata['comments']['picture'][0]['image_mime'].';charset=utf-8;base64,'.base64_encode($metadata['comments']['picture'][0]['data']);
-													} else {
-														$album_art = 'assets/album-cover.jpg';
-													}
-												?>
-												
-												<?=(isset($metadata['tags_html']['id3v2']['title'])) ? limitString($metadata['tags_html']['id3v2']['title'][0]) : limitString($song->getBasename('.mp3')) ?> 
+		define('APPPATH', $application_folder.DIRECTORY_SEPARATOR);
+	}
+	else
+	{
+		if ( ! is_dir(BASEPATH.$application_folder.DIRECTORY_SEPARATOR))
+		{
+			header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+			echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
+			exit(3); // EXIT_CONFIG
+		}
 
-												<input type="hidden" value="<?=@$album_art?>">
-											</td>
-											<td>
-												<?=(isset($metadata['tags_html']['id3v2']['artist'])) ? $metadata['tags_html']['id3v2']['artist'][0] : 'n/a'?> 
-											</td>
-											<td>
-												<?=(isset($metadata['tags_html']['id3v2']['album'])) ? $metadata['tags_html']['id3v2']['album'][0] : 'n/a' ?>
-											</td>
-											<td>
-												<?=(isset($metadata['tags_html']['id3v2']['genre'])) ? $metadata['tags_html']['id3v2']['genre'][0] : 'n/a'?>
-											</td>
-											
+		define('APPPATH', BASEPATH.$application_folder.DIRECTORY_SEPARATOR);
+	}
 
-										</tr>
-									<?php endif; ?>
-								<?php endif; ?>
-							<?php endforeach; ?>
-							</tbody>
-						</table>
-					<!-- table -->
+	// The path to the "views" folder
+	if ( ! is_dir($view_folder))
+	{
+		if ( ! empty($view_folder) && is_dir(APPPATH.$view_folder.DIRECTORY_SEPARATOR))
+		{
+			$view_folder = APPPATH.$view_folder;
+		}
+		elseif ( ! is_dir(APPPATH.'views'.DIRECTORY_SEPARATOR))
+		{
+			header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+			echo 'Your view folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
+			exit(3); // EXIT_CONFIG
+		}
+		else
+		{
+			$view_folder = APPPATH.'views';
+		}
+	}
 
-				</div>
-			</div>
-		</div>
-	</div>
+	if (($_temp = realpath($view_folder)) !== FALSE)
+	{
+		$view_folder = $_temp.DIRECTORY_SEPARATOR;
+	}
+	else
+	{
+		$view_folder = rtrim($view_folder, '/\\').DIRECTORY_SEPARATOR;
+	}
 
+	define('VIEWPATH', $view_folder);
 
-	<!-- <h1>Video</h1>
-	<video controls height="300px" width="400px" id="video">
-		<source src="http://jplayer.org/video/webm/Big_Buck_Bunny_Trailer.webm" type="video/webm">
-		<source src="http://jplayer.org/video/ogv/Big_Buck_Bunny_Trailer.ogv" type="video/ogv">
-		<source src="http://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v" type="video/m4v">
-	</video>
- -->
-	<script src="assets/js/jquery.js" type="text/javascript"></script>
-	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-	<script src="assets/js/custom.js" type="text/javascript"></script>
-	
-</body>
-</html>
-
+/*
+ * --------------------------------------------------------------------
+ * LOAD THE BOOTSTRAP FILE
+ * --------------------------------------------------------------------
+ *
+ * And away we go...
+ */
+require_once BASEPATH.'core/CodeIgniter.php';

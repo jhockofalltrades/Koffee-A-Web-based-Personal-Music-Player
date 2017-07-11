@@ -31,6 +31,15 @@ html, body {
 	align-items: center;
 	
 }
+/* REMOVE DOWNLOAD BTN */
+audio::-webkit-media-controls-enclosure {
+    overflow:hidden;
+}
+audio::-webkit-media-controls-panel {
+    width: calc(100% + 30px); /* Adjust as needed */
+}
+
+/* end */
 
 #artist {
 	color: #616161;
@@ -78,10 +87,9 @@ html, body {
 	transition: background-color 0.3s ease-in-out;
 }
 .now-playing {
-	background-color: #f1f1f1 !important;
 	border: 1px solid #FF1744 !important;
 	background-color: #FF1744 !important;
-
+	color: white !important;
 
 }
 
@@ -193,9 +201,7 @@ html, body {
 	color: white;
 	border: 1px solid #42A5F5 !important;
 	transition: all 0.5s ease-in-out;
-	
 }
-
 
 /* TOGGLE CLASS */
 .control-activate {
@@ -222,8 +228,60 @@ html, body {
 	justify-content: space-between;
 	transition: all 0.8s ease-out;
 }
+
+.full-screen-activate {
+	height: 100vh;
+}
+
+
 /* end */
 
 
+/* NAVBAR */
+/*.navbar-default .navbar-nav > li > a {
+    color: white !important;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: white !important;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #555;
+    background-color: #E7E7E7;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+    color: #555;
+    background-color: #D5D5D5;
+}
+*/
+input[type="text"] {
+	outline: none !important;
+	border-radius: 40px !important;
+}
 
+input[type="text"]:focus {
+	box-shadow: none !important;
+}
+
+
+/* SCROLL */
+#pauseBtn{
+	background-color: #FF1744;
+	border: none;
+	padding: 8px 30px;
+	outline: none;
+	color: white;
+	border-radius: 45px;
+	margin: 10px 0px;
+}
+
+#track-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
 
