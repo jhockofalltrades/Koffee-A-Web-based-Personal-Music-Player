@@ -284,12 +284,12 @@ input[type="text"]:focus {
 
 .emoji {
 	font-size: 3em;
-	padding: 0px 2em;
+	margin: 0px 2em;
 	cursor: pointer;
 }
 
 .emoji:hover {
-	transform: scale(3);
+	transform: scale(2);
 	transition: all 0.3s ease-out;
 }
 
@@ -304,7 +304,11 @@ input[type="text"]:focus {
 	color: white;
 }
 
-#mood-container:first-child {
+.mood-child:first-child {
 	padding-bottom: 3em;
-	
+}
+
+.mood-child:last-child {
+	flex-direction: row !important;
+	display: flex;
 }
