@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 1.0.0
  * @filesource
  */
@@ -42,7 +53,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * @category	Database
  * @author		EllisLab Dev Team
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/database/
+=======
+ * @link		http://codeigniter.com/user_guide/database/
+>>>>>>> origin/master
  */
 abstract class CI_DB_utility {
 
@@ -254,12 +269,20 @@ abstract class CI_DB_utility {
 		// Next blast through the result array and build out the rows
 		while ($row = $query->unbuffered_row('array'))
 		{
+<<<<<<< HEAD
 			$line = array();
 			foreach ($row as $item)
 			{
 				$line[] = $enclosure.str_replace($enclosure, $enclosure.$enclosure, $item).$enclosure;
 			}
 			$out .= implode($delim, $line).$newline;
+=======
+			foreach ($row as $item)
+			{
+				$out .= $enclosure.str_replace($enclosure, $enclosure.$enclosure, $item).$enclosure.$delim;
+			}
+			$out = substr($out, 0, -strlen($delim)).$newline;
+>>>>>>> origin/master
 		}
 
 		return $out;

@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 1.0.0
  * @filesource
  */
@@ -44,7 +55,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Libraries
  * @category	Security
  * @author		EllisLab Dev Team
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/libraries/security.html
+=======
+ * @link		http://codeigniter.com/user_guide/libraries/security.html
+>>>>>>> origin/master
  */
 class CI_Security {
 
@@ -133,6 +148,7 @@ class CI_Security {
 	 * @var	array
 	 */
 	protected $_never_allowed_str =	array(
+<<<<<<< HEAD
 		'document.cookie' => '[removed]',
 		'document.write'  => '[removed]',
 		'.parentNode'     => '[removed]',
@@ -143,6 +159,17 @@ class CI_Security {
 		'<![CDATA['       => '&lt;![CDATA[',
 		'<comment>'	  => '&lt;comment&gt;',
 		'<%'              => '&lt;&#37;'
+=======
+		'document.cookie'	=> '[removed]',
+		'document.write'	=> '[removed]',
+		'.parentNode'		=> '[removed]',
+		'.innerHTML'		=> '[removed]',
+		'-moz-binding'		=> '[removed]',
+		'<!--'				=> '&lt;!--',
+		'-->'				=> '--&gt;',
+		'<![CDATA['			=> '&lt;![CDATA[',
+		'<comment>'			=> '&lt;comment&gt;'
+>>>>>>> origin/master
 	);
 
 	/**
@@ -224,11 +251,22 @@ class CI_Security {
 			}
 		}
 
+<<<<<<< HEAD
 		// Check CSRF token validity, but don't error on mismatch just yet - we'll want to regenerate
 		$valid = isset($_POST[$this->_csrf_token_name], $_COOKIE[$this->_csrf_cookie_name])
 			&& hash_equals($_POST[$this->_csrf_token_name], $_COOKIE[$this->_csrf_cookie_name]);
 
 		// We kill this since we're done and we don't want to pollute the _POST array
+=======
+		// Do the tokens exist in both the _POST and _COOKIE arrays?
+		if ( ! isset($_POST[$this->_csrf_token_name], $_COOKIE[$this->_csrf_cookie_name])
+			OR $_POST[$this->_csrf_token_name] !== $_COOKIE[$this->_csrf_cookie_name]) // Do the tokens match?
+		{
+			$this->csrf_show_error();
+		}
+
+		// We kill this since we're done and we don't want to polute the _POST array
+>>>>>>> origin/master
 		unset($_POST[$this->_csrf_token_name]);
 
 		// Regenerate on every submission?
@@ -242,11 +280,14 @@ class CI_Security {
 		$this->_csrf_set_hash();
 		$this->csrf_set_cookie();
 
+<<<<<<< HEAD
 		if ($valid !== TRUE)
 		{
 			$this->csrf_show_error();
 		}
 
+=======
+>>>>>>> origin/master
 		log_message('info', 'CSRF token verified');
 		return $this;
 	}
@@ -354,9 +395,15 @@ class CI_Security {
 		// Is the string an array?
 		if (is_array($str))
 		{
+<<<<<<< HEAD
 			foreach ($str as $key => &$value)
 			{
 				$str[$key] = $this->xss_clean($value);
+=======
+			while (list($key) = each($str))
+			{
+				$str[$key] = $this->xss_clean($str[$key]);
+>>>>>>> origin/master
 			}
 
 			return $str;
@@ -374,6 +421,7 @@ class CI_Security {
 		 *
 		 * Note: Use rawurldecode() so it does not remove plus signs
 		 */
+<<<<<<< HEAD
 		if (stripos($str, '%') !== false)
 		{
 			do
@@ -385,6 +433,13 @@ class CI_Security {
 			while ($oldstr !== $str);
 			unset($oldstr);
 		}
+=======
+		do
+		{
+			$str = rawurldecode($str);
+		}
+		while (preg_match('/%[0-9a-f]{2,}/i', $str));
+>>>>>>> origin/master
 
 		/*
 		 * Convert character entities to ASCII
@@ -445,7 +500,11 @@ class CI_Security {
 		$words = array(
 			'javascript', 'expression', 'vbscript', 'jscript', 'wscript',
 			'vbs', 'script', 'base64', 'applet', 'alert', 'document',
+<<<<<<< HEAD
 			'write', 'cookie', 'window', 'confirm', 'prompt', 'eval'
+=======
+			'write', 'cookie', 'window', 'confirm', 'prompt'
+>>>>>>> origin/master
 		);
 
 		foreach ($words as $word)
@@ -475,7 +534,11 @@ class CI_Security {
 
 			if (preg_match('/<a/i', $str))
 			{
+<<<<<<< HEAD
 				$str = preg_replace_callback('#<a(?:rea)?[^a-z0-9>]+([^>]*?)(?:>|$)#si', array($this, '_js_link_removal'), $str);
+=======
+				$str = preg_replace_callback('#<a[^a-z0-9>]+([^>]*?)(?:>|$)#si', array($this, '_js_link_removal'), $str);
+>>>>>>> origin/master
 			}
 
 			if (preg_match('/<img/i', $str))
@@ -489,8 +552,17 @@ class CI_Security {
 			}
 		}
 		while ($original !== $str);
+<<<<<<< HEAD
 		unset($original);
 
+=======
+
+		unset($original);
+
+		// Remove evil attributes such as style, onclick and xmlns
+		$str = $this->_remove_evil_attributes($str, $is_image);
+
+>>>>>>> origin/master
 		/*
 		 * Sanitize naughty HTML elements
 		 *
@@ -500,6 +572,7 @@ class CI_Security {
 		 * So this: <blink>
 		 * Becomes: &lt;blink&gt;
 		 */
+<<<<<<< HEAD
 		$pattern = '#'
 			.'<((?<slash>/*\s*)((?<tagName>[a-z0-9]+)(?=[^a-z0-9]|$)|.+)' // tag start and name, followed by a non-tag character
 			.'[^\s\042\047a-z0-9>/=]*' // a valid attribute character immediately after the tag would count as a separator
@@ -523,6 +596,10 @@ class CI_Security {
 		}
 		while ($old_str !== $str);
 		unset($old_str);
+=======
+		$naughty = 'alert|prompt|confirm|applet|audio|basefont|base|behavior|bgsound|blink|body|embed|expression|form|frameset|frame|head|html|ilayer|iframe|input|button|select|isindex|layer|link|meta|keygen|object|plaintext|style|script|textarea|title|math|video|svg|xml|xss';
+		$str = preg_replace_callback('#<(/*\s*)('.$naughty.')([^><]*)([><]*)#is', array($this, '_sanitize_naughty_html'), $str);
+>>>>>>> origin/master
 
 		/*
 		 * Sanitize naughty scripting elements
@@ -536,11 +613,17 @@ class CI_Security {
 		 * For example:	eval('some code')
 		 * Becomes:	eval&#40;'some code'&#41;
 		 */
+<<<<<<< HEAD
 		$str = preg_replace(
 			'#(alert|prompt|confirm|cmd|passthru|eval|exec|expression|system|fopen|fsockopen|file|file_get_contents|readfile|unlink)(\s*)\((.*?)\)#si',
 			'\\1\\2&#40;\\3&#41;',
 			$str
 		);
+=======
+		$str = preg_replace('#(alert|prompt|confirm|cmd|passthru|eval|exec|expression|system|fopen|fsockopen|file|file_get_contents|readfile|unlink)(\s*)\((.*?)\)#si',
+					'\\1\\2&#40;\\3&#41;',
+					$str);
+>>>>>>> origin/master
 
 		// Final clean up
 		// This adds a bit of extra precaution in case
@@ -602,6 +685,7 @@ class CI_Security {
 			return FALSE;
 		}
 
+<<<<<<< HEAD
 		if (function_exists('random_bytes'))
 		{
 			try
@@ -618,6 +702,8 @@ class CI_Security {
 			}
 		}
 
+=======
+>>>>>>> origin/master
 		// Unfortunately, none of the following PRNGs is guaranteed to exist ...
 		if (defined('MCRYPT_DEV_URANDOM') && ($output = mcrypt_create_iv($length, MCRYPT_DEV_URANDOM)) !== FALSE)
 		{
@@ -678,6 +764,7 @@ class CI_Security {
 			? ENT_COMPAT | ENT_HTML5
 			: ENT_COMPAT;
 
+<<<<<<< HEAD
 		if ( ! isset($_entities))
 		{
 			$_entities = array_map('strtolower', get_html_translation_table(HTML_ENTITIES, $flag, $charset));
@@ -694,6 +781,8 @@ class CI_Security {
 			}
 		}
 
+=======
+>>>>>>> origin/master
 		do
 		{
 			$str_compare = $str;
@@ -701,6 +790,30 @@ class CI_Security {
 			// Decode standard entities, avoiding false positives
 			if (preg_match_all('/&[a-z]{2,}(?![a-z;])/i', $str, $matches))
 			{
+<<<<<<< HEAD
+=======
+				if ( ! isset($_entities))
+				{
+					$_entities = array_map(
+						'strtolower',
+						is_php('5.3.4')
+							? get_html_translation_table(HTML_ENTITIES, $flag, $charset)
+							: get_html_translation_table(HTML_ENTITIES, $flag)
+					);
+
+					// If we're not on PHP 5.4+, add the possibly dangerous HTML 5
+					// entities to the array manually
+					if ($flag === ENT_COMPAT)
+					{
+						$_entities[':'] = '&colon;';
+						$_entities['('] = '&lpar;';
+						$_entities[')'] = '&rpar;';
+						$_entities["\n"] = '&newline;';
+						$_entities["\t"] = '&tab;';
+					}
+				}
+
+>>>>>>> origin/master
 				$replace = array();
 				$matches = array_unique(array_map('strtolower', $matches[0]));
 				foreach ($matches as &$match)
@@ -711,7 +824,11 @@ class CI_Security {
 					}
 				}
 
+<<<<<<< HEAD
 				$str = str_replace(array_keys($replace), array_values($replace), $str);
+=======
+				$str = str_ireplace(array_keys($replace), array_values($replace), $str);
+>>>>>>> origin/master
 			}
 
 			// Decode numeric & UTF16 two byte entities
@@ -720,11 +837,14 @@ class CI_Security {
 				$flag,
 				$charset
 			);
+<<<<<<< HEAD
 
 			if ($flag === ENT_COMPAT)
 			{
 				$str = str_replace(array_values($_entities), array_keys($_entities), $str);
 			}
+=======
+>>>>>>> origin/master
 		}
 		while ($str_compare !== $str);
 		return $str;
@@ -771,6 +891,7 @@ class CI_Security {
 	 */
 	public function strip_image_tags($str)
 	{
+<<<<<<< HEAD
 		return preg_replace(
 			array(
 				'#<img[\s/]+.*?src\s*=\s*(["\'])([^\\1]+?)\\1.*?\>#i',
@@ -797,6 +918,9 @@ class CI_Security {
 		return ($nospaces === $input)
 			? $input
 			: rawurldecode($nospaces);
+=======
+		return preg_replace(array('#<img[\s/]+.*?src\s*=\s*["\'](.+?)["\'].*?\>#', '#<img[\s/]+.*?src\s*=\s*(.+?).*?\>#'), '\\1', $str);
+>>>>>>> origin/master
 	}
 
 	// ----------------------------------------------------------------
@@ -819,6 +943,7 @@ class CI_Security {
 	// --------------------------------------------------------------------
 
 	/**
+<<<<<<< HEAD
 	 * Sanitize Naughty HTML
 	 *
 	 * Callback method for xss_clean() to remove naughty HTML elements.
@@ -905,6 +1030,73 @@ class CI_Security {
 		}
 
 		return $matches[0];
+=======
+	 * Remove Evil HTML Attributes (like event handlers and style)
+	 *
+	 * It removes the evil attribute and either:
+	 *
+	 *  - Everything up until a space. For example, everything between the pipes:
+	 *
+	 *	<code>
+	 *		<a |style=document.write('hello');alert('world');| class=link>
+	 *	</code>
+	 *
+	 *  - Everything inside the quotes. For example, everything between the pipes:
+	 *
+	 *	<code>
+	 *		<a |style="document.write('hello'); alert('world');"| class="link">
+	 *	</code>
+	 *
+	 * @param	string	$str		The string to check
+	 * @param	bool	$is_image	Whether the input is an image
+	 * @return	string	The string with the evil attributes removed
+	 */
+	protected function _remove_evil_attributes($str, $is_image)
+	{
+		$evil_attributes = array('on\w*', 'style', 'xmlns', 'formaction', 'form', 'xlink:href', 'FSCommand', 'seekSegmentTime');
+
+		if ($is_image === TRUE)
+		{
+			/*
+			 * Adobe Photoshop puts XML metadata into JFIF images,
+			 * including namespacing, so we have to allow this for images.
+			 */
+			unset($evil_attributes[array_search('xmlns', $evil_attributes)]);
+		}
+
+		do {
+			$count = $temp_count = 0;
+
+			// replace occurrences of illegal attribute strings with quotes (042 and 047 are octal quotes)
+			$str = preg_replace('/(<[^>]+)(?<!\w)('.implode('|', $evil_attributes).')\s*=\s*(\042|\047)([^\\2]*?)(\\2)/is', '$1[removed]', $str, -1, $temp_count);
+			$count += $temp_count;
+
+			// find occurrences of illegal attribute strings without quotes
+			$str = preg_replace('/(<[^>]+)(?<!\w)('.implode('|', $evil_attributes).')\s*=\s*([^\s>]*)/is', '$1[removed]', $str, -1, $temp_count);
+			$count += $temp_count;
+		}
+		while ($count);
+
+		return $str;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Sanitize Naughty HTML
+	 *
+	 * Callback method for xss_clean() to remove naughty HTML elements.
+	 *
+	 * @used-by	CI_Security::xss_clean()
+	 * @param	array	$matches
+	 * @return	string
+	 */
+	protected function _sanitize_naughty_html($matches)
+	{
+		return '&lt;'.$matches[1].$matches[2].$matches[3] // encode opening brace
+			// encode captured opening or closing brace to prevent recursive vectors:
+			.str_replace(array('>', '<'), array('&gt;', '&lt;'), $matches[4]);
+>>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
@@ -924,6 +1116,7 @@ class CI_Security {
 	 */
 	protected function _js_link_removal($match)
 	{
+<<<<<<< HEAD
 		return str_replace(
 			$match[1],
 			preg_replace(
@@ -933,6 +1126,14 @@ class CI_Security {
 			),
 			$match[0]
 		);
+=======
+		return str_replace($match[1],
+					preg_replace('#href=.*?(?:(?:alert|prompt|confirm)(?:\(|&\#40;)|javascript:|livescript:|mocha:|charset=|window\.|document\.|\.cookie|<script|<xss|data\s*:)#si',
+							'',
+							$this->_filter_attributes(str_replace(array('<', '>'), '', $match[1]))
+					),
+					$match[0]);
+>>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
@@ -952,6 +1153,7 @@ class CI_Security {
 	 */
 	protected function _js_img_removal($match)
 	{
+<<<<<<< HEAD
 		return str_replace(
 			$match[1],
 			preg_replace(
@@ -961,6 +1163,14 @@ class CI_Security {
 			),
 			$match[0]
 		);
+=======
+		return str_replace($match[1],
+					preg_replace('#src=.*?(?:(?:alert|prompt|confirm)(?:\(|&\#40;)|javascript:|livescript:|mocha:|charset=|window\.|document\.|\.cookie|<script|<xss|base64\s*,)#si',
+							'',
+							$this->_filter_attributes(str_replace(array('<', '>'), '', $match[1]))
+					),
+					$match[0]);
+>>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------

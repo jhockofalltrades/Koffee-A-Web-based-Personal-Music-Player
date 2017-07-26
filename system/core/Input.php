@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 1.0.0
  * @filesource
  */
@@ -46,7 +57,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Libraries
  * @category	Input
  * @author		EllisLab Dev Team
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/libraries/input.html
+=======
+ * @link		http://codeigniter.com/user_guide/libraries/input.html
+>>>>>>> origin/master
  */
 class CI_Input {
 
@@ -153,12 +168,15 @@ class CI_Input {
 		// Sanitize global arrays
 		$this->_sanitize_globals();
 
+<<<<<<< HEAD
 		// CSRF Protection check
 		if ($this->_enable_csrf === TRUE && ! is_cli())
 		{
 			$this->security->csrf_verify();
 		}
 
+=======
+>>>>>>> origin/master
 		log_message('info', 'Input Class Initialized');
 	}
 
@@ -359,7 +377,11 @@ class CI_Input {
 	 * @param	bool		$httponly	Whether to only makes the cookie accessible via HTTP (no javascript)
 	 * @return	void
 	 */
+<<<<<<< HEAD
 	public function set_cookie($name, $value = '', $expire = '', $domain = '', $path = '/', $prefix = '', $secure = NULL, $httponly = NULL)
+=======
+	public function set_cookie($name, $value = '', $expire = '', $domain = '', $path = '/', $prefix = '', $secure = FALSE, $httponly = FALSE)
+>>>>>>> origin/master
 	{
 		if (is_array($name))
 		{
@@ -388,6 +410,7 @@ class CI_Input {
 			$path = config_item('cookie_path');
 		}
 
+<<<<<<< HEAD
 		$secure = ($secure === NULL && config_item('cookie_secure') !== NULL)
 			? (bool) config_item('cookie_secure')
 			: (bool) $secure;
@@ -395,6 +418,17 @@ class CI_Input {
 		$httponly = ($httponly === NULL && config_item('cookie_httponly') !== NULL)
 			? (bool) config_item('cookie_httponly')
 			: (bool) $httponly;
+=======
+		if ($secure === FALSE && config_item('cookie_secure') === TRUE)
+		{
+			$secure = config_item('cookie_secure');
+		}
+
+		if ($httponly === FALSE && config_item('cookie_httponly') !== FALSE)
+		{
+			$httponly = config_item('cookie_httponly');
+		}
+>>>>>>> origin/master
 
 		if ( ! is_numeric($expire))
 		{
@@ -517,9 +551,15 @@ class CI_Input {
 					if ($separator === ':')
 					{
 						$netaddr = explode(':', str_replace('::', str_repeat(':', 9 - substr_count($netaddr, ':')), $netaddr));
+<<<<<<< HEAD
 						for ($j = 0; $j < 8; $j++)
 						{
 							$netaddr[$j] = intval($netaddr[$j], 16);
+=======
+						for ($i = 0; $i < 8; $i++)
+						{
+							$netaddr[$i] = intval($netaddr[$i], 16);
+>>>>>>> origin/master
 						}
 					}
 					else
@@ -604,7 +644,11 @@ class CI_Input {
 		{
 			$_GET = array();
 		}
+<<<<<<< HEAD
 		elseif (is_array($_GET))
+=======
+		elseif (is_array($_GET) && count($_GET) > 0)
+>>>>>>> origin/master
 		{
 			foreach ($_GET as $key => $val)
 			{
@@ -613,7 +657,11 @@ class CI_Input {
 		}
 
 		// Clean $_POST Data
+<<<<<<< HEAD
 		if (is_array($_POST))
+=======
+		if (is_array($_POST) && count($_POST) > 0)
+>>>>>>> origin/master
 		{
 			foreach ($_POST as $key => $val)
 			{
@@ -622,7 +670,11 @@ class CI_Input {
 		}
 
 		// Clean $_COOKIE Data
+<<<<<<< HEAD
 		if (is_array($_COOKIE))
+=======
+		if (is_array($_COOKIE) && count($_COOKIE) > 0)
+>>>>>>> origin/master
 		{
 			// Also get rid of specially treated cookies that might be set by a server
 			// or silly application, that are of no use to a CI application anyway
@@ -651,6 +703,15 @@ class CI_Input {
 		// Sanitize PHP_SELF
 		$_SERVER['PHP_SELF'] = strip_tags($_SERVER['PHP_SELF']);
 
+<<<<<<< HEAD
+=======
+		// CSRF Protection check
+		if ($this->_enable_csrf === TRUE && ! is_cli())
+		{
+			$this->security->csrf_verify();
+		}
+
+>>>>>>> origin/master
 		log_message('debug', 'Global POST, GET and COOKIE data sanitized');
 	}
 
@@ -758,12 +819,17 @@ class CI_Input {
 		// If header is already defined, return it immediately
 		if ( ! empty($this->headers))
 		{
+<<<<<<< HEAD
 			return $this->_fetch_from_array($this->headers, NULL, $xss_clean);
+=======
+			return $this->headers;
+>>>>>>> origin/master
 		}
 
 		// In Apache, you can simply call apache_request_headers()
 		if (function_exists('apache_request_headers'))
 		{
+<<<<<<< HEAD
 			$this->headers = apache_request_headers();
 		}
 		else
@@ -784,6 +850,26 @@ class CI_Input {
 		}
 
 		return $this->_fetch_from_array($this->headers, NULL, $xss_clean);
+=======
+			return $this->headers = apache_request_headers();
+		}
+
+		$this->headers['Content-Type'] = isset($_SERVER['CONTENT_TYPE']) ? $_SERVER['CONTENT_TYPE'] : @getenv('CONTENT_TYPE');
+
+		foreach ($_SERVER as $key => $val)
+		{
+			if (sscanf($key, 'HTTP_%s', $header) === 1)
+			{
+				// take SOME_HEADER and turn it into Some-Header
+				$header = str_replace('_', ' ', strtolower($header));
+				$header = str_replace(' ', '-', ucwords($header));
+
+				$this->headers[$header] = $this->_fetch_from_array($_SERVER, $key, $xss_clean);
+			}
+		}
+
+		return $this->headers;
+>>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
@@ -803,7 +889,11 @@ class CI_Input {
 
 		if ( ! isset($headers))
 		{
+<<<<<<< HEAD
 			empty($this->headers) && $this->request_headers();
+=======
+			empty($this->headers) OR $this->request_headers();
+>>>>>>> origin/master
 			foreach ($this->headers as $key => $value)
 			{
 				$headers[strtolower($key)] = $value;

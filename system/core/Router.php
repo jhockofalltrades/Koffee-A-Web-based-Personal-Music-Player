@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 1.0.0
  * @filesource
  */
@@ -46,7 +57,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Libraries
  * @category	Libraries
  * @author		EllisLab Dev Team
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/general/routing.html
+=======
+ * @link		http://codeigniter.com/user_guide/general/routing.html
+>>>>>>> origin/master
  */
 class CI_Router {
 
@@ -118,7 +133,10 @@ class CI_Router {
 	 *
 	 * Runs the route mapping function.
 	 *
+<<<<<<< HEAD
 	 * @param	array	$routing
+=======
+>>>>>>> origin/master
 	 * @return	void
 	 */
 	public function __construct($routing = NULL)
@@ -154,6 +172,7 @@ class CI_Router {
 	 */
 	protected function _set_routing()
 	{
+<<<<<<< HEAD
 		// Load the routes.php file. It would be great if we could
 		// skip this for enable_query_strings = TRUE, but then
 		// default_controller would be empty ...
@@ -176,6 +195,8 @@ class CI_Router {
 			$this->routes = $route;
 		}
 
+=======
+>>>>>>> origin/master
 		// Are query strings enabled in the config file? Normally CI doesn't utilize query strings
 		// since URI segments are more search-engine friendly, but they can optionally be used.
 		// If this feature is enabled, we will gather the directory/class/method a little differently
@@ -222,6 +243,29 @@ class CI_Router {
 			return;
 		}
 
+<<<<<<< HEAD
+=======
+		// Load the routes.php file.
+		if (file_exists(APPPATH.'config/routes.php'))
+		{
+			include(APPPATH.'config/routes.php');
+		}
+
+		if (file_exists(APPPATH.'config/'.ENVIRONMENT.'/routes.php'))
+		{
+			include(APPPATH.'config/'.ENVIRONMENT.'/routes.php');
+		}
+
+		// Validate & get reserved routes
+		if (isset($route) && is_array($route))
+		{
+			isset($route['default_controller']) && $this->default_controller = $route['default_controller'];
+			isset($route['translate_uri_dashes']) && $this->translate_uri_dashes = $route['translate_uri_dashes'];
+			unset($route['default_controller'], $route['translate_uri_dashes']);
+			$this->routes = $route;
+		}
+
+>>>>>>> origin/master
 		// Is there anything to parse?
 		if ($this->uri->uri_string !== '')
 		{
@@ -375,6 +419,29 @@ class CI_Router {
 		// Get HTTP verb
 		$http_verb = isset($_SERVER['REQUEST_METHOD']) ? strtolower($_SERVER['REQUEST_METHOD']) : 'cli';
 
+<<<<<<< HEAD
+=======
+		// Is there a literal match?  If so we're done
+		if (isset($this->routes[$uri]))
+		{
+			// Is it an HTTP verb-based route?
+			if (is_array($this->routes[$uri]))
+			{
+				$route = array_change_key_case($this->routes[$uri], CASE_LOWER);
+				if (isset($route[$http_verb]))
+				{
+					$this->_set_request(explode('/', $route[$http_verb]));
+					return;
+				}
+			}
+			else
+			{
+				$this->_set_request(explode('/', $this->routes[$uri]));
+				return;
+			}
+		}
+
+>>>>>>> origin/master
 		// Loop through the route array looking for wildcards
 		foreach ($this->routes as $key => $val)
 		{

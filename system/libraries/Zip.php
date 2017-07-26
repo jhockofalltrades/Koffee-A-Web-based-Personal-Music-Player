@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 1.0.0
  * @filesource
  */
@@ -50,7 +61,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Libraries
  * @category	Encryption
  * @author		EllisLab Dev Team
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/libraries/zip.html
+=======
+ * @link		http://codeigniter.com/user_guide/libraries/zip.html
+>>>>>>> origin/master
  */
 class CI_Zip {
 
@@ -106,6 +121,7 @@ class CI_Zip {
 	public $compression_level = 2;
 
 	/**
+<<<<<<< HEAD
 	 * mbstring.func_overload flag
 	 *
 	 * @var	bool
@@ -113,14 +129,19 @@ class CI_Zip {
 	protected static $func_overload;
 
 	/**
+=======
+>>>>>>> origin/master
 	 * Initialize zip compression class
 	 *
 	 * @return	void
 	 */
 	public function __construct()
 	{
+<<<<<<< HEAD
 		isset(self::$func_overload) OR self::$func_overload = (extension_loaded('mbstring') && ini_get('mbstring.func_overload'));
 
+=======
+>>>>>>> origin/master
 		$this->now = time();
 		log_message('info', 'Zip Compression Class Initialized');
 	}
@@ -191,7 +212,11 @@ class CI_Zip {
 			.pack('V', 0) // crc32
 			.pack('V', 0) // compressed filesize
 			.pack('V', 0) // uncompressed filesize
+<<<<<<< HEAD
 			.pack('v', self::strlen($dir)) // length of pathname
+=======
+			.pack('v', strlen($dir)) // length of pathname
+>>>>>>> origin/master
 			.pack('v', 0) // extra field length
 			.$dir
 			// below is "data descriptor" segment
@@ -206,7 +231,11 @@ class CI_Zip {
 			.pack('V',0) // crc32
 			.pack('V',0) // compressed filesize
 			.pack('V',0) // uncompressed filesize
+<<<<<<< HEAD
 			.pack('v', self::strlen($dir)) // length of pathname
+=======
+			.pack('v', strlen($dir)) // length of pathname
+>>>>>>> origin/master
 			.pack('v', 0) // extra field length
 			.pack('v', 0) // file comment length
 			.pack('v', 0) // disk number start
@@ -215,7 +244,11 @@ class CI_Zip {
 			.pack('V', $this->offset) // relative offset of local header
 			.$dir;
 
+<<<<<<< HEAD
 		$this->offset = self::strlen($this->zipdata);
+=======
+		$this->offset = strlen($this->zipdata);
+>>>>>>> origin/master
 		$this->entries++;
 	}
 
@@ -264,10 +297,17 @@ class CI_Zip {
 	{
 		$filepath = str_replace('\\', '/', $filepath);
 
+<<<<<<< HEAD
 		$uncompressed_size = self::strlen($data);
 		$crc32  = crc32($data);
 		$gzdata = self::substr(gzcompress($data, $this->compression_level), 2, -4);
 		$compressed_size = self::strlen($gzdata);
+=======
+		$uncompressed_size = strlen($data);
+		$crc32  = crc32($data);
+		$gzdata = substr(gzcompress($data, $this->compression_level), 2, -4);
+		$compressed_size = strlen($gzdata);
+>>>>>>> origin/master
 
 		$this->zipdata .=
 			"\x50\x4b\x03\x04\x14\x00\x00\x00\x08\x00"
@@ -276,7 +316,11 @@ class CI_Zip {
 			.pack('V', $crc32)
 			.pack('V', $compressed_size)
 			.pack('V', $uncompressed_size)
+<<<<<<< HEAD
 			.pack('v', self::strlen($filepath)) // length of filename
+=======
+			.pack('v', strlen($filepath)) // length of filename
+>>>>>>> origin/master
 			.pack('v', 0) // extra field length
 			.$filepath
 			.$gzdata; // "file data" segment
@@ -288,7 +332,11 @@ class CI_Zip {
 			.pack('V', $crc32)
 			.pack('V', $compressed_size)
 			.pack('V', $uncompressed_size)
+<<<<<<< HEAD
 			.pack('v', self::strlen($filepath)) // length of filename
+=======
+			.pack('v', strlen($filepath)) // length of filename
+>>>>>>> origin/master
 			.pack('v', 0) // extra field length
 			.pack('v', 0) // file comment length
 			.pack('v', 0) // disk number start
@@ -297,7 +345,11 @@ class CI_Zip {
 			.pack('V', $this->offset) // relative offset of local header
 			.$filepath;
 
+<<<<<<< HEAD
 		$this->offset = self::strlen($this->zipdata);
+=======
+		$this->offset = strlen($this->zipdata);
+>>>>>>> origin/master
 		$this->entries++;
 		$this->file_num++;
 	}
@@ -410,8 +462,13 @@ class CI_Zip {
 			.$this->directory."\x50\x4b\x05\x06\x00\x00\x00\x00"
 			.pack('v', $this->entries) // total # of entries "on this disk"
 			.pack('v', $this->entries) // total # of entries overall
+<<<<<<< HEAD
 			.pack('V', self::strlen($this->directory)) // size of central dir
 			.pack('V', self::strlen($this->zipdata)) // offset to start of central dir
+=======
+			.pack('V', strlen($this->directory)) // size of central dir
+			.pack('V', strlen($this->zipdata)) // offset to start of central dir
+>>>>>>> origin/master
 			."\x00\x00"; // .zip file comment length
 	}
 
@@ -434,9 +491,15 @@ class CI_Zip {
 
 		flock($fp, LOCK_EX);
 
+<<<<<<< HEAD
 		for ($result = $written = 0, $data = $this->get_zip(), $length = self::strlen($data); $written < $length; $written += $result)
 		{
 			if (($result = fwrite($fp, self::substr($data, $written))) === FALSE)
+=======
+		for ($result = $written = 0, $data = $this->get_zip(), $length = strlen($data); $written < $length; $written += $result)
+		{
+			if (($result = fwrite($fp, substr($data, $written))) === FALSE)
+>>>>>>> origin/master
 			{
 				break;
 			}
@@ -490,6 +553,7 @@ class CI_Zip {
 		return $this;
 	}
 
+<<<<<<< HEAD
 	// --------------------------------------------------------------------
 
 	/**
@@ -529,4 +593,6 @@ class CI_Zip {
 			? substr($str, $start, $length)
 			: substr($str, $start);
 	}
+=======
+>>>>>>> origin/master
 }

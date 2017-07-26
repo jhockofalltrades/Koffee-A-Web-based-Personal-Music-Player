@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 1.3.0
  * @filesource
  */
@@ -48,9 +59,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Drivers
  * @category	Database
  * @author		EllisLab Dev Team
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/database/
  */
 class CI_DB_odbc_driver extends CI_DB_driver {
+=======
+ * @link		http://codeigniter.com/user_guide/database/
+ */
+class CI_DB_odbc_driver extends CI_DB {
+>>>>>>> origin/master
 
 	/**
 	 * Database driver
@@ -94,6 +111,7 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 	// --------------------------------------------------------------------
 
 	/**
+<<<<<<< HEAD
 	 * ODBC result ID resource returned from odbc_prepare()
 	 *
 	 * @var	resource
@@ -110,6 +128,8 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 	// --------------------------------------------------------------------
 
 	/**
+=======
+>>>>>>> origin/master
 	 * Class constructor
 	 *
 	 * @param	array	$params
@@ -144,6 +164,7 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 	// --------------------------------------------------------------------
 
 	/**
+<<<<<<< HEAD
 	 * Compile Bindings
 	 *
 	 * @param	string	$sql	SQL statement
@@ -212,6 +233,8 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 	// --------------------------------------------------------------------
 
 	/**
+=======
+>>>>>>> origin/master
 	 * Execute the query
 	 *
 	 * @param	string	$sql	an SQL query
@@ -219,6 +242,7 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 	 */
 	protected function _execute($sql)
 	{
+<<<<<<< HEAD
 		if ( ! isset($this->odbc_result))
 		{
 			return odbc_exec($this->conn_id, $sql);
@@ -238,6 +262,9 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 		$this->binds       = array();
 
 		return $success;
+=======
+		return odbc_exec($this->conn_id, $sql);
+>>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
@@ -245,6 +272,7 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 	/**
 	 * Begin Transaction
 	 *
+<<<<<<< HEAD
 	 * @return	bool
 	 */
 	protected function _trans_begin()
@@ -268,11 +296,31 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 		}
 
 		return FALSE;
+=======
+	 * @param	bool	$test_mode
+	 * @return	bool
+	 */
+	public function trans_begin($test_mode = FALSE)
+	{
+		// When transactions are nested we only begin/commit/rollback the outermost ones
+		if ( ! $this->trans_enabled OR $this->_trans_depth > 0)
+		{
+			return TRUE;
+		}
+
+		// Reset the transaction failure flag.
+		// If the $test_mode flag is set to TRUE transactions will be rolled back
+		// even if the queries produce a successful result.
+		$this->_trans_failure = ($test_mode === TRUE);
+
+		return odbc_autocommit($this->conn_id, FALSE);
+>>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
 
 	/**
+<<<<<<< HEAD
 	 * Rollback Transaction
 	 *
 	 * @return	bool
@@ -286,11 +334,29 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 		}
 
 		return FALSE;
+=======
+	 * Commit Transaction
+	 *
+	 * @return	bool
+	 */
+	public function trans_commit()
+	{
+		// When transactions are nested we only begin/commit/rollback the outermost ones
+		if ( ! $this->trans_enabled OR $this->_trans_depth > 0)
+		{
+			return TRUE;
+		}
+
+		$ret = odbc_commit($this->conn_id);
+		odbc_autocommit($this->conn_id, TRUE);
+		return $ret;
+>>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
 
 	/**
+<<<<<<< HEAD
 	 * Determines if a query is a "write" type.
 	 *
 	 * @param	string	An SQL query string
@@ -304,19 +370,44 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 		}
 
 		return parent::is_write_type($sql);
+=======
+	 * Rollback Transaction
+	 *
+	 * @return	bool
+	 */
+	public function trans_rollback()
+	{
+		// When transactions are nested we only begin/commit/rollback the outermost ones
+		if ( ! $this->trans_enabled OR $this->_trans_depth > 0)
+		{
+			return TRUE;
+		}
+
+		$ret = odbc_rollback($this->conn_id);
+		odbc_autocommit($this->conn_id, TRUE);
+		return $ret;
+>>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
 
 	/**
+<<<<<<< HEAD
 	 * Platform-dependent string escape
+=======
+	 * Platform-dependant string escape
+>>>>>>> origin/master
 	 *
 	 * @param	string
 	 * @return	string
 	 */
 	protected function _escape_str($str)
 	{
+<<<<<<< HEAD
 		$this->display_error('db_unsupported_feature');
+=======
+		return remove_invisible_characters($str);
+>>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
@@ -340,7 +431,11 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 	 */
 	public function insert_id()
 	{
+<<<<<<< HEAD
 		return ($this->db_debug) ? $this->display_error('db_unsupported_feature') : FALSE;
+=======
+		return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
+>>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
@@ -402,7 +497,11 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 	 * Error
 	 *
 	 * Returns an array containing code and message of the last
+<<<<<<< HEAD
 	 * database error that has occurred.
+=======
+	 * database error that has occured.
+>>>>>>> origin/master
 	 *
 	 * @return	array
 	 */
@@ -414,6 +513,61 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 	// --------------------------------------------------------------------
 
 	/**
+<<<<<<< HEAD
+=======
+	 * Update statement
+	 *
+	 * Generates a platform-specific update string from the supplied data
+	 *
+	 * @param	string	$table
+	 * @param	array	$values
+	 * @return	string
+	 */
+	protected function _update($table, $values)
+	{
+		$this->qb_limit = FALSE;
+		$this->qb_orderby = array();
+		return parent::_update($table, $values);
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Truncate statement
+	 *
+	 * Generates a platform-specific truncate string from the supplied data
+	 *
+	 * If the database does not support the TRUNCATE statement,
+	 * then this method maps to 'DELETE FROM table'
+	 *
+	 * @param	string	$table
+	 * @return	string
+	 */
+	protected function _truncate($table)
+	{
+		return 'DELETE FROM '.$table;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Delete statement
+	 *
+	 * Generates a platform-specific delete string from the supplied data
+	 *
+	 * @param	string	$table
+	 * @return	string
+	 */
+	protected function _delete($table)
+	{
+		$this->qb_limit = FALSE;
+		return parent::_delete($table);
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+>>>>>>> origin/master
 	 * Close DB Connection
 	 *
 	 * @return	void
@@ -422,4 +576,8 @@ class CI_DB_odbc_driver extends CI_DB_driver {
 	{
 		odbc_close($this->conn_id);
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 }

@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 3.0.0
  * @filesource
  */
@@ -48,7 +59,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Drivers
  * @category	Database
  * @author		EllisLab Dev Team
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/database/
+=======
+ * @link		http://codeigniter.com/user_guide/database/
+>>>>>>> origin/master
  */
 class CI_DB_pdo_oci_driver extends CI_DB_pdo_driver {
 
@@ -130,6 +145,7 @@ class CI_DB_pdo_oci_driver extends CI_DB_pdo_driver {
 	// --------------------------------------------------------------------
 
 	/**
+<<<<<<< HEAD
 	 * Database version number
 	 *
 	 * @return	string
@@ -153,6 +169,8 @@ class CI_DB_pdo_oci_driver extends CI_DB_pdo_driver {
 	// --------------------------------------------------------------------
 
 	/**
+=======
+>>>>>>> origin/master
 	 * Show table query
 	 *
 	 * Generates a platform-specific query string so that the table names can be fetched
@@ -311,6 +329,7 @@ class CI_DB_pdo_oci_driver extends CI_DB_pdo_driver {
 	 */
 	protected function _limit($sql)
 	{
+<<<<<<< HEAD
 		if (version_compare($this->version(), '12.1', '>='))
 		{
 			// OFFSET-FETCH can be used only with the ORDER BY clause
@@ -319,6 +338,8 @@ class CI_DB_pdo_oci_driver extends CI_DB_pdo_driver {
 			return $sql.' OFFSET '.(int) $this->qb_offset.' ROWS FETCH NEXT '.$this->qb_limit.' ROWS ONLY';
 		}
 
+=======
+>>>>>>> origin/master
 		return 'SELECT * FROM (SELECT inner_query.*, rownum rnum FROM ('.$sql.') inner_query WHERE rownum < '.($this->qb_offset + $this->qb_limit + 1).')'
 			.($this->qb_offset ? ' WHERE rnum >= '.($this->qb_offset + 1): '');
 	}

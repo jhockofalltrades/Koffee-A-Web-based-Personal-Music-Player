@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 3.0.0
  * @filesource
  */
@@ -48,7 +59,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Drivers
  * @category	Database
  * @author		EllisLab Dev Team
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/database/
+=======
+ * @link		http://codeigniter.com/user_guide/database/
+>>>>>>> origin/master
  */
 class CI_DB_ibase_driver extends CI_DB {
 
@@ -126,7 +141,11 @@ class CI_DB_ibase_driver extends CI_DB {
 	 */
 	protected function _execute($sql)
 	{
+<<<<<<< HEAD
 		return ibase_query(isset($this->_ibase_trans) ? $this->_ibase_trans : $this->conn_id, $sql);
+=======
+		return ibase_query($this->conn_id, $sql);
+>>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
@@ -134,6 +153,7 @@ class CI_DB_ibase_driver extends CI_DB {
 	/**
 	 * Begin Transaction
 	 *
+<<<<<<< HEAD
 	 * @return	bool
 	 */
 	protected function _trans_begin()
@@ -144,6 +164,26 @@ class CI_DB_ibase_driver extends CI_DB {
 		}
 
 		$this->_ibase_trans = $trans_handle;
+=======
+	 * @param	bool	$test_mode
+	 * @return	bool
+	 */
+	public function trans_begin($test_mode = FALSE)
+	{
+		// When transactions are nested we only begin/commit/rollback the outermost ones
+		if ( ! $this->trans_enabled OR $this->_trans_depth > 0)
+		{
+			return TRUE;
+		}
+
+		// Reset the transaction failure flag.
+		// If the $test_mode flag is set to TRUE transactions will be rolled back
+		// even if the queries produce a successful result.
+		$this->_trans_failure = ($test_mode === TRUE);
+
+		$this->_ibase_trans = ibase_trans($this->conn_id);
+
+>>>>>>> origin/master
 		return TRUE;
 	}
 
@@ -154,6 +194,7 @@ class CI_DB_ibase_driver extends CI_DB {
 	 *
 	 * @return	bool
 	 */
+<<<<<<< HEAD
 	protected function _trans_commit()
 	{
 		if (ibase_commit($this->_ibase_trans))
@@ -163,6 +204,17 @@ class CI_DB_ibase_driver extends CI_DB {
 		}
 
 		return FALSE;
+=======
+	public function trans_commit()
+	{
+		// When transactions are nested we only begin/commit/rollback the outermost ones
+		if ( ! $this->trans_enabled OR $this->_trans->depth > 0)
+		{
+			return TRUE;
+		}
+
+		return ibase_commit($this->_ibase_trans);
+>>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
@@ -172,6 +224,7 @@ class CI_DB_ibase_driver extends CI_DB {
 	 *
 	 * @return	bool
 	 */
+<<<<<<< HEAD
 	protected function _trans_rollback()
 	{
 		if (ibase_rollback($this->_ibase_trans))
@@ -181,6 +234,17 @@ class CI_DB_ibase_driver extends CI_DB {
 		}
 
 		return FALSE;
+=======
+	public function trans_rollback()
+	{
+		// When transactions are nested we only begin/commit/rollback the outermost ones
+		if ( ! $this->trans_enabled OR $this->_trans_depth > 0)
+		{
+			return TRUE;
+		}
+
+		return ibase_rollback($this->_ibase_trans);
+>>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
@@ -294,7 +358,11 @@ class CI_DB_ibase_driver extends CI_DB {
 	 * Error
 	 *
 	 * Returns an array containing code and message of the last
+<<<<<<< HEAD
 	 * database error that has occurred.
+=======
+	 * database error that has occured.
+>>>>>>> origin/master
 	 *
 	 * @return	array
 	 */
@@ -384,6 +452,7 @@ class CI_DB_ibase_driver extends CI_DB {
 	// --------------------------------------------------------------------
 
 	/**
+<<<<<<< HEAD
 	 * Insert batch statement
 	 *
 	 * Generates a platform-specific insert string from the supplied data.
@@ -401,6 +470,8 @@ class CI_DB_ibase_driver extends CI_DB {
 	// --------------------------------------------------------------------
 
 	/**
+=======
+>>>>>>> origin/master
 	 * Close DB Connection
 	 *
 	 * @return	void

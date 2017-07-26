@@ -10,10 +10,15 @@
 
 </head>
 <body>
+<<<<<<< HEAD
 <?php if($this->session->userdata('user_id') == TRUE) :?>
 
 	<!-- NAV -->
 	<nav class="navbar navbar-default" style="background-color: #1e3c72;">
+=======
+	<!-- NAV -->
+	<nav class="navbar navbar-default">
+>>>>>>> origin/master
 	  <div class="container-fluid">
 	    <!-- Brand and toggle get grouped for better mobile display -->
 	    <div class="navbar-header">
@@ -23,6 +28,7 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
+<<<<<<< HEAD
 	      <a class="navbar-brand" href="" style="display: flex; align-items: center; color: white !important">Most Played</a>
 	    </div>
 	    <ul id="most-played" class="navbar-left navbar-nav nav">
@@ -36,14 +42,31 @@
 	    </ul>
 	    <!-- Collect tshe nav links, forms, and other content for toggling -->
 	    <div class="collaspanse navbar-collapse" id="bs-example-navbar-collapse-1">
+=======
+	      <a class="navbar-brand" href="" style="display: flex; align-items: center;">Koffee</a>
+	    </div>
+		 <form class="navbar-form navbar-left">
+	        <div class="form-group">
+	          <input type="text" id="search" class="form-control" placeholder="Search a song" size="76">
+	        </div>
+	      </form>
+	    <!-- Collect tshe nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+>>>>>>> origin/master
 	      <ul class="nav navbar-nav navbar-right">
 	      
 	            <li class="dropdown">
 		          <a href="#" class="dropdown-toggle title" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Jack Owen <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
 		            <li><a href="#"><i class="fa fa-user-circle"></i>&nbsp;&nbsp;Account</a></li>
+<<<<<<< HEAD
 		            <li role="separator" class="divider"></li>
 		            <li><a href="<?=base_url()?>koffee/logout"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a></li>
+=======
+		            <li><a href="#"><i class="fa fa-gear"></i>&nbsp;&nbsp;Gen. Settings</a></li>
+		            <li role="separator" class="divider"></li>
+		            <li><a href="#"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a></li>
+>>>>>>> origin/master
 		          </ul>
 		        </li>
 
@@ -51,6 +74,10 @@
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>
+<<<<<<< HEAD
 	<!-- END -->
 
 <?php endif; ?>
+=======
+	<!-- END -->
+>>>>>>> origin/master

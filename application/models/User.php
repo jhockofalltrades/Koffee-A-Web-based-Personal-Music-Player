@@ -3,7 +3,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 Class User extends CI_Model {
 
+<<<<<<< HEAD
 	
+=======
+	function add_msg($data) {
+		return $this->db->insert('message',$data);
+	}
+
+	function get_msg() {
+		$this->db->select('user.username as username, message.message as message')->from('user');
+		$this->db->join('message','user.user_id = message.user_id');
+		$result = $this->db->get();
+		return $result->result();
+	}
+
+>>>>>>> origin/master
 	function add_user($data) {
 		return $this->db->insert('user', $data);
 	}
@@ -21,7 +35,15 @@ Class User extends CI_Model {
 		return $result->row('username');
 	}
 
+<<<<<<< HEAD
 
+=======
+	function get_id($sess_id) {
+		$this->db->select()->from('user')->where('user_id', $sess_id);
+		$result = $this->db->get();
+		return $result->row('user_id');
+	}
+>>>>>>> origin/master
 	function login($username, $password) {
 		$where = array(
 			'username' => $username,

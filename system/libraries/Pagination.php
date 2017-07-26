@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 1.0.0
  * @filesource
  */
@@ -44,7 +55,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Libraries
  * @category	Pagination
  * @author		EllisLab Dev Team
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/libraries/pagination.html
+=======
+ * @link		http://codeigniter.com/user_guide/libraries/pagination.html
+>>>>>>> origin/master
  */
 class CI_Pagination {
 
@@ -428,7 +443,11 @@ class CI_Pagination {
 		{
 			$get = $this->CI->input->get();
 
+<<<<<<< HEAD
 			// Unset the control, method, old-school routing options
+=======
+			// Unset the controll, method, old-school routing options
+>>>>>>> origin/master
 			unset($get['c'], $get['m'], $get[$this->query_string_segment]);
 		}
 		else
@@ -497,7 +516,11 @@ class CI_Pagination {
 		{
 			$this->cur_page = $this->CI->input->get($this->query_string_segment);
 		}
+<<<<<<< HEAD
 		elseif (empty($this->cur_page))
+=======
+		else
+>>>>>>> origin/master
 		{
 			// Default to the last segment number if one hasn't been defined.
 			if ($this->uri_segment === 0)
@@ -513,10 +536,13 @@ class CI_Pagination {
 				$this->cur_page = str_replace(array($this->prefix, $this->suffix), '', $this->cur_page);
 			}
 		}
+<<<<<<< HEAD
 		else
 		{
 			$this->cur_page = (string) $this->cur_page;
 		}
+=======
+>>>>>>> origin/master
 
 		// If something isn't quite right, back to the default base page.
 		if ( ! ctype_digit($this->cur_page) OR ($this->use_page_numbers && (int) $this->cur_page === 0))
@@ -575,7 +601,11 @@ class CI_Pagination {
 		{
 			$i = ($this->use_page_numbers) ? $uri_page_number - 1 : $uri_page_number - $this->per_page;
 
+<<<<<<< HEAD
 			$attributes = sprintf('%s %s="%d"', $this->_attributes, $this->data_page_attr, ($this->cur_page - 1));
+=======
+			$attributes = sprintf('%s %s="%d"', $this->_attributes, $this->data_page_attr, (int) $i);
+>>>>>>> origin/master
 
 			if ($i === $base_page)
 			{
@@ -596,11 +626,19 @@ class CI_Pagination {
 		if ($this->display_pages !== FALSE)
 		{
 			// Write the digit links
+<<<<<<< HEAD
 			for ($loop = $start - 1; $loop <= $end; $loop++)
 			{
 				$i = ($this->use_page_numbers) ? $loop : ($loop * $this->per_page) - $this->per_page;
 
 				$attributes = sprintf('%s %s="%d"', $this->_attributes, $this->data_page_attr, $loop);
+=======
+			for ($loop = $start -1; $loop <= $end; $loop++)
+			{
+				$i = ($this->use_page_numbers) ? $loop : ($loop * $this->per_page) - $this->per_page;
+
+				$attributes = sprintf('%s %s="%d"', $this->_attributes, $this->data_page_attr, (int) $i);
+>>>>>>> origin/master
 
 				if ($i >= $base_page)
 				{
@@ -618,7 +656,11 @@ class CI_Pagination {
 					else
 					{
 						$append = $this->prefix.$i.$this->suffix;
+<<<<<<< HEAD
 						$output .= $this->num_tag_open.'<a href="'.$base_url.$append.'"'.$attributes.'>'
+=======
+						$output .= $this->num_tag_open.'<a href="'.$base_url.$append.'"'.$attributes.$this->_attr_rel('start').'>'
+>>>>>>> origin/master
 							.$loop.'</a>'.$this->num_tag_close;
 					}
 				}
@@ -630,7 +672,11 @@ class CI_Pagination {
 		{
 			$i = ($this->use_page_numbers) ? $this->cur_page + 1 : $this->cur_page * $this->per_page;
 
+<<<<<<< HEAD
 			$attributes = sprintf('%s %s="%d"', $this->_attributes, $this->data_page_attr, $this->cur_page + 1);
+=======
+			$attributes = sprintf('%s %s="%d"', $this->_attributes, $this->data_page_attr, (int) $i);
+>>>>>>> origin/master
 
 			$output .= $this->next_tag_open.'<a href="'.$base_url.$this->prefix.$i.$this->suffix.'"'.$attributes
 				.$this->_attr_rel('next').'>'.$this->next_link.'</a>'.$this->next_tag_close;
@@ -641,7 +687,11 @@ class CI_Pagination {
 		{
 			$i = ($this->use_page_numbers) ? $num_pages : ($num_pages * $this->per_page) - $this->per_page;
 
+<<<<<<< HEAD
 			$attributes = sprintf('%s %s="%d"', $this->_attributes, $this->data_page_attr, $num_pages);
+=======
+			$attributes = sprintf('%s %s="%d"', $this->_attributes, $this->data_page_attr, (int) $i);
+>>>>>>> origin/master
 
 			$output .= $this->last_tag_open.'<a href="'.$base_url.$this->prefix.$i.$this->suffix.'"'.$attributes.'>'
 				.$this->last_link.'</a>'.$this->last_tag_close;

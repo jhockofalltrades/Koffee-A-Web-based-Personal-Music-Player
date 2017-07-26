@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 1.0.0
  * @filesource
  */
@@ -44,7 +55,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Helpers
  * @category	Helpers
  * @author		EllisLab Dev Team
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/helpers/captcha_helper.html
+=======
+ * @link		http://codeigniter.com/user_guide/helpers/captcha_helper.html
+>>>>>>> origin/master
  */
 
 // ------------------------------------------------------------------------
@@ -110,8 +125,12 @@ if ( ! function_exists('create_captcha'))
 		$current_dir = @opendir($img_path);
 		while ($filename = @readdir($current_dir))
 		{
+<<<<<<< HEAD
 			if (in_array(substr($filename, -4), array('.jpg', '.png'))
 				&& (str_replace(array('.jpg', '.png'), '', $filename) + $expiration) < $now)
+=======
+			if (substr($filename, -4) === '.jpg' && (str_replace('.jpg', '', $filename) + $expiration) < $now)
+>>>>>>> origin/master
 			{
 				@unlink($img_path.$filename);
 			}
@@ -126,6 +145,7 @@ if ( ! function_exists('create_captcha'))
 		if (empty($word))
 		{
 			$word = '';
+<<<<<<< HEAD
 			$pool_length = strlen($pool);
 			$rand_max = $pool_length - 1;
 
@@ -216,6 +236,11 @@ if ( ! function_exists('create_captcha'))
 			for ($i = 0; $i < $word_length; $i++)
 			{
 				$word .= $pool[mt_rand(0, $rand_max)];
+=======
+			for ($i = 0, $mt_rand_max = strlen($pool) - 1; $i < $word_length; $i++)
+			{
+				$word .= $pool[mt_rand(0, $mt_rand_max)];
+>>>>>>> origin/master
 			}
 		}
 		elseif ( ! is_string($word))

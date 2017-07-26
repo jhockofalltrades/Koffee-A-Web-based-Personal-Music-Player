@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 2.0.0
  * @filesource
  */
@@ -44,7 +55,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Libraries
  * @category	Sessions
  * @author		Andrey Andreev
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/libraries/sessions.html
+=======
+ * @link		http://codeigniter.com/user_guide/libraries/sessions.html
+>>>>>>> origin/master
  */
 class CI_Session {
 
@@ -57,7 +72,10 @@ class CI_Session {
 
 	protected $_driver = 'files';
 	protected $_config;
+<<<<<<< HEAD
 	protected $_sid_regexp;
+=======
+>>>>>>> origin/master
 
 	// ------------------------------------------------------------------------
 
@@ -92,7 +110,10 @@ class CI_Session {
 		// Note: BC workaround
 		elseif (config_item('sess_use_database'))
 		{
+<<<<<<< HEAD
 			log_message('debug', 'Session: "sess_driver" is empty; using BC fallback to "sess_use_database".');
+=======
+>>>>>>> origin/master
 			$this->_driver = 'database';
 		}
 
@@ -100,7 +121,10 @@ class CI_Session {
 
 		// Configuration ...
 		$this->_configure($params);
+<<<<<<< HEAD
 		$this->_config['_sid_regexp'] = $this->_sid_regexp;
+=======
+>>>>>>> origin/master
 
 		$class = new $class($this->_config);
 		if ($class instanceof SessionHandlerInterface)
@@ -133,7 +157,11 @@ class CI_Session {
 		if (isset($_COOKIE[$this->_config['cookie_name']])
 			&& (
 				! is_string($_COOKIE[$this->_config['cookie_name']])
+<<<<<<< HEAD
 				OR ! preg_match('#\A'.$this->_sid_regexp.'\z#', $_COOKIE[$this->_config['cookie_name']])
+=======
+				OR ! preg_match('/^[0-9a-f]{40}$/', $_COOKIE[$this->_config['cookie_name']])
+>>>>>>> origin/master
 			)
 		)
 		{
@@ -234,7 +262,11 @@ class CI_Session {
 			}
 		}
 
+<<<<<<< HEAD
 		if ( ! class_exists($prefix.$class, FALSE) && file_exists($file_path = APPPATH.'libraries/Session/drivers/'.$prefix.$class.'.php'))
+=======
+		if ( ! class_exists($prefix.$class) && file_exists($file_path = APPPATH.'libraries/Session/drivers/'.$prefix.$class.'.php'))
+>>>>>>> origin/master
 		{
 			require_once($file_path);
 			if (class_exists($prefix.$class, FALSE))
@@ -317,6 +349,7 @@ class CI_Session {
 		ini_set('session.use_strict_mode', 1);
 		ini_set('session.use_cookies', 1);
 		ini_set('session.use_only_cookies', 1);
+<<<<<<< HEAD
 
 		$this->_configure_sid_length();
 	}
@@ -393,6 +426,10 @@ class CI_Session {
 		}
 
 		$this->_sid_regexp .= '{'.$sid_length.'}';
+=======
+		ini_set('session.hash_function', 1);
+		ini_set('session.hash_bits_per_character', 4);
+>>>>>>> origin/master
 	}
 
 	// ------------------------------------------------------------------------
@@ -661,6 +698,7 @@ class CI_Session {
 	// ------------------------------------------------------------------------
 
 	/**
+<<<<<<< HEAD
 	 * __isset()
 	 *
 	 * @param	string	$key	'session_id' or a session data key
@@ -679,6 +717,8 @@ class CI_Session {
 	// ------------------------------------------------------------------------
 
 	/**
+=======
+>>>>>>> origin/master
 	 * __set()
 	 *
 	 * @param	string	$key	Session data key
@@ -806,7 +846,11 @@ class CI_Session {
 	 *
 	 * Legacy CI_Session compatibility method
 	 *
+<<<<<<< HEAD
 	 * @param	mixed	$key	Session data key(s)
+=======
+	 * @param	mixed	$data	Session data key(s)
+>>>>>>> origin/master
 	 * @return	void
 	 */
 	public function unset_userdata($key)

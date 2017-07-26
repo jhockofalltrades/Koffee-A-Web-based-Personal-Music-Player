@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 1.0.0
  * @filesource
  */
@@ -44,7 +55,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Helpers
  * @category	Helpers
  * @author		EllisLab Dev Team
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/helpers/file_helper.html
+=======
+ * @link		http://codeigniter.com/user_guide/helpers/file_helper.html
+>>>>>>> origin/master
  */
 
 // ------------------------------------------------------------------------
@@ -138,6 +153,7 @@ if ( ! function_exists('delete_files'))
 		{
 			if ($filename !== '.' && $filename !== '..')
 			{
+<<<<<<< HEAD
 				$filepath = $path.DIRECTORY_SEPARATOR.$filename;
 
 				if (is_dir($filepath) && $filename[0] !== '.' && ! is_link($filepath))
@@ -147,6 +163,15 @@ if ( ! function_exists('delete_files'))
 				elseif ($htdocs !== TRUE OR ! preg_match('/^(\.htaccess|index\.(html|htm|php)|web\.config)$/i', $filename))
 				{
 					@unlink($filepath);
+=======
+				if (is_dir($path.DIRECTORY_SEPARATOR.$filename) && $filename[0] !== '.')
+				{
+					delete_files($path.DIRECTORY_SEPARATOR.$filename, $del_dir, $htdocs, $_level + 1);
+				}
+				elseif ($htdocs !== TRUE OR ! preg_match('/^(\.htaccess|index\.(html|htm|php)|web\.config)$/i', $filename))
+				{
+					@unlink($path.DIRECTORY_SEPARATOR.$filename);
+>>>>>>> origin/master
 				}
 			}
 		}
@@ -345,7 +370,11 @@ if ( ! function_exists('get_mime_by_extension'))
 
 		if ( ! is_array($mimes))
 		{
+<<<<<<< HEAD
 			$mimes = get_mimes();
+=======
+			$mimes =& get_mimes();
+>>>>>>> origin/master
 
 			if (empty($mimes))
 			{

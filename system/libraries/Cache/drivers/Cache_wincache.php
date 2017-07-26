@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 3.0.0
  * @filesource
  */
@@ -52,6 +63,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class CI_Cache_wincache extends CI_Driver {
 
 	/**
+<<<<<<< HEAD
 	 * Class constructor
 	 *
 	 * Only present so that an error message is logged
@@ -70,6 +82,8 @@ class CI_Cache_wincache extends CI_Driver {
 	// ------------------------------------------------------------------------
 
 	/**
+=======
+>>>>>>> origin/master
 	 * Get
 	 *
 	 * Look for a value in the cache. If it exists, return the data,
@@ -212,6 +226,18 @@ class CI_Cache_wincache extends CI_Driver {
 	 */
 	public function is_supported()
 	{
+<<<<<<< HEAD
 		return (extension_loaded('wincache') && ini_get('wincache.ucenabled'));
 	}
+=======
+		if ( ! extension_loaded('wincache') OR ! ini_get('wincache.ucenabled'))
+		{
+			log_message('debug', 'The Wincache PHP extension must be loaded to use Wincache Cache.');
+			return FALSE;
+		}
+
+		return TRUE;
+	}
+
+>>>>>>> origin/master
 }

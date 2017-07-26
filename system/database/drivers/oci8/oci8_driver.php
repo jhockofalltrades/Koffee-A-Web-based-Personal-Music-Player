@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 1.4.1
  * @filesource
  */
@@ -48,7 +59,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage  Drivers
  * @category	Database
  * @author		EllisLab Dev Team
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/database/
+=======
+ * @link		http://codeigniter.com/user_guide/database/
+>>>>>>> origin/master
  */
 
 /**
@@ -252,6 +267,7 @@ class CI_DB_oci8_driver extends CI_DB {
 			return $this->data_cache['version'];
 		}
 
+<<<<<<< HEAD
 		if ( ! $this->conn_id OR ($version_string = oci_server_version($this->conn_id)) === FALSE)
 		{
 			return FALSE;
@@ -262,6 +278,14 @@ class CI_DB_oci8_driver extends CI_DB {
 		}
 
 		return FALSE;
+=======
+		if ( ! $this->conn_id OR ($version = oci_server_version($this->conn_id)) === FALSE)
+		{
+			return FALSE;
+		}
+
+		return $this->data_cache['version'] = $version;
+>>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
@@ -382,11 +406,36 @@ class CI_DB_oci8_driver extends CI_DB {
 	/**
 	 * Begin Transaction
 	 *
+<<<<<<< HEAD
 	 * @return	bool
 	 */
 	protected function _trans_begin()
 	{
 		$this->commit_mode = OCI_NO_AUTO_COMMIT;
+=======
+	 * @param	bool	$test_mode
+	 * @return	bool
+	 */
+	public function trans_begin($test_mode = FALSE)
+	{
+		if ( ! $this->trans_enabled)
+		{
+			return TRUE;
+		}
+
+		// When transactions are nested we only begin/commit/rollback the outermost ones
+		if ($this->_trans_depth > 0)
+		{
+			return TRUE;
+		}
+
+		// Reset the transaction failure flag.
+		// If the $test_mode flag is set to TRUE transactions will be rolled back
+		// even if the queries produce a successful result.
+		$this->_trans_failure = ($test_mode === TRUE);
+
+		$this->commit_mode = is_php('5.3.2') ? OCI_NO_AUTO_COMMIT : OCI_DEFAULT;
+>>>>>>> origin/master
 		return TRUE;
 	}
 
@@ -397,10 +446,27 @@ class CI_DB_oci8_driver extends CI_DB {
 	 *
 	 * @return	bool
 	 */
+<<<<<<< HEAD
 	protected function _trans_commit()
 	{
 		$this->commit_mode = OCI_COMMIT_ON_SUCCESS;
 
+=======
+	public function trans_commit()
+	{
+		if ( ! $this->trans_enabled)
+		{
+			return TRUE;
+		}
+
+		// When transactions are nested we only begin/commit/rollback the outermost ones
+		if ($this->_trans_depth > 0)
+		{
+			return TRUE;
+		}
+
+		$this->commit_mode = OCI_COMMIT_ON_SUCCESS;
+>>>>>>> origin/master
 		return oci_commit($this->conn_id);
 	}
 
@@ -411,8 +477,19 @@ class CI_DB_oci8_driver extends CI_DB {
 	 *
 	 * @return	bool
 	 */
+<<<<<<< HEAD
 	protected function _trans_rollback()
 	{
+=======
+	public function trans_rollback()
+	{
+		// When transactions are nested we only begin/commit/rollback the outermost ones
+		if ( ! $this->trans_enabled OR $this->_trans_depth > 0)
+		{
+			return TRUE;
+		}
+
+>>>>>>> origin/master
 		$this->commit_mode = OCI_COMMIT_ON_SUCCESS;
 		return oci_rollback($this->conn_id);
 	}
@@ -553,12 +630,17 @@ class CI_DB_oci8_driver extends CI_DB {
 	 * Error
 	 *
 	 * Returns an array containing code and message of the last
+<<<<<<< HEAD
 	 * database error that has occurred.
+=======
+	 * database error that has occured.
+>>>>>>> origin/master
 	 *
 	 * @return	array
 	 */
 	public function error()
 	{
+<<<<<<< HEAD
 		// oci_error() returns an array that already contains
 		// 'code' and 'message' keys, but it can return false
 		// if there was no error ....
@@ -582,6 +664,25 @@ class CI_DB_oci8_driver extends CI_DB {
 		return is_array($error)
 			? $error
 			: array('code' => '', 'message' => '');
+=======
+		/* oci_error() returns an array that already contains the
+		 * 'code' and 'message' keys, so we can just return it.
+		 */
+		if (is_resource($this->curs_id))
+		{
+			return oci_error($this->curs_id);
+		}
+		elseif (is_resource($this->stmt_id))
+		{
+			return oci_error($this->stmt_id);
+		}
+		elseif (is_resource($this->conn_id))
+		{
+			return oci_error($this->conn_id);
+		}
+
+		return oci_error();
+>>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
@@ -660,6 +761,7 @@ class CI_DB_oci8_driver extends CI_DB {
 	 */
 	protected function _limit($sql)
 	{
+<<<<<<< HEAD
 		if (version_compare($this->version(), '12.1', '>='))
 		{
 			// OFFSET-FETCH can be used only with the ORDER BY clause
@@ -668,6 +770,8 @@ class CI_DB_oci8_driver extends CI_DB {
 			return $sql.' OFFSET '.(int) $this->qb_offset.' ROWS FETCH NEXT '.$this->qb_limit.' ROWS ONLY';
 		}
 
+=======
+>>>>>>> origin/master
 		$this->limit_used = TRUE;
 		return 'SELECT * FROM (SELECT inner_query.*, rownum rnum FROM ('.$sql.') inner_query WHERE rownum < '.($this->qb_offset + $this->qb_limit + 1).')'
 			.($this->qb_offset ? ' WHERE rnum >= '.($this->qb_offset + 1) : '');

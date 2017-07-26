@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 1.0.0
  * @filesource
  */
@@ -56,7 +67,11 @@ if ( ! class_exists('CI_Xmlrpc', FALSE))
  * @subpackage	Libraries
  * @category	XML-RPC
  * @author		EllisLab Dev Team
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/libraries/xmlrpc.html
+=======
+ * @link		http://codeigniter.com/user_guide/libraries/xmlrpc.html
+>>>>>>> origin/master
  */
 class CI_Xmlrpcs extends CI_Xmlrpc {
 
@@ -339,11 +354,19 @@ class CI_Xmlrpcs extends CI_Xmlrpc {
 		//-------------------------------------
 
 		$method_parts = explode('.', $this->methods[$methName]['function']);
+<<<<<<< HEAD
 		$objectCall   = ! empty($method_parts[1]);
 
 		if ($system_call === TRUE)
 		{
 			if ( ! is_callable(array($this, $method_parts[1])))
+=======
+		$objectCall = (isset($method_parts[1]) && $method_parts[1] !== '');
+
+		if ($system_call === TRUE)
+		{
+			if ( ! is_callable(array($this,$method_parts[1])))
+>>>>>>> origin/master
 			{
 				return new XML_RPC_Response(0, $this->xmlrpcerr['unknown_method'], $this->xmlrpcstr['unknown_method']);
 			}
@@ -400,11 +423,19 @@ class CI_Xmlrpcs extends CI_Xmlrpc {
 			}
 			elseif ($this->object === FALSE)
 			{
+<<<<<<< HEAD
 				return get_instance()->{$method_parts[1]}($m);
 			}
 			else
 			{
 				return $this->object->{$method_parts[1]}($m);
+=======
+				return get_instance()->$method_parts[1]($m);
+			}
+			else
+			{
+				return $this->object->$method_parts[1]($m);
+>>>>>>> origin/master
 			}
 		}
 		else
@@ -584,7 +615,11 @@ class CI_Xmlrpcs extends CI_Xmlrpc {
 			return $this->multicall_error('nomethod');
 		}
 
+<<<<<<< HEAD
 		list($scalar_value, $scalar_type) = array(reset($methName->me), key($methName->me));
+=======
+		list($scalar_type, $scalar_value) = each($methName->me);
+>>>>>>> origin/master
 		$scalar_type = $scalar_type === $this->xmlrpcI4 ? $this->xmlrpcInt : $scalar_type;
 
 		if ($methName->kindOf() !== 'scalar' OR $scalar_type !== 'string')
@@ -604,7 +639,11 @@ class CI_Xmlrpcs extends CI_Xmlrpc {
 			return $this->multicall_error('notarray');
 		}
 
+<<<<<<< HEAD
 		list($b, $a) = array(reset($params->me), key($params->me));
+=======
+		list($a, $b) = each($params->me);
+>>>>>>> origin/master
 
 		$msg = new XML_RPC_Message($scalar_value);
 		for ($i = 0, $numParams = count($b); $i < $numParams; $i++)

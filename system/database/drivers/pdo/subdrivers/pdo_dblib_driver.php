@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 3.0.0
  * @filesource
  */
@@ -48,7 +59,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Drivers
  * @category	Database
  * @author		EllisLab Dev Team
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/database/
+=======
+ * @link		http://codeigniter.com/user_guide/database/
+>>>>>>> origin/master
  */
 class CI_DB_pdo_dblib_driver extends CI_DB_pdo_driver {
 
@@ -126,12 +141,16 @@ class CI_DB_pdo_dblib_driver extends CI_DB_pdo_driver {
 	 */
 	public function db_connect($persistent = FALSE)
 	{
+<<<<<<< HEAD
 		if ($persistent === TRUE)
 		{
 			log_message('debug', "dblib driver doesn't support persistent connections");
 		}
 
 		$this->conn_id = parent::db_connect(FALSE);
+=======
+		$this->conn_id = parent::db_connect($persistent);
+>>>>>>> origin/master
 
 		if ( ! is_object($this->conn_id))
 		{
@@ -331,7 +350,11 @@ class CI_DB_pdo_dblib_driver extends CI_DB_pdo_driver {
 			return parent::_insert_batch($table, $keys, $values);
 		}
 
+<<<<<<< HEAD
 		return ($this->db_debug) ? $this->display_error('db_unsupported_feature') : FALSE;
+=======
+		return ($this->db->db_debug) ? $this->db->display_error('db_unsupported_feature') : FALSE;
+>>>>>>> origin/master
 	}
 
 }

@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 3.0.0
  * @filesource
  */
@@ -44,7 +55,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	CodeIgniter
  * @category	Compatibility
  * @author		Andrey Andreev
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/
+=======
+ * @link		http://codeigniter.com/user_guide/
+>>>>>>> origin/master
  * @link		http://php.net/hash
  */
 
@@ -119,7 +134,11 @@ if ( ! function_exists('hash_pbkdf2'))
 	 */
 	function hash_pbkdf2($algo, $password, $salt, $iterations, $length = 0, $raw_output = FALSE)
 	{
+<<<<<<< HEAD
 		if ( ! in_array(strtolower($algo), hash_algos(), TRUE))
+=======
+		if ( ! in_array($algo, hash_algos(), TRUE))
+>>>>>>> origin/master
 		{
 			trigger_error('hash_pbkdf2(): Unknown hashing algorithm: '.$algo, E_USER_WARNING);
 			return FALSE;
@@ -173,9 +192,13 @@ if ( ! function_exists('hash_pbkdf2'))
 			return FALSE;
 		}
 
+<<<<<<< HEAD
 		$hash_length = defined('MB_OVERLOAD_STRING')
 			? mb_strlen(hash($algo, NULL, TRUE), '8bit')
 			: strlen(hash($algo, NULL, TRUE));
+=======
+		$hash_length = strlen(hash($algo, NULL, TRUE));
+>>>>>>> origin/master
 		empty($length) && $length = $hash_length;
 
 		// Pre-hash password inputs longer than the algorithm's block size
@@ -223,14 +246,22 @@ if ( ! function_exists('hash_pbkdf2'))
 			'whirlpool' => 64
 		);
 
+<<<<<<< HEAD
 		if (isset($block_sizes[$algo], $password[$block_sizes[$algo]]))
+=======
+		if (isset($block_sizes[$algo]) && strlen($password) > $block_sizes[$algo])
+>>>>>>> origin/master
 		{
 			$password = hash($algo, $password, TRUE);
 		}
 
 		$hash = '';
 		// Note: Blocks are NOT 0-indexed
+<<<<<<< HEAD
 		for ($bc = (int) ceil($length / $hash_length), $bi = 1; $bi <= $bc; $bi++)
+=======
+		for ($bc = ceil($length / $hash_length), $bi = 1; $bi <= $bc; $bi++)
+>>>>>>> origin/master
 		{
 			$key = $derived_key = hash_hmac($algo, $salt.pack('N', $bi), $password, TRUE);
 			for ($i = 1; $i < $iterations; $i++)
@@ -242,6 +273,7 @@ if ( ! function_exists('hash_pbkdf2'))
 		}
 
 		// This is not RFC-compatible, but we're aiming for natural PHP compatibility
+<<<<<<< HEAD
 		if ( ! $raw_output)
 		{
 			$hash = bin2hex($hash);
@@ -250,5 +282,8 @@ if ( ! function_exists('hash_pbkdf2'))
 		return defined('MB_OVERLOAD_STRING')
 			? mb_substr($hash, 0, $length, '8bit')
 			: substr($hash, 0, $length);
+=======
+		return substr($raw_output ? $hash : bin2hex($hash), 0, $length);
+>>>>>>> origin/master
 	}
 }

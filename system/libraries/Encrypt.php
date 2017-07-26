@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 1.0.0
  * @filesource
  */
@@ -46,7 +57,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Libraries
  * @category	Libraries
  * @author		EllisLab Dev Team
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/libraries/encryption.html
+=======
+ * @link		http://codeigniter.com/user_guide/libraries/encryption.html
+>>>>>>> origin/master
  */
 class CI_Encrypt {
 
@@ -122,7 +137,11 @@ class CI_Encrypt {
 
 			$key = config_item('encryption_key');
 
+<<<<<<< HEAD
 			if ( ! self::strlen($key))
+=======
+			if ( ! strlen($key))
+>>>>>>> origin/master
 			{
 				show_error('In order to use the encryption class requires that you set an encryption key in your config file.');
 			}
@@ -198,7 +217,11 @@ class CI_Encrypt {
 	 * This allows for backwards compatibility and a method to transition to the
 	 * new encryption algorithms.
 	 *
+<<<<<<< HEAD
 	 * For more details, see https://codeigniter.com/user_guide/installation/upgrade_200.html#encryption
+=======
+	 * For more details, see http://codeigniter.com/user_guide/installation/upgrade_200.html#encryption
+>>>>>>> origin/master
 	 *
 	 * @param	string
 	 * @param	int		(mcrypt mode constant)
@@ -252,7 +275,11 @@ class CI_Encrypt {
 		$string = $this->_xor_merge($string, $key);
 
 		$dec = '';
+<<<<<<< HEAD
 		for ($i = 0, $l = self::strlen($string); $i < $l; $i++)
+=======
+		for ($i = 0, $l = strlen($string); $i < $l; $i++)
+>>>>>>> origin/master
 		{
 			$dec .= ($string[$i++] ^ $string[$i]);
 		}
@@ -275,8 +302,12 @@ class CI_Encrypt {
 	{
 		$hash = $this->hash($key);
 		$str = '';
+<<<<<<< HEAD
 
 		for ($i = 0, $ls = self::strlen($string), $lh = self::strlen($hash); $i < $ls; $i++)
+=======
+		for ($i = 0, $ls = strlen($string), $lh = strlen($hash); $i < $ls; $i++)
+>>>>>>> origin/master
 		{
 			$str .= $string[$i] ^ $hash[($i % $lh)];
 		}
@@ -296,7 +327,11 @@ class CI_Encrypt {
 	public function mcrypt_encode($data, $key)
 	{
 		$init_size = mcrypt_get_iv_size($this->_get_cipher(), $this->_get_mode());
+<<<<<<< HEAD
 		$init_vect = mcrypt_create_iv($init_size, MCRYPT_DEV_URANDOM);
+=======
+		$init_vect = mcrypt_create_iv($init_size, MCRYPT_RAND);
+>>>>>>> origin/master
 		return $this->_add_cipher_noise($init_vect.mcrypt_encrypt($this->_get_cipher(), $key, $data, $this->_get_mode(), $init_vect), $key);
 	}
 
@@ -314,14 +349,23 @@ class CI_Encrypt {
 		$data = $this->_remove_cipher_noise($data, $key);
 		$init_size = mcrypt_get_iv_size($this->_get_cipher(), $this->_get_mode());
 
+<<<<<<< HEAD
 		if ($init_size > self::strlen($data))
+=======
+		if ($init_size > strlen($data))
+>>>>>>> origin/master
 		{
 			return FALSE;
 		}
 
+<<<<<<< HEAD
 		$init_vect = self::substr($data, 0, $init_size);
 		$data      = self::substr($data, $init_size);
 
+=======
+		$init_vect = substr($data, 0, $init_size);
+		$data = substr($data, $init_size);
+>>>>>>> origin/master
 		return rtrim(mcrypt_decrypt($this->_get_cipher(), $key, $data, $this->_get_mode(), $init_vect), "\0");
 	}
 
@@ -341,7 +385,11 @@ class CI_Encrypt {
 		$key = $this->hash($key);
 		$str = '';
 
+<<<<<<< HEAD
 		for ($i = 0, $j = 0, $ld = self::strlen($data), $lk = self::strlen($key); $i < $ld; ++$i, ++$j)
+=======
+		for ($i = 0, $j = 0, $ld = strlen($data), $lk = strlen($key); $i < $ld; ++$i, ++$j)
+>>>>>>> origin/master
 		{
 			if ($j >= $lk)
 			{
@@ -371,7 +419,11 @@ class CI_Encrypt {
 		$key = $this->hash($key);
 		$str = '';
 
+<<<<<<< HEAD
 		for ($i = 0, $j = 0, $ld = self::strlen($data), $lk = self::strlen($key); $i < $ld; ++$i, ++$j)
+=======
+		for ($i = 0, $j = 0, $ld = strlen($data), $lk = strlen($key); $i < $ld; ++$i, ++$j)
+>>>>>>> origin/master
 		{
 			if ($j >= $lk)
 			{
@@ -479,6 +531,7 @@ class CI_Encrypt {
 		return hash($this->_hash_type, $str);
 	}
 
+<<<<<<< HEAD
 	// --------------------------------------------------------------------
 
 	/**
@@ -518,4 +571,6 @@ class CI_Encrypt {
 			? substr($str, $start, $length)
 			: substr($str, $start);
 	}
+=======
+>>>>>>> origin/master
 }

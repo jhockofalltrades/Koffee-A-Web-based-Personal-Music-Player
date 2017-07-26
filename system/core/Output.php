@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 1.0.0
  * @filesource
  */
@@ -46,7 +57,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Libraries
  * @category	Output
  * @author		EllisLab Dev Team
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/libraries/output.html
+=======
+ * @link		http://codeigniter.com/user_guide/libraries/output.html
+>>>>>>> origin/master
  */
 class CI_Output {
 
@@ -123,6 +138,7 @@ class CI_Output {
 	public $parse_exec_vars = TRUE;
 
 	/**
+<<<<<<< HEAD
 	 * mbstring.func_overload flag
 	 *
 	 * @var	bool
@@ -130,6 +146,8 @@ class CI_Output {
 	protected static $func_overload;
 
 	/**
+=======
+>>>>>>> origin/master
 	 * Class constructor
 	 *
 	 * Determines whether zLib output compression will be used.
@@ -145,8 +163,11 @@ class CI_Output {
 			&& extension_loaded('zlib')
 		);
 
+<<<<<<< HEAD
 		isset(self::$func_overload) OR self::$func_overload = (extension_loaded('mbstring') && ini_get('mbstring.func_overload'));
 
+=======
+>>>>>>> origin/master
 		// Get mime types for later
 		$this->mimes =& get_mimes();
 
@@ -294,7 +315,11 @@ class CI_Output {
 	/**
 	 * Get Header
 	 *
+<<<<<<< HEAD
 	 * @param	string	$header
+=======
+	 * @param	string	$header_name
+>>>>>>> origin/master
 	 * @return	string
 	 */
 	public function get_header($header)
@@ -311,12 +336,20 @@ class CI_Output {
 			return NULL;
 		}
 
+<<<<<<< HEAD
 		// Count backwards, in order to get the last matching header
 		for ($c = count($headers) - 1; $c > -1; $c--)
 		{
 			if (strncasecmp($header, $headers[$c], $l = self::strlen($header)) === 0)
 			{
 				return trim(self::substr($headers[$c], $l+1));
+=======
+		for ($i = 0, $c = count($headers); $i < $c; $i++)
+		{
+			if (strncasecmp($header, $headers[$i], $l = strlen($header)) === 0)
+			{
+				return trim(substr($headers[$i], $l+1));
+>>>>>>> origin/master
 			}
 		}
 
@@ -387,7 +420,11 @@ class CI_Output {
 	/**
 	 * Set Cache
 	 *
+<<<<<<< HEAD
 	 * @param	int	$time	Cache expiration time in minutes
+=======
+	 * @param	int	$time	Cache expiration time in seconds
+>>>>>>> origin/master
 	 * @return	CI_Output
 	 */
 	public function cache($time)
@@ -490,13 +527,21 @@ class CI_Output {
 				if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) && strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== FALSE)
 				{
 					header('Content-Encoding: gzip');
+<<<<<<< HEAD
 					header('Content-Length: '.self::strlen($output));
+=======
+					header('Content-Length: '.strlen($output));
+>>>>>>> origin/master
 				}
 				else
 				{
 					// User agent doesn't support gzip compression,
 					// so we'll have to decompress our cache
+<<<<<<< HEAD
 					$output = gzinflate(self::substr($output, 10, -8));
+=======
+					$output = gzinflate(substr($output, 10, -8));
+>>>>>>> origin/master
 				}
 			}
 
@@ -586,6 +631,7 @@ class CI_Output {
 			return;
 		}
 
+<<<<<<< HEAD
 		if ( ! flock($fp, LOCK_EX))
 		{
 			log_message('error', 'Unable to secure a file lock for file at: '.$cache_path);
@@ -639,6 +685,64 @@ class CI_Output {
 
 		// Send HTTP cache-control headers to browser to match file cache settings.
 		$this->set_cache_header($_SERVER['REQUEST_TIME'], $expire);
+=======
+		if (flock($fp, LOCK_EX))
+		{
+			// If output compression is enabled, compress the cache
+			// itself, so that we don't have to do that each time
+			// we're serving it
+			if ($this->_compress_output === TRUE)
+			{
+				$output = gzencode($output);
+
+				if ($this->get_header('content-type') === NULL)
+				{
+					$this->set_content_type($this->mime_type);
+				}
+			}
+
+			$expire = time() + ($this->cache_expiration * 60);
+
+			// Put together our serialized info.
+			$cache_info = serialize(array(
+				'expire'	=> $expire,
+				'headers'	=> $this->headers
+			));
+
+			$output = $cache_info.'ENDCI--->'.$output;
+
+			for ($written = 0, $length = strlen($output); $written < $length; $written += $result)
+			{
+				if (($result = fwrite($fp, substr($output, $written))) === FALSE)
+				{
+					break;
+				}
+			}
+
+			flock($fp, LOCK_UN);
+		}
+		else
+		{
+			log_message('error', 'Unable to secure a file lock for file at: '.$cache_path);
+			return;
+		}
+
+		fclose($fp);
+
+		if (is_int($result))
+		{
+			chmod($cache_path, 0640);
+			log_message('debug', 'Cache file written: '.$cache_path);
+
+			// Send HTTP cache-control headers to browser to match file cache settings.
+			$this->set_cache_header($_SERVER['REQUEST_TIME'], $expire);
+		}
+		else
+		{
+			@unlink($cache_path);
+			log_message('error', 'Unable to write the complete cache content at: '.$cache_path);
+		}
+>>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
@@ -705,9 +809,17 @@ class CI_Output {
 			log_message('debug', 'Cache file has expired. File deleted.');
 			return FALSE;
 		}
+<<<<<<< HEAD
 
 		// Send the HTTP cache control headers
 		$this->set_cache_header($last_modified, $expire);
+=======
+		else
+		{
+			// Or else send the HTTP cache control headers.
+			$this->set_cache_header($last_modified, $expire);
+		}
+>>>>>>> origin/master
 
 		// Add headers from cache file.
 		foreach ($cache_info['headers'] as $header)
@@ -716,7 +828,11 @@ class CI_Output {
 		}
 
 		// Display the cache
+<<<<<<< HEAD
 		$this->_display(self::substr($cache, self::strlen($match[0])));
+=======
+		$this->_display(substr($cache, strlen($match[0])));
+>>>>>>> origin/master
 		log_message('debug', 'Cache file is current. Sending it to browser.');
 		return TRUE;
 	}
@@ -793,6 +909,7 @@ class CI_Output {
 			$this->set_status_header(304);
 			exit;
 		}
+<<<<<<< HEAD
 
 		header('Pragma: public');
 		header('Cache-Control: max-age='.$max_age.', public');
@@ -839,4 +956,15 @@ class CI_Output {
 			? substr($str, $start, $length)
 			: substr($str, $start);
 	}
+=======
+		else
+		{
+			header('Pragma: public');
+			header('Cache-Control: max-age='.$max_age.', public');
+			header('Expires: '.gmdate('D, d M Y H:i:s', $expiration).' GMT');
+			header('Last-modified: '.gmdate('D, d M Y H:i:s', $last_modified).' GMT');
+		}
+	}
+
+>>>>>>> origin/master
 }

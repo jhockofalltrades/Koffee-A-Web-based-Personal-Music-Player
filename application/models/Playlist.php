@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 Class Playlist extends CI_Model {
 
+<<<<<<< HEAD
 	function add_song($data) {
 		return $this->db->insert('songs', $data);
 	}
@@ -41,6 +42,18 @@ Class Playlist extends CI_Model {
 	// function get_most_played() {
 
 	// }
+=======
+	function loadPlaylists($folder) {
+		
+		
+		return $songs;
+	}
+
+	function limitString($string) {
+		return strlen($string) > 25 ? substr($string,0,25)."..." : $string;
+	}
+
+>>>>>>> origin/master
 	
 
 }

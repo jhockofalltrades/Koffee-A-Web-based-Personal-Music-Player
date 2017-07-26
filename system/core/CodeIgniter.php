@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 1.0.0
  * @filesource
  */
@@ -46,7 +57,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	CodeIgniter
  * @category	Front-controller
  * @author		EllisLab Dev Team
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/
+=======
+ * @link		http://codeigniter.com/user_guide/
+>>>>>>> origin/master
  */
 
 /**
@@ -55,7 +70,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @var	string
  *
  */
+<<<<<<< HEAD
 	const CI_VERSION = '3.1.5';
+=======
+	define('CI_VERSION', '3.0.1');
+>>>>>>> origin/master
 
 /*
  * ------------------------------------------------------
@@ -67,10 +86,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		require_once(APPPATH.'config/'.ENVIRONMENT.'/constants.php');
 	}
 
+<<<<<<< HEAD
 	if (file_exists(APPPATH.'config/constants.php'))
 	{
 		require_once(APPPATH.'config/constants.php');
 	}
+=======
+	require_once(APPPATH.'config/constants.php');
+>>>>>>> origin/master
 
 /*
  * ------------------------------------------------------
@@ -362,7 +385,11 @@ if ( ! is_php('5.4'))
 	 *
 	 * Returns current CI instance object
 	 *
+<<<<<<< HEAD
 	 * @return CI_Controller
+=======
+	 * @return object
+>>>>>>> origin/master
 	 */
 	function &get_instance()
 	{
@@ -419,6 +446,7 @@ if ( ! is_php('5.4'))
 			$params = array($method, array_slice($URI->rsegments, 2));
 			$method = '_remap';
 		}
+<<<<<<< HEAD
 		elseif ( ! method_exists($class, $method))
 		{
 			$e404 = TRUE;
@@ -442,6 +470,16 @@ if ( ! is_php('5.4'))
 				$e404 = TRUE;
 			}
 		}
+=======
+		// WARNING: It appears that there are issues with is_callable() even in PHP 5.2!
+		// Furthermore, there are bug reports and feature/change requests related to it
+		// that make it unreliable to use in this context. Please, DO NOT change this
+		// work-around until a better alternative is available.
+		elseif ( ! in_array(strtolower($method), array_map('strtolower', get_class_methods($class)), TRUE))
+		{
+			$e404 = TRUE;
+		}
+>>>>>>> origin/master
 	}
 
 	if ($e404)

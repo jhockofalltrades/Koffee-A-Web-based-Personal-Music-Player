@@ -6,7 +6,11 @@
  *
  * This content is released under the MIT License (MIT)
  *
+<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+=======
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
+>>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +32,17 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
+<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
+=======
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+>>>>>>> origin/master
  * @since	Version 3.0.0
  * @filesource
  */
@@ -44,7 +55,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	CodeIgniter
  * @category	Compatibility
  * @author		Andrey Andreev
+<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/
+=======
+ * @link		http://codeigniter.com/user_guide/
+>>>>>>> origin/master
  * @link		http://php.net/mbstring
  */
 
@@ -68,7 +83,11 @@ if ( ! function_exists('mb_strlen'))
 	 * @link	http://php.net/mb_strlen
 	 * @param	string	$str
 	 * @param	string	$encoding
+<<<<<<< HEAD
 	 * @return	int
+=======
+	 * @return	string
+>>>>>>> origin/master
 	 */
 	function mb_strlen($str, $encoding = NULL)
 	{
