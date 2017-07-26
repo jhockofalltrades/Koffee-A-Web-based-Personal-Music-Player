@@ -12,3 +12,8 @@
 		<div class="emoji" id="Zoned" data-toggle="tooltip" data-placement="top" title="Zoned">😝</div>
 	</div>
 </div>
+
+<form action="" method="post" id="update-mood">
+	<input type="hidden" id="mood" name="mood" value="">
+
+</form>

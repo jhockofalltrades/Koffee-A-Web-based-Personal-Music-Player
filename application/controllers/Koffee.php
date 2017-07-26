@@ -48,7 +48,7 @@ class Koffee extends CI_Controller {
 	}
 
 	function mood() {
-		
+
 		$this->load->view('templates/header');
 		$this->load->view('mood');
 		$this->load->view('templates/footer');
@@ -113,22 +113,24 @@ class Koffee extends CI_Controller {
 		$songs_added = 0;
 
 		foreach($songs as $song) {
-			/*GET ID3 TAGS*/
-			$metadata = $id3v2->analyze($song->getPathname());
-			getid3_lib::CopyTagsToComments($metadata);
+			if($song->isFile()) {
+				/*GET ID3 TAGS*/
+				$metadata = $id3v2->analyze($song->getPathname());
+				getid3_lib::CopyTagsToComments($metadata);
 
-			$data = [
-				'title'     => isset($metadata['tags_html']['id3v2']['title']) ? $metadata['tags_html']['id3v2']['title'][0] : $song->getBasename('.mp3'),
-				'artist'    => isset($metadata['tags_html']['id3v2']['artist']) ? $metadata['tags_html']['id3v2']['artist'][0] : 'Unknown',
-				'genre'     => isset($metadata['tags_html']['id3v2']['album']) ? $metadata['tags_html']['id3v2']['album'][0] : 'Unknown',
-				'album_art' => isset($metadata['tags_html']['id3v2']['genre']) ? $metadata['tags_html']['id3v2']['genre'][0] : 'Unknown'
-			];
+				$data = [
+					'title'     => isset($metadata['tags_html']['id3v2']['title']) ? $metadata['tags_html']['id3v2']['title'][0] : $song->getBasename('.mp3'),
+					'artist'    => isset($metadata['tags_html']['id3v2']['artist']) ? $metadata['tags_html']['id3v2']['artist'][0] : 'Unknown',
+					'genre'     => isset($metadata['tags_html']['id3v2']['album']) ? $metadata['tags_html']['id3v2']['album'][0] : 'Unknown',
+					'album_art' => isset($metadata['comments']['picture'][0]) ? 'data:'.$metadata['comments']['picture'][0]['image_mime'].';charset=utf-8;base64,'.base64_encode($metadata['comments']['picture'][0]['data']) : 'assets/album-cover.jpg'
+				];
 
-			if($this->playlist->check_existing_song($data['title'], $data['artist'])) {
+				if($this->playlist->check_existing_song($data['title'], $data['artist'])) {
 
-			} else {
-				$this->playlist->add_song($data);
-				$songs_added += 1;
+				} else {
+					$this->playlist->add_song($data);
+					$songs_added += 1;
+				}
 			}
 		}
 
@@ -141,31 +143,63 @@ class Koffee extends CI_Controller {
 		
 	}
 
+	function update_mood() {
+		if($this->session->userdata('user_id') == FALSE ) {
+			redirect('koffee/','refresh');
+		}
+
+		$updated = false;
+		$mood = $this->input->post('mood');
+		$data = [
+			'current_mood' => $mood
+		];
+
+		// Update the current mood
+		$this->session->set_userdata(['current_mood' => $mood]);
+
+		$new_mood = $this->playlist->update_mood($data, $this->session->userdata('user_id'));
+
+		if($new_mood) {
+			$updated = true;
+		}
+
+		echo json_encode(['success' => $updated]);
+		
+	}
+
 	// ====== AJAX Request =========
 	function load_most_played() {
 
 		header('Content-Type: application/json'); 
 
-		$msg = $this->chat_thread->get_msg();
+		$songs = $this->playlist->get_recommendations();
 		
-		$json = json_encode($msg);	
+		$json = json_encode($songs);	
 
 		echo $json;
 	}
 
 	// ======= AJAX Request =========
 	function new_song_count() {
-		$song_id = $this->playlist->get_song_id($this->input->post('title'), $this->input->post('artist'));
+		$success = false;
+
+		$song_id = $this->playlist->get_song_id($this->input->post('cur-title'), $this->input->post('cur-artist'));
 		$user_id = $this->session->userdata('user_id');
-		$mood    = $this->input->post('mood');
+		$mood    = $this->session->userdata('current_mood');
 
 		$data = [
 			'user_id' => $user_id,
-			'song_id' => $user_id,
+			'song_id' => $song_id,
 			'mood' 	  => $mood
 		];
 
-		$this->playlist->add_play_count($data);
+		$new_count = $this->playlist->add_play_count($data);
+
+		if($new_count) {
+			$success = true;
+		}
+
+		echo json_encode(['success' => $success]);
 
 	}
 
@@ -181,7 +215,7 @@ class Koffee extends CI_Controller {
 		if($this->session->userdata('user_id') == FALSE ) {
 			redirect('koffee','refresh');
 		}
-		$newdata = array('user_id' => '');
+		$newdata = ['user_id' => ''];
 		$this->session->unset_userdata($newdata);
 		$this->session->sess_destroy();
 		redirect('/', 'refresh');

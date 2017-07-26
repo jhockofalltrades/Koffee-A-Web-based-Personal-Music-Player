@@ -20,13 +20,23 @@ Class Playlist extends CI_Model {
 		return $song_id->row('song_id');
 	}
 
+	function update_mood($data, $user_id) {
+		$this->db->where('user_id', $user_id);
+		return $this->db->update('user',$data);
+	}
+
 	function add_play_count($data) {
 		return $this->db->insert('interactions', $data);
 	}
 
-	// function get_recommendations() {
+	function get_recommendations() {
+		$this->db->select('songs.song_id, songs.title,songs.album_art, count(interactions.song_id) as play')->from('songs')->order_by('play','desc');
+		$this->db->join('interactions', 'songs.song_id = interactions.song_id');
+		$this->db->group_by('songs.song_id');
+		$songs = $this->db->get();
+		return $songs->result();
 
-	// }
+	}
 
 	// function get_most_played() {
 

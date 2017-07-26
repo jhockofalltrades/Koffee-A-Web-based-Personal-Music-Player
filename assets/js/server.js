@@ -45,7 +45,7 @@ $('#login').on('submit', function(){
 		dataType: 'json',
 		success: function(data) {
 			if(data.user) {
-				window.location.href = 'http://localhost/koffee/koffee/app';
+				window.location.href = 'http://localhost/koffee/koffee/mood';
 			} else {	
 				loginBanner.text('Wrong username or password.');
 			}
@@ -57,8 +57,65 @@ $('#login').on('submit', function(){
 
 
 /*-----------------------------------------
-|			ADD PLAY COUNT
+|			UPDATE MOOD
  -------------------------------------------*/
+
+$('#update-mood').on('submit', function(e){
+	var creds = $(this).serialize();
+
+	$.ajax({
+		type: 'POST',
+		url: 'http://localhost/koffee/koffee/update_mood',
+		data: creds,
+		dataType: 'json',
+		success: function(data){
+			if(data.success) {
+				window.location.href = 'http://localhost/koffee/koffee/app';
+			}
+		}
+	}).fail(function(){
+		alert('Something went wrong.');
+	});
+	e.preventDefault();
+});
+
+
+/*-----------------------------------------
+|			ADD SONG COUNT
+ -------------------------------------------*/
+$('#count-song').on('submit', function(e){
+	var creds = $(this).serialize();
+
+	$.ajax({
+		type: 'POST',
+		url: 'http://localhost/koffee/koffee/new_song_count',
+		data: creds,
+		dataType: 'json',
+		success: function(data) {
+			if(data.success) {
+				alert('added');
+			}
+		}
+	}).fail(function(){
+		alert('Something went wrong');
+	});
+
+	e.preventDefault();
+});
+
+/*------n-----------------------------------
+|			GET MOST PLAYED: TOP 15
+ -------------------------------------------*/
+function getMostPlayed() {
+	$.ajax({
+		type: 'GET',
+		url: ''
+
+	}).fail(function(){
+		alert('Something went wrong.');
+	});
+}
+
 
 
 });
