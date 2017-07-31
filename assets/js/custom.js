@@ -1,20 +1,18 @@
-<<<<<<< HEAD
-	
+
 	
 
 	// ACTIVATE BOOTSTRAP TOOLTIP
 
     $('[data-toggle="tooltip"]').tooltip(); 
-
+    // BIND DYNAMIC ELEMENTS WITH TOOLTIP
+    $('body').tooltip({
+	    selector: '[data-toggle="tooltip"]'
+	});
+	// PRE-HIDE ELEMENTS
 	$('.hidden-playlists').hide();
 	$('#timer').hide();
-=======
-$(document).ready(function() {
+	$('#recommendations-container').hide();
 
-	$('.hidden-playlists').hide();
-	$('#audio')[0].preload = 'auto';
-
->>>>>>> origin/master
 	// COLLECT ALL SONGS
 	var songs = [];
 	var songNames = [];
@@ -24,7 +22,6 @@ $(document).ready(function() {
 		 songs.push(el.getAttribute('href'));
 	});
 
-<<<<<<< HEAD
 	// // GET ALL THE SONG TITLES
 	// Array.from($('a.music-entry')).forEach(function(el, index){
 	// 	 songNames.push(el.textContent);
@@ -55,6 +52,17 @@ $(document).ready(function() {
 		changeBackground: function() {
 			var rgb = getAverageRGB(document.getElementById('album-art'));
 			$('html, body').css({'background':'linear-gradient(to bottom, rgba('+rgb.r+','+rgb.g+','+rgb.b+', 100), #eef2f3)','transition':'all 0.7s ease-in'});
+			// $('body').attr('data-href', $('#album-art').attr('src'));
+			 
+			// setTimeout(function(){
+			// 	 $('body').blurr({
+		 //            height: document.body.scrollHeight, // Height, in pixels of this blurred div.
+		 //            sharpness: 30, // Sharpness, as a number between 0-100. 100 is very sharp, 0 is extremely blurry
+		 //            offsetX: 0, // The x (left - right) offset of the image
+		 //            offsetY: 0, // The y (top - bottom) offset of the image
+		 //            callback: null // Callback to be called after the blur has been rendered. Recieves the following arguments (href, offsetX, offsetY, sharpness)
+		 //        });
+			// 	}, 100);
 		},
 
 		updatePlaying: function(song, artist, album, url) {
@@ -67,6 +75,14 @@ $(document).ready(function() {
 			this.cache.audio.play();
 		
 			$('title').text('Now Playing: ' + song);
+		},
+
+		setDarkModeBgrnd: function() {
+			if(PlayerUI.isDarkMode) {
+				 $('html, body').css({'background':'E0E0E0'});
+			} else {
+				$('html, body').css({'background':'white'});
+			}
 		},
 
 		next: function() {
@@ -125,108 +141,12 @@ $(document).ready(function() {
 	----------------------------------------------------*/
 	$('#next').on('click', function(e){
 		PlayerUI.next();
-=======
-	// GET ALL THE SONG TITLES
-	Array.from($('a.music-entry')).forEach(function(el, index){
-		 songNames.push(el.textContent);
-	});
 
-	/*CHANGE BACKGROUND WHEN FULL-SCREEN*/
-	function changeBackground() {
-		var rgb = getAverageRGB(document.getElementById('album-art'));
-		$('html, body').css({'background':'linear-gradient(to bottom, rgba('+rgb.r+','+rgb.g+','+rgb.b+', 100), #eef2f3)','transition':'all 0.7s ease-in'});
-	}
-	
-
-	// CUR SONG OBJ
-	var CurrentSong = {		
-		songIndex: 0,
-		songName: '',
-		shuffle: false,
-		repeat: false
-	}
-
-	var Player = {
-		isFullScreen: false
-	}
-
-
-	/*UPDATE CURRENTLY PLAYING*/
-	function updatePlaying(song, artist, albumArt, url) {
-		var playingSong = $('#playing');
-		var currentArtist = $('#artist');
-		var currentAlbum = $('#album-art');
-		$('source').attr('src',url);
-		
-
-		currentAlbum.attr('src', albumArt);
-		playingSong.text(song);
-		currentArtist.text(artist);
-
-	
-			$('#audio')[0].load();
-			$('#audio')[0].play();
-	
-		$('title').text('Now Playing: ' + song);
-	};
-
-
-
-	// NEXT
-	$('#next').on('click', function(e){
-		// CHANGE BACKGROUND-COLOR WHEN FULL-SCREEN
-		if(Player.isFullScreen) {
-			setTimeout(changeBackground, 1000);
-		} else {
-			setTimeout(function(){$('html, body').css({'background':'white'})}, 1000);			
-		}
-		// CHECK IF SHUFFLE IS ON
-		if(CurrentSong.shuffle) {
-			CurrentSong.songIndex = Math.floor(Math.random() * songs.length) + 1 ; //random
-		} else {
-			CurrentSong.songIndex += 1;
-		}
-		
-		if(CurrentSong.songIndex  == songs.length) {
-			CurrentSong.songIndex = 0;
-		}
-
-		// UPDATE PLAYING
-		updatePlaying($('a.music-entry:eq('+[CurrentSong.songIndex]+')').parent().next().text(), $('a.music-entry:eq('+[CurrentSong.songIndex]+')').parent().closest('td').siblings(':eq(1)').text(),  $('a.music-entry:eq('+[CurrentSong.songIndex]+')').parent().closest('td').next().find('input').val() , songs[CurrentSong.songIndex]);
-		
-		$('a.music-entry').html('<i class="fa fa-play"></i>');
-		$('a.music-entry:eq('+[CurrentSong.songIndex]+')').html('<i class="fa fa-volume-up"></i>');
-		e.preventDefault();
-	});
-
-	// PREV
-	$('#prev').on('click', function(e){
-
-		// CHANGE BACKGROUND-COLOR WHEN FULL-SCREEN
-		if(Player.isFullScreen) {
-			setTimeout(changeBackground, 1000);
-		} else {
-			setTimeout(function(){$('html, body').css({'background':'white'})}, 1000);			
-		}
-
-		// PREV
-		CurrentSong.songIndex -= 1;
-
-		if(CurrentSong.songIndex  < 0) {
-			CurrentSong.songIndex = songs.length - 1;
-		}
-		
-		updatePlaying($('a.music-entry:eq('+[CurrentSong.songIndex]+')').parent().next().text(), $('a.music-entry:eq('+[CurrentSong.songIndex]+')').parent().closest('td').siblings(':eq(1)').text(),  $('a.music-entry:eq('+[CurrentSong.songIndex]+')').parent().closest('td').next().find('input').val() , songs[CurrentSong.songIndex]);
-		// $('a.music-entry').removeClass('now-playing').html('<i class="fa fa-play"></i>');
-		// $('a.music-entry:eq('+[CurrentSong.songIndex]+')').addClass('now-playing').html('<i class="fa fa-volume-up"></i>');
-		$('a.music-entry').html('<i class="fa fa-play"></i>');
-		$('a.music-entry:eq('+[CurrentSong.songIndex]+')').html('<i class="fa fa-volume-up"></i>');
->>>>>>> origin/master
 
 		e.preventDefault();
 	});
 
-<<<<<<< HEAD
+
 	/*--------------------------------------------------
 	|               PREV
 	----------------------------------------------------*/
@@ -258,30 +178,12 @@ $(document).ready(function() {
 		setTimeout(function(){
 			$('#count-song').trigger('submit');
 		}, 1000);
-=======
 
-	
-	// RANDOM CLICK
-	$('a.music-entry').on('click', function(e){	
-
-		 updatePlaying( $(this).closest('td').next().text() , $(this).closest('td').siblings(':eq(1)').text(), $(this).closest('td').next().find('input').val() , $(this).attr('href') );
-
-		 CurrentSong.songIndex = songs.indexOf($(this).attr('href'));
-		 CurrentSong.songName = $(this).text();
-
-	
-
-		// change play icon
-		$('a.music-entry').html('<i class="fa fa-play"></i>');
-		$(this).html('<i class="fa fa-volume-up"></i>');
-
-	
->>>>>>> origin/master
 		e.preventDefault();
 	});
 
 	
-<<<<<<< HEAD
+
 	/*--------------------------------------------------
 	|               AUDIO EVENTS
 	----------------------------------------------------*/
@@ -313,62 +215,32 @@ $(document).ready(function() {
 	var zoomHandler;
 	$('#zoom').click(function(){
 		PlayerUI.isFullScreen = false;
-=======
-	// AFTER CURRENT SONG IS ENDED
-	$('#audio')[0].onended = function() {
-		
-		if(CurrentSong.shuffle) {
-			CurrentSong.songIndex = Math.floor(Math.random() * songs.length) + 1 ; //random
-		
-		} else {
-			CurrentSong.songIndex += 1;
-		}
-		
-		if(CurrentSong.songIndex  == songs.length) {
-			CurrentSong.songIndex = 0;
-		}
 
-		updatePlaying($('a.music-entry:eq('+[CurrentSong.songIndex]+')').closest('td').next().text() , $('a.music-entry:eq('+[CurrentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('a.music-entry:eq('+[CurrentSong.songIndex]+')').closest('td').next().find('input').val() , $('a.music-entry:eq('+[CurrentSong.songIndex]+')').attr('href') );
-		$('a.music-entry').removeClass('now-playing');
-		$('a.music-entry:eq('+[CurrentSong.songIndex]+')').addClass('now-playing');
-	};
-
-	// ZOOM
-	var zoomHandler;
-	$('#zoom').click(function(){
-		Player.isFullScreen = false;
->>>>>>> origin/master
 
 		$('#player').toggleClass('zoom-player');
 		$('#album-art').toggleClass('album-art-zoom');
 		$('#zoom').toggleClass('control-activate');
 		$('#side').toggleClass('zoom-side');
 		if(zoomHandler) {
+		
 			zoomHandler = $('nav').show();
 			zoomHandler = $('#track-lists').show();
 			zoomHandler = $('#full-screen-player').removeClass('full-screen-activate');
-			zoomHandler = $('html, body').css({'background':'white'});
+			zoomHandler = PlayerUI.setDarkModeBgrnd();
 			zoomHandler = null;
+
+			
 		} else {
-<<<<<<< HEAD
+
 			PlayerUI.isFullScreen = true;
 			// CHANGE BACKGROUND-COLOR WHEN FULL-SCREEN
 			if(PlayerUI.isFullScreen) {
 				setTimeout(PlayerUI.changeBackground, 1000);
-=======
-			Player.isFullScreen = true;
-			// CHANGE BACKGROUND-COLOR WHEN FULL-SCREEN
-			if(Player.isFullScreen) {
-				setTimeout(changeBackground, 1000);
->>>>>>> origin/master
+
 			} else {
 				setTimeout(function(){$('html, body').css({'background':'white'})}, 1000);			
 			}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 			zoomHandler = $('nav').hide();
 			zoomHandler = $('#track-lists').hide();
 			zoomHandler = $('html, body').addClass('full-screen-color');
@@ -377,18 +249,16 @@ $(document).ready(function() {
 	});
 
 
-<<<<<<< HEAD
+
 	/* REPEAT */
-=======
-	// REPEAT
->>>>>>> origin/master
+
 	var repeatHandler;
 	$('#repeat').click(function(){
 		
 		$(this).toggleClass('control-activate');
 
 		if(repeatHandler) {
-<<<<<<< HEAD
+
 			PlayerUI.currentSong.repeat = false;
 			repeatHandler = PlayerUI.currentSong.repeat;
 			repeatHandler = null;
@@ -402,61 +272,39 @@ $(document).ready(function() {
 	});
 
 	/* SHUFFLE */
-=======
-			CurrentSong.repeat = false;
-			repeatHandler = CurrentSong.repeat;
-			repeatHandler = null;
-		} else {
-			CurrentSong.repeat = true;
-			repeatHandler = CurrentSong.repeat;
-		}
 
-
-		$('audio')[0].loop = CurrentSong.repeat;
-	});
-
-	// SHUFFLE
->>>>>>> origin/master
 	var shuffleHandler;
 	$('#shuffle').click(function(){
 
 		$(this).toggleClass('control-activate');
 
 		if(shuffleHandler) {
-<<<<<<< HEAD
+
 			PlayerUI.currentSong.shuffle = false;
 			shuffleHandler = PlayerUI.currentSong.shuffle;
 			shuffleHandler = null;
 		} else {
 			PlayerUI.currentSong.shuffle = true;
 			shuffleHandler = PlayerUI.currentSong.shuffle;
-=======
-			CurrentSong.shuffle = false;
-			shuffleHandler = CurrentSong.shuffle;
-			shuffleHandler = null;
-		} else {
-			CurrentSong.shuffle = true;
-			shuffleHandler = CurrentSong.shuffle;
->>>>>>> origin/master
+
 		}
 
 
 	});
 
-<<<<<<< HEAD
+
 	/* DARK MODE */
-=======
-	// DARK MODE 
->>>>>>> origin/master
+
 	var darkModeHandler;
 	$('#dark-mode').click(function(){
 		$(this).toggleClass('control-activate');
 
 		if(darkModeHandler) {
-<<<<<<< HEAD
+			PlayerUI.isDarkMode = false;
 			darkModeHandler = $('html, body').css({'background-color':'white'});
 			darkModeHandler = null;
 		} else {
+			PlayerUI.isDarkMode = true;
 			darkModeHandler = $('html, body').css({'background-color':'#E0E0E0'});
 		}
 	});
@@ -467,16 +315,7 @@ $(document).ready(function() {
 	/*--------------------------------------------------
 	|               PLAYLIST CLICK
 	----------------------------------------------------*/
-=======
-			darkModeHandler = $('html, body').css({'background-color':'white','color':'black'});
-			darkModeHandler = null;
-		} else {
-			darkModeHandler = $('html, body').css({'background-color':'#424242','color':'white'});
-		}
-	});
 
-	// View songs under n playlist
->>>>>>> origin/master
 	$('.folder-playlist').on('click', function(e){
 		$('#playlist-title').html('<span id="selected-playlist">'+ $(this).text() +'</span>');
 		$('.folder-playlist').removeClass('current-playlist');
@@ -485,18 +324,12 @@ $(document).ready(function() {
 		$(this).addClass('current-playlist');
 	
 		$('.folder-playlist').animate({'font-size':'14px'});
-<<<<<<< HEAD
-=======
-
 		
-		/*
-		
-		 */
->>>>>>> origin/master
 		
 		// hide other playlists
 		$('.hidden-playlists').hide();
 		$('#all-songs').hide();
+		$('#empty-placeholder').hide();
 		// show its playlist
 		$('#'+$(this).attr('href')+'').show();
 		e.preventDefault();
@@ -505,20 +338,6 @@ $(document).ready(function() {
 	});
 
 
-<<<<<<< HEAD
-
-=======
-	// View all songs available
-	$('#all-songs-trigger').on('click', function(e){
-		$('.hidden-playlists').hide();
-		$('#all-songs').show();
-		e.preventDefault();
-	});
-
-	// ACTIVATE BOOTSTRAP TOOLTIP
-
-    $('[data-toggle="tooltip"]').tooltip(); 
->>>>>>> origin/master
 
 
     // SCROLL
@@ -554,6 +373,16 @@ $(document).ready(function() {
    		togglePlay();
    });
 
-  
+
+   /*--------------------------------------------------
+	|               RECOMMENDATION
+	----------------------------------------------------*/
+	$('#recommendations').click(function(){
+		$('#recommendations-container').css({'width':'100%'}).fadeIn();
+	});
+  	
+  	$('#close-recommendations').click(function(){
+  		$('#recommendations-container').fadeOut();
+  	});
 
 });

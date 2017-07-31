@@ -6,11 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
-<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
-=======
- * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
->>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,17 +28,10 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
-<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
-=======
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
- * @license	http://opensource.org/licenses/MIT	MIT License
- * @link	http://codeigniter.com
->>>>>>> origin/master
  * @since	Version 3.0.0
  * @filesource
  */
@@ -55,21 +44,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	CodeIgniter
  * @category	Compatibility
  * @author		Andrey Andreev
-<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/
-=======
- * @link		http://codeigniter.com/user_guide/
->>>>>>> origin/master
  * @link		http://php.net/password
  */
 
 // ------------------------------------------------------------------------
 
-<<<<<<< HEAD
 if (is_php('5.5') OR ! defined('CRYPT_BLOWFISH') OR CRYPT_BLOWFISH !== 1 OR defined('HHVM_VERSION'))
-=======
-if (is_php('5.5') OR ! is_php('5.3.7') OR ! defined('CRYPT_BLOWFISH') OR CRYPT_BLOWFISH !== 1 OR defined('HHVM_VERSION'))
->>>>>>> origin/master
 {
 	return;
 }
@@ -113,13 +94,8 @@ if ( ! function_exists('password_hash'))
 	 */
 	function password_hash($password, $algo, array $options = array())
 	{
-<<<<<<< HEAD
 		static $func_overload;
 		isset($func_overload) OR $func_overload = (extension_loaded('mbstring') && ini_get('mbstring.func_overload'));
-=======
-		static $func_override;
-		isset($func_override) OR $func_override = (extension_loaded('mbstring') && ini_get('mbstring.func_override'));
->>>>>>> origin/master
 
 		if ($algo !== 1)
 		{
@@ -133,18 +109,13 @@ if ( ! function_exists('password_hash'))
 			return NULL;
 		}
 
-<<<<<<< HEAD
 		if (isset($options['salt']) && ($saltlen = ($func_overload ? mb_strlen($options['salt'], '8bit') : strlen($options['salt']))) < 22)
-=======
-		if (isset($options['salt']) && ($saltlen = ($func_override ? mb_strlen($options['salt'], '8bit') : strlen($options['salt']))) < 22)
->>>>>>> origin/master
 		{
 			trigger_error('password_hash(): Provided salt is too short: '.$saltlen.' expecting 22', E_USER_WARNING);
 			return NULL;
 		}
 		elseif ( ! isset($options['salt']))
 		{
-<<<<<<< HEAD
 			if (function_exists('random_bytes'))
 			{
 				try
@@ -160,15 +131,6 @@ if ( ! function_exists('password_hash'))
 			elseif (defined('MCRYPT_DEV_URANDOM'))
 			{
 				$options['salt'] = mcrypt_create_iv(16, MCRYPT_DEV_URANDOM);
-=======
-			if (defined('MCRYPT_DEV_URANDOM'))
-			{
-				$options['salt'] = mcrypt_create_iv(16, MCRYPT_DEV_URANDOM);
-			}
-			elseif (function_exists('openssl_random_pseudo_bytes'))
-			{
-				$options['salt'] = openssl_random_pseudo_bytes(16);
->>>>>>> origin/master
 			}
 			elseif (DIRECTORY_SEPARATOR === '/' && (is_readable($dev = '/dev/arandom') OR is_readable($dev = '/dev/urandom')))
 			{
@@ -182,11 +144,7 @@ if ( ! function_exists('password_hash'))
 				is_php('5.4') && stream_set_chunk_size($fp, 16);
 
 				$options['salt'] = '';
-<<<<<<< HEAD
 				for ($read = 0; $read < 16; $read = ($func_overload) ? mb_strlen($options['salt'], '8bit') : strlen($options['salt']))
-=======
-				for ($read = 0; $read < 16; $read = ($func_override) ? mb_strlen($options['salt'], '8bit') : strlen($options['salt']))
->>>>>>> origin/master
 				{
 					if (($read = fread($fp, 16 - $read)) === FALSE)
 					{
@@ -198,7 +156,6 @@ if ( ! function_exists('password_hash'))
 
 				fclose($fp);
 			}
-<<<<<<< HEAD
 			elseif (function_exists('openssl_random_pseudo_bytes'))
 			{
 				$is_secure = NULL;
@@ -209,8 +166,6 @@ if ( ! function_exists('password_hash'))
 					return FALSE;
 				}
 			}
-=======
->>>>>>> origin/master
 			else
 			{
 				log_message('error', 'compat/password: No CSPRNG available.');

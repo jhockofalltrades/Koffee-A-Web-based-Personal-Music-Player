@@ -6,11 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
-<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
-=======
- * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
->>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,17 +28,10 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
-<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
-=======
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
- * @license	http://opensource.org/licenses/MIT	MIT License
- * @link	http://codeigniter.com
->>>>>>> origin/master
  * @since	Version 3.0.0
  * @filesource
  */
@@ -107,15 +96,9 @@ class CI_Migration {
 	/**
 	 * Migration basename regex
 	 *
-<<<<<<< HEAD
 	 * @var string
 	 */
 	protected $_migration_regex;
-=======
-	 * @var bool
-	 */
-	protected $_migration_regex = NULL;
->>>>>>> origin/master
 
 	/**
 	 * Error message
@@ -234,7 +217,6 @@ class CI_Migration {
 
 		if ($target_version > $current_version)
 		{
-<<<<<<< HEAD
 			$method = 'up';
 		}
 		elseif ($target_version < $current_version)
@@ -295,33 +277,6 @@ class CI_Migration {
 				}
 
 				$previous = $number;
-=======
-			// Moving Up
-			$method = 'up';
-		}
-		else
-		{
-			// Moving Down, apply in reverse order
-			$method = 'down';
-			krsort($migrations);
-		}
-
-		if (empty($migrations))
-		{
-			return TRUE;
-		}
-
-		$previous = FALSE;
-
-		// Validate all available migrations, and run the ones within our target range
-		foreach ($migrations as $number => $file)
-		{
-			// Check for sequence gaps
-			if ($this->_migration_type === 'sequential' && $previous !== FALSE && abs($number - $previous) > 1)
-			{
-				$this->_error_string = sprintf($this->lang->line('migration_sequence_gap'), $number);
-				return FALSE;
->>>>>>> origin/master
 			}
 
 			include_once($file);
@@ -333,7 +288,6 @@ class CI_Migration {
 				$this->_error_string = sprintf($this->lang->line('migration_class_doesnt_exist'), $class);
 				return FALSE;
 			}
-<<<<<<< HEAD
 			elseif ( ! is_callable(array($class, $method)))
 			{
 				$this->_error_string = sprintf($this->lang->line('migration_missing_'.$method.'_method'), $class);
@@ -352,29 +306,6 @@ class CI_Migration {
 			call_user_func($migration);
 			$current_version = $number;
 			$this->_update_version($current_version);
-=======
-
-			$previous = $number;
-
-			// Run migrations that are inside the target range
-			if (
-				($method === 'up'   && $number > $current_version && $number <= $target_version) OR
-				($method === 'down' && $number <= $current_version && $number > $target_version)
-			)
-			{
-				$instance = new $class();
-				if ( ! is_callable(array($instance, $method)))
-				{
-					$this->_error_string = sprintf($this->lang->line('migration_missing_'.$method.'_method'), $class);
-					return FALSE;
-				}
-
-				log_message('debug', 'Migrating '.$method.' from version '.$current_version.' to version '.$number);
-				call_user_func(array($instance, $method));
-				$current_version = $number;
-				$this->_update_version($current_version);
-			}
->>>>>>> origin/master
 		}
 
 		// This is necessary when moving down, since the the last migration applied
@@ -386,10 +317,6 @@ class CI_Migration {
 		}
 
 		log_message('debug', 'Finished migrating to '.$current_version);
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 		return $current_version;
 	}
 

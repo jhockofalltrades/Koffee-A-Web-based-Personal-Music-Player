@@ -6,11 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
-<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
-=======
- * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
->>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,17 +28,10 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
-<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
-=======
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
- * @license	http://opensource.org/licenses/MIT	MIT License
- * @link	http://codeigniter.com
->>>>>>> origin/master
  * @since	Version 1.0.0
  * @filesource
  */
@@ -55,11 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Helpers
  * @category	Helpers
  * @author		EllisLab Dev Team
-<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/helpers/string_helper.html
-=======
- * @link		http://codeigniter.com/user_guide/helpers/string_helper.html
->>>>>>> origin/master
  */
 
 // ------------------------------------------------------------------------
@@ -210,13 +195,7 @@ if ( ! function_exists('reduce_multiples'))
 if ( ! function_exists('random_string'))
 {
 	/**
-<<<<<<< HEAD
 	 * Create a "Random" String
-=======
-	 * Create a Random String
-	 *
-	 * Useful for generating passwords or hashes.
->>>>>>> origin/master
 	 *
 	 * @param	string	type of random string.  basic, alpha, alnum, numeric, nozero, unique, md5, encrypt and sha1
 	 * @param	int	number of characters
@@ -289,11 +268,7 @@ if ( ! function_exists('alternator'))
 	 * @param	string (as many parameters as needed)
 	 * @return	string
 	 */
-<<<<<<< HEAD
 	function alternator()
-=======
-	function alternator($args)
->>>>>>> origin/master
 	{
 		static $i;
 
@@ -302,10 +277,7 @@ if ( ! function_exists('alternator'))
 			$i = 0;
 			return '';
 		}
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
 		$args = func_get_args();
 		return $args[($i++ % count($args))];
 	}

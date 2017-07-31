@@ -6,11 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
-<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
-=======
- * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
->>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,17 +28,10 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
-<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
-=======
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
- * @license	http://opensource.org/licenses/MIT	MIT License
- * @link	http://codeigniter.com
->>>>>>> origin/master
  * @since	Version 2.0
  * @filesource
  */
@@ -131,11 +120,7 @@ class CI_Cache_file extends CI_Driver {
 	 */
 	public function delete($id)
 	{
-<<<<<<< HEAD
 		return is_file($this->_cache_path.$id) ? unlink($this->_cache_path.$id) : FALSE;
-=======
-		return file_exists($this->_cache_path.$id) ? unlink($this->_cache_path.$id) : FALSE;
->>>>>>> origin/master
 	}
 
 	// ------------------------------------------------------------------------
@@ -231,11 +216,7 @@ class CI_Cache_file extends CI_Driver {
 	 */
 	public function get_metadata($id)
 	{
-<<<<<<< HEAD
 		if ( ! is_file($this->_cache_path.$id))
-=======
-		if ( ! file_exists($this->_cache_path.$id))
->>>>>>> origin/master
 		{
 			return FALSE;
 		}
@@ -246,21 +227,13 @@ class CI_Cache_file extends CI_Driver {
 		{
 			$mtime = filemtime($this->_cache_path.$id);
 
-<<<<<<< HEAD
 			if ( ! isset($data['ttl'], $data['time']))
-=======
-			if ( ! isset($data['ttl']))
->>>>>>> origin/master
 			{
 				return FALSE;
 			}
 
 			return array(
-<<<<<<< HEAD
 				'expire' => $data['time'] + $data['ttl'],
-=======
-				'expire' => $mtime + $data['ttl'],
->>>>>>> origin/master
 				'mtime'	 => $mtime
 			);
 		}
@@ -294,11 +267,7 @@ class CI_Cache_file extends CI_Driver {
 	 */
 	protected function _get($id)
 	{
-<<<<<<< HEAD
 		if ( ! is_file($this->_cache_path.$id))
-=======
-		if ( ! file_exists($this->_cache_path.$id))
->>>>>>> origin/master
 		{
 			return FALSE;
 		}

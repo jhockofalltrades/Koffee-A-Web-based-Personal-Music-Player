@@ -1,5 +1,38 @@
+/* FONTS */
+
+@font-face {
+    font-family: defaultFont;
+     src: url(fonts/Pontano_Sans/PontanoSans-Regular.ttf);
+}
+
+@font-face {
+    font-family: boldFont;
+    src: url(fonts/Lilita_One/LilitaOne-Regular.ttf);
+}
+
+@font-face {
+    font-family: lightFont;
+    src: url(fonts/Roboto/Roboto-Thin.ttf);
+}
+
+.light-font {
+	font-family: lightFont;
+}
+
+.bold-Font {
+	font-family: boldFont;	
+}
+
+.lg-font {
+	font-size: 4em;
+}
+
+
+
+/* end */
+
 html, body {
-	font-family: 'Pontano Sans', sans-serif;
+	font-family: defaultFont, sans-serif;
 }
 
 .folder {
@@ -87,23 +120,18 @@ audio::-webkit-media-controls-panel {
 	transition: background-color 0.3s ease-in-out;
 }
 .now-playing {
-<<<<<<< HEAD
+
 	border: 1px solid #FFAB00 !important;
 	background-color: #FFAB00 !important;
-=======
-	border: 1px solid #FF1744 !important;
-	background-color: #FF1744 !important;
->>>>>>> origin/master
+
 	color: white !important;
 
 }
 
 #selected-playlist {
-<<<<<<< HEAD
+
 	background-color: #FFAB00;
-=======
-	background-color: #FF1744;
->>>>>>> origin/master
+
 	color: white;
 	padding: 0px 10px;
 	border-radius: 3px;
@@ -116,17 +144,12 @@ audio::-webkit-media-controls-panel {
 }
 
 .current-playlist {
-<<<<<<< HEAD
+
 	border-left: 3px solid #FFAB00;
-=======
-	border-left: 3px solid #FF1744;
->>>>>>> origin/master
+
 	text-decoration: none !important;
 }
 
-.title {
-	font-family: 'Lilita One', cursive;
-}
 
 /* CUSTOMIZE DROPDOWN */
 .menu {
@@ -160,7 +183,7 @@ audio::-webkit-media-controls-panel {
 /* CONTROL WIDGET */
 
 #shuffle {
-	border: 1px solid black;
+	border: 1px solid #ccc;
 	padding-top: 6px;
 	padding-bottom: 2px;
 	padding-right: 7px;
@@ -169,7 +192,7 @@ audio::-webkit-media-controls-panel {
 }
 
 #repeat {
-	border: 1px solid black;
+	border: 1px solid #ccc;
 	padding-top: 6px;
 	padding-bottom: 4px;
 	padding-right: 7px;
@@ -178,7 +201,7 @@ audio::-webkit-media-controls-panel {
 }
 
 #coffee {
-	border: 1px solid black;
+	border: 1px solid #ccc;
 	padding-top: 6px;
 	padding-bottom: 4px;
 	padding-right: 8px;
@@ -186,63 +209,42 @@ audio::-webkit-media-controls-panel {
 	border-radius: 50%;
 }
 
-<<<<<<< HEAD
+
 #clock {
-	border: 1px solid black;
+	border: 1px solid #ccc;
 	padding-top: 6px;
 	padding-bottom: 5px;
 	padding-right: 9px;
 	padding-left: 9px;
-=======
-#heart {
-	border: 1px solid black;
-	padding-top: 6px;
-	padding-bottom: 4px;
-	padding-right: 8px;
-	padding-left: 8px;
->>>>>>> origin/master
+
 	border-radius: 50%;
 }
 
 #zoom {
 	padding: 6px 10px;
-	border: 1px dashed black;
+	border: 1px dashed #ccc;
 	border-radius: 50%;
 	cursor: pointer;
 }
 
 #dark-mode {
 	padding: 6px 10px;
-	border: 1px dashed black;
+	border: 1px dashed #ccc;
 	border-radius: 50%;
 	cursor: pointer;
 }
 
 .control-widget:hover {
-<<<<<<< HEAD
 	background-color: #424242;
 	color: white;
 	border: 1px solid #424242 !important;
-=======
-	background-color: #42A5F5;
-	color: white;
-	border: 1px solid #42A5F5 !important;
->>>>>>> origin/master
 	transition: all 0.5s ease-in-out;
 }
 
 /* TOGGLE CLASS */
 .control-activate {
-<<<<<<< HEAD
-	border: 1px solid #424242;
+	border: 1px solid #424242 !important;
 	background-color: #424242;
-=======
-	border-right: 1px solid #42A5F5 !important;
-	border-left: 1px solid #42A5F5 !important;
-	border-top: 1px solid #90CAF9 !important;
-	border-bottom: 1px solid #1E88E5 !important;
-	background-color: #42A5F5;
->>>>>>> origin/master
 	color: white;
 }
 
@@ -271,11 +273,9 @@ audio::-webkit-media-controls-panel {
 
 
 /* NAVBAR */
-<<<<<<< HEAD
+
 .navbar-default .navbar-nav > li > a {
-=======
-/*.navbar-default .navbar-nav > li > a {
->>>>>>> origin/master
+
     color: white !important;
 }
 .navbar-default .navbar-nav > li > a:hover,
@@ -294,33 +294,26 @@ audio::-webkit-media-controls-panel {
     color: #555;
     background-color: #D5D5D5;
 }
-<<<<<<< HEAD
+
 
 /*input[type="text"] {
-=======
-*/
-input[type="text"] {
->>>>>>> origin/master
+
 	outline: none !important;
 	border-radius: 40px !important;
 }
 
 input[type="text"]:focus {
 	box-shadow: none !important;
-<<<<<<< HEAD
+
 }*/
-=======
-}
->>>>>>> origin/master
+
 
 
 /* SCROLL */
 #pauseBtn{
-<<<<<<< HEAD
+
 	background-color: #FFAB00;	
-=======
-	background-color: #FF1744;
->>>>>>> origin/master
+
 	border: none;
 	padding: 8px 30px;
 	outline: none;
@@ -331,7 +324,7 @@ input[type="text"]:focus {
 
 #track-header {
 	display: flex;
-<<<<<<< HEAD
+
 	justify-content: space-between;	
 	align-items: center;
 }
@@ -379,11 +372,50 @@ input[type="text"]:focus {
 	width: 35px;
 	margin-right: 20px;
 	border: 2px solid white;
+	cursor: pointer;
 }
 
-=======
-	justify-content: space-between;
-	align-items: center;
+/* The Overlay (background) */
+.overlay {
+    /* Height & width depends on how you want to reveal the overlay (see JS below) */    
+    height: 100%;
+    width: 100%;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    background-color: rgb(0,0,0); /* Black fallback color */
+    background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
+    overflow-x: hidden; /* Disable horizontal scroll */
+	color: white;
 }
 
->>>>>>> origin/master
+#close-recommendations {
+	cursor: pointer;
+	font-size: 2em;
+	margin-top: 20px;
+	margin-right: 13pxs;
+}
+
+.recommended-entry {
+	height: 200px;
+	width: auto;
+	cursor: pointer;
+} 
+
+.recommended-thumb {
+	padding: 25px 20px;
+}
+
+.artist-block {
+	font-size: 10px;
+	line-height: 10%;
+}
+
+#empty-placeholder {
+	text-align: center;
+	padding: 3em;
+	background-color: #f1f1f1;
+	margin-bottom: 2em;
+	border: 2px dashed rgba(51, 51, 51, 0.64);
+}

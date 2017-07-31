@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 Class Playlist extends CI_Model {
 
-<<<<<<< HEAD
+
 	function add_song($data) {
 		return $this->db->insert('songs', $data);
 	}
@@ -30,7 +30,8 @@ Class Playlist extends CI_Model {
 		return $this->db->insert('interactions', $data);
 	}
 
-	function get_recommendations() {
+	/*  GET TOP 15 MOST PLAYED SONGS  */
+	function get_most_played() {
 		$this->db->select('songs.song_id, songs.title,songs.album_art, count(interactions.song_id) as play')->from('songs')->order_by('play','desc');
 		$this->db->join('interactions', 'songs.song_id = interactions.song_id');
 		$this->db->group_by('songs.song_id');
@@ -39,21 +40,57 @@ Class Playlist extends CI_Model {
 
 	}
 
-	// function get_most_played() {
+	/*  GET RECOMMENDATIONS - where current hour is <= n && >= m && d <> current day (n and m is span of time i.e. 13-15 Military time: d = day formatted) 
+		
+		RECOMMENDATIONS WILL BE RETRIEVED BY FILTERING:
+		1. Time the user listened to x music.
+		2. Current mood.
+		3. Combine the two (above) and retrieve all of it except songs you listen on the current day.
 
-	// }
-=======
-	function loadPlaylists($folder) {
+		CATEGORIZATION OF TIME (Military Time):
+		23-02 - Midnight
+		03-04 - Early Morning
+		05-09 - Morning
+		10-12 - Noon
+		13-17 - Afternoon
+		18-22 - Night 
+	*/
+	function get_recommendations($cur_hour, $cur_day, $mood) {
+
 		
-		
-		return $songs;
+		switch ($cur_hour) {
+			case $cur_hour >= 1 && $cur_hour <= 3:
+				$where = "DATE_FORMAT(interactions.date_listened, '%H') BETWEEN 01 AND 03 AND DATE_FORMAT(interactions.date_listened, '%d') <> '$cur_day' AND interactions.mood = '$mood'";
+				break;
+			case $cur_hour >= 4 && $cur_hour <= 6:
+				$where = "DATE_FORMAT(interactions.date_listened, '%H') BETWEEN 04 AND 06 AND DATE_FORMAT(interactions.date_listened, '%d') <> '$cur_day' AND interactions.mood = '$mood'";
+				break;
+			case $cur_hour >= 07 && $cur_hour <= 11:
+				$where = "DATE_FORMAT(interactions.date_listened, '%H') BETWEEN 07 AND 11 AND DATE_FORMAT(interactions.date_listened, '%d') <> '$cur_day' AND interactions.mood = '$mood'";
+				break;
+			case $cur_hour >= 12 && $cur_hour <= 13:
+				$where = "DATE_FORMAT(interactions.date_listened, '%H') BETWEEN 12 AND 13 AND DATE_FORMAT(interactions.date_listened, '%d') <> '$cur_day' AND interactions.mood = '$mood'";
+				break;
+			case $cur_hour >= 14 && $cur_hour <= 17:
+				$where = "DATE_FORMAT(interactions.date_listened, '%H') BETWEEN 14 AND 17 AND DATE_FORMAT(interactions.date_listened, '%d') <> '$cur_day' AND interactions.mood = '$mood'";
+				break;
+			case $cur_hour >= 18 && $cur_hour <= 23:
+				$where = "DATE_FORMAT(interactions.date_listened, '%H') BETWEEN 18 AND 23 AND DATE_FORMAT(interactions.date_listened, '%d') <> '$cur_day' AND interactions.mood = '$mood'";
+				break;
+			default:
+				# code...
+				break;
+		}
+
+		$this->db->select('songs.song_id, songs.title, songs.artist, songs.album_art, count(interactions.song_id) as play_count')->from('songs');
+		$this->db->join('interactions', 'songs.song_id = interactions.song_id');
+		$this->db->where($where);
+		$this->db->group_by('songs.song_id');
+		$recommended_songs = $this->db->get();
+		return $recommended_songs->result();
+		echo $this->db->last_query();
 	}
 
-	function limitString($string) {
-		return strlen($string) > 25 ? substr($string,0,25)."..." : $string;
-	}
-
->>>>>>> origin/master
 	
 
 }

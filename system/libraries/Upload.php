@@ -6,11 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
-<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
-=======
- * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
->>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,17 +28,10 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
-<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
-=======
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
- * @license	http://opensource.org/licenses/MIT	MIT License
- * @link	http://codeigniter.com
->>>>>>> origin/master
  * @since	Version 1.0.0
  * @filesource
  */
@@ -55,11 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Libraries
  * @category	Uploads
  * @author		EllisLab Dev Team
-<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/libraries/file_uploading.html
-=======
- * @link		http://codeigniter.com/user_guide/libraries/file_uploading.html
->>>>>>> origin/master
  */
 class CI_Upload {
 
@@ -301,11 +286,7 @@ class CI_Upload {
 	/**
 	 * Constructor
 	 *
-<<<<<<< HEAD
 	 * @param	array	$config
-=======
-	 * @param	array	$props
->>>>>>> origin/master
 	 * @return	void
 	 */
 	public function __construct($config = array())
@@ -545,15 +526,12 @@ class CI_Upload {
 			$this->file_name = preg_replace('/\s+/', '_', $this->file_name);
 		}
 
-<<<<<<< HEAD
 		if ($this->file_ext_tolower && ($ext_length = strlen($this->file_ext)))
 		{
 			// file_ext was previously lower-cased by a get_extension() call
 			$this->file_name = substr($this->file_name, 0, -$ext_length).$this->file_ext;
 		}
 
-=======
->>>>>>> origin/master
 		/*
 		 * Validate the file name
 		 * This function appends an number onto the end of
@@ -623,11 +601,7 @@ class CI_Upload {
 				'file_type'		=> $this->file_type,
 				'file_path'		=> $this->upload_path,
 				'full_path'		=> $this->upload_path.$this->file_name,
-<<<<<<< HEAD
 				'raw_name'		=> substr($this->file_name, 0, -strlen($this->file_ext)),
-=======
-				'raw_name'		=> str_replace($this->file_ext, '', $this->file_name),
->>>>>>> origin/master
 				'orig_name'		=> $this->orig_name,
 				'client_name'		=> $this->client_name,
 				'file_ext'		=> $this->file_ext,
@@ -1109,7 +1083,6 @@ class CI_Upload {
 			return FALSE;
 		}
 
-<<<<<<< HEAD
 		if (memory_get_usage() && ($memory_limit = ini_get('memory_limit')) > 0)
 		{
 			$memory_limit = str_split($memory_limit, strspn($memory_limit, '1234567890'));
@@ -1131,18 +1104,6 @@ class CI_Upload {
 			}
 
 			$memory_limit = (int) ceil(filesize($file) + $memory_limit[0]);
-=======
-		if (memory_get_usage() && ($memory_limit = ini_get('memory_limit')))
-		{
-			$memory_limit *= 1024 * 1024;
-
-			// There was a bug/behavioural change in PHP 5.2, where numbers over one million get output
-			// into scientific notation. number_format() ensures this number is an integer
-			// http://bugs.php.net/bug.php?id=43053
-
-			$memory_limit = number_format(ceil(filesize($file) + $memory_limit), 0, '.', '');
-
->>>>>>> origin/master
 			ini_set('memory_limit', $memory_limit); // When an integer is used, the value is measured in bytes. - PHP.net
 		}
 
@@ -1257,7 +1218,6 @@ class CI_Upload {
 		// We'll need this to validate the MIME info string (e.g. text/plain; charset=us-ascii)
 		$regexp = '/^([a-z\-]+\/[a-z0-9\-\.\+]+)(;\s.+)?$/';
 
-<<<<<<< HEAD
 		/**
 		 * Fileinfo extension - most reliable method
 		 *
@@ -1265,12 +1225,6 @@ class CI_Upload {
 		 * other PHP distribution channels EXPLICITLY DISABLE
 		 * ext/fileinfo, which is otherwise enabled by default
 		 * since PHP 5.3 ...
-=======
-		/* Fileinfo extension - most reliable method
-		 *
-		 * Unfortunately, prior to PHP 5.3 - it's only available as a PECL extension and the
-		 * more convenient FILEINFO_MIME_TYPE flag doesn't exist.
->>>>>>> origin/master
 		 */
 		if (function_exists('finfo_file'))
 		{

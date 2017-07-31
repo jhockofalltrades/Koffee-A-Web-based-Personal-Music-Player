@@ -6,11 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
-<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
-=======
- * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
->>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,17 +28,10 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
-<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
-=======
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
- * @license	http://opensource.org/licenses/MIT	MIT License
- * @link	http://codeigniter.com
->>>>>>> origin/master
  * @since	Version 1.0.0
  * @filesource
  */
@@ -57,11 +46,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Libraries
  * @category	Loader
  * @author		EllisLab Dev Team
-<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/libraries/loader.html
-=======
- * @link		http://codeigniter.com/user_guide/libraries/loader.html
->>>>>>> origin/master
  */
 class CI_Loader {
 
@@ -300,7 +285,6 @@ class CI_Loader {
 			$this->database($db_conn, FALSE, TRUE);
 		}
 
-<<<<<<< HEAD
 		// Note: All of the code under this condition used to be just:
 		//
 		//       load_class('Model', 'core');
@@ -338,15 +322,6 @@ class CI_Loader {
 
 		$model = ucfirst($model);
 		if ( ! class_exists($model, FALSE))
-=======
-		if ( ! class_exists('CI_Model', FALSE))
-		{
-			load_class('Model', 'core');
-		}
-
-		$model = ucfirst(strtolower($model));
-		if ( ! class_exists($model))
->>>>>>> origin/master
 		{
 			foreach ($this->_ci_model_paths as $mod_path)
 			{
@@ -511,11 +486,7 @@ class CI_Loader {
 	 */
 	public function view($view, $vars = array(), $return = FALSE)
 	{
-<<<<<<< HEAD
 		return $this->_ci_load(array('_ci_view' => $view, '_ci_vars' => $this->_ci_prepare_view_vars($vars), '_ci_return' => $return));
-=======
-		return $this->_ci_load(array('_ci_view' => $view, '_ci_vars' => $this->_ci_object_to_array($vars), '_ci_return' => $return));
->>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
@@ -548,7 +519,6 @@ class CI_Loader {
 	 */
 	public function vars($vars, $val = '')
 	{
-<<<<<<< HEAD
 		$vars = is_string($vars)
 			? array($vars => $val)
 			: $this->_ci_prepare_view_vars($vars);
@@ -556,21 +526,6 @@ class CI_Loader {
 		foreach ($vars as $key => $val)
 		{
 			$this->_ci_cached_vars[$key] = $val;
-=======
-		if (is_string($vars))
-		{
-			$vars = array($vars => $val);
-		}
-
-		$vars = $this->_ci_object_to_array($vars);
-
-		if (is_array($vars) && count($vars) > 0)
-		{
-			foreach ($vars as $key => $val)
-			{
-				$this->_ci_cached_vars[$key] = $val;
-			}
->>>>>>> origin/master
 		}
 
 		return $this;
@@ -630,7 +585,6 @@ class CI_Loader {
 	 */
 	public function helper($helpers = array())
 	{
-<<<<<<< HEAD
 		is_array($helpers) OR $helpers = array($helpers);
 		foreach ($helpers as &$helper)
 		{
@@ -639,21 +593,13 @@ class CI_Loader {
 			$filename = strtolower(preg_replace('#(_helper)?(\.php)?$#i', '', $filename)).'_helper';
 			$helper   = $filepath.$filename;
 
-=======
-		foreach ($this->_ci_prep_filename($helpers, '_helper') as $helper)
-		{
->>>>>>> origin/master
 			if (isset($this->_ci_helpers[$helper]))
 			{
 				continue;
 			}
 
 			// Is this a helper extension request?
-<<<<<<< HEAD
 			$ext_helper = config_item('subclass_prefix').$filename;
-=======
-			$ext_helper = config_item('subclass_prefix').$helper;
->>>>>>> origin/master
 			$ext_loaded = FALSE;
 			foreach ($this->_ci_helper_paths as $path)
 			{
@@ -772,7 +718,6 @@ class CI_Loader {
 	{
 		if (is_array($library))
 		{
-<<<<<<< HEAD
 			foreach ($library as $key => $value)
 			{
 				if (is_int($key))
@@ -783,11 +728,6 @@ class CI_Loader {
 				{
 					$this->driver($key, $params, $value);
 				}
-=======
-			foreach ($library as $driver)
-			{
-				$this->driver($driver);
->>>>>>> origin/master
 			}
 
 			return $this;
@@ -994,14 +934,7 @@ class CI_Loader {
 		 * the two types and cache them so that views that are embedded within
 		 * other views can have access to these variables.
 		 */
-<<<<<<< HEAD
 		empty($_ci_vars) OR $this->_ci_cached_vars = array_merge($this->_ci_cached_vars, $_ci_vars);
-=======
-		if (is_array($_ci_vars))
-		{
-			$this->_ci_cached_vars = array_merge($this->_ci_cached_vars, $_ci_vars);
-		}
->>>>>>> origin/master
 		extract($this->_ci_cached_vars);
 
 		/*
@@ -1162,11 +1095,7 @@ class CI_Loader {
 	 * @used-by	CI_Loader::_ci_load_library()
 	 * @uses	CI_Loader::_ci_init_library()
 	 *
-<<<<<<< HEAD
 	 * @param	string	$library_name	Library name to load
-=======
-	 * @param	string	$library	Library name to load
->>>>>>> origin/master
 	 * @param	string	$file_path	Path to the library filename, relative to libraries/
 	 * @param	mixed	$params		Optional parameters to pass to the class constructor
 	 * @param	string	$object_name	Optional object name to assign to
@@ -1409,14 +1338,7 @@ class CI_Loader {
 		// Autoload drivers
 		if (isset($autoload['drivers']))
 		{
-<<<<<<< HEAD
 			$this->driver($autoload['drivers']);
-=======
-			foreach ($autoload['drivers'] as $item)
-			{
-				$this->driver($item);
-			}
->>>>>>> origin/master
 		}
 
 		// Load libraries
@@ -1443,7 +1365,6 @@ class CI_Loader {
 	// --------------------------------------------------------------------
 
 	/**
-<<<<<<< HEAD
 	 * Prepare variables for _ci_vars, to be later extract()-ed inside views
 	 *
 	 * Converts objects to associative arrays and filters-out internal
@@ -1470,19 +1391,6 @@ class CI_Loader {
 		}
 
 		return $vars;
-=======
-	 * CI Object to Array translator
-	 *
-	 * Takes an object as input and converts the class variables to
-	 * an associative array with key/value pairs.
-	 *
-	 * @param	object	$object	Object data to translate
-	 * @return	array
-	 */
-	protected function _ci_object_to_array($object)
-	{
-		return is_object($object) ? get_object_vars($object) : $object;
->>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
@@ -1500,37 +1408,4 @@ class CI_Loader {
 		$CI =& get_instance();
 		return $CI->$component;
 	}
-<<<<<<< HEAD
-=======
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Prep filename
-	 *
-	 * This function prepares filenames of various items to
-	 * make their loading more reliable.
-	 *
-	 * @param	string|string[]	$filename	Filename(s)
-	 * @param 	string		$extension	Filename extension
-	 * @return	array
-	 */
-	protected function _ci_prep_filename($filename, $extension)
-	{
-		if ( ! is_array($filename))
-		{
-			return array(strtolower(str_replace(array($extension, '.php'), '', $filename).$extension));
-		}
-		else
-		{
-			foreach ($filename as $key => $val)
-			{
-				$filename[$key] = strtolower(str_replace(array($extension, '.php'), '', $val).$extension);
-			}
-
-			return $filename;
-		}
-	}
-
->>>>>>> origin/master
 }

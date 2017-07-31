@@ -6,11 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
-<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
-=======
- * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
->>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,17 +28,10 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
-<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
-=======
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
- * @license	http://opensource.org/licenses/MIT	MIT License
- * @link	http://codeigniter.com
->>>>>>> origin/master
  * @since	Version 1.3.0
  * @filesource
  */
@@ -59,11 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Drivers
  * @category	Database
  * @author		EllisLab Dev Team
-<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/database/
-=======
- * @link		http://codeigniter.com/user_guide/database/
->>>>>>> origin/master
  */
 class CI_DB_postgre_driver extends CI_DB {
 
@@ -145,15 +130,9 @@ class CI_DB_postgre_driver extends CI_DB {
 		 */
 		foreach (array('connect_timeout', 'options', 'sslmode', 'service') as $key)
 		{
-<<<<<<< HEAD
 			if (isset($this->$key) && is_string($this->$key) && $this->$key !== '')
 			{
 				$this->dsn .= $key."='".$this->$key."' ";
-=======
-			if (isset($this->$key) && is_string($this->key) && $this->key !== '')
-			{
-				$this->dsn .= $key."='".$this->key."' ";
->>>>>>> origin/master
 			}
 		}
 
@@ -268,29 +247,10 @@ class CI_DB_postgre_driver extends CI_DB {
 	/**
 	 * Begin Transaction
 	 *
-<<<<<<< HEAD
 	 * @return	bool
 	 */
 	protected function _trans_begin()
 	{
-=======
-	 * @param	bool	$test_mode
-	 * @return	bool
-	 */
-	public function trans_begin($test_mode = FALSE)
-	{
-		// When transactions are nested we only begin/commit/rollback the outermost ones
-		if ( ! $this->trans_enabled OR $this->_trans_depth > 0)
-		{
-			return TRUE;
-		}
-
-		// Reset the transaction failure flag.
-		// If the $test_mode flag is set to TRUE transactions will be rolled back
-		// even if the queries produce a successful result.
-		$this->_trans_failure = ($test_mode === TRUE);
-
->>>>>>> origin/master
 		return (bool) pg_query($this->conn_id, 'BEGIN');
 	}
 
@@ -301,19 +261,8 @@ class CI_DB_postgre_driver extends CI_DB {
 	 *
 	 * @return	bool
 	 */
-<<<<<<< HEAD
 	protected function _trans_commit()
 	{
-=======
-	public function trans_commit()
-	{
-		// When transactions are nested we only begin/commit/rollback the outermost ones
-		if ( ! $this->trans_enabled OR $this->_trans_depth > 0)
-		{
-			return TRUE;
-		}
-
->>>>>>> origin/master
 		return (bool) pg_query($this->conn_id, 'COMMIT');
 	}
 
@@ -324,19 +273,8 @@ class CI_DB_postgre_driver extends CI_DB {
 	 *
 	 * @return	bool
 	 */
-<<<<<<< HEAD
 	protected function _trans_rollback()
 	{
-=======
-	public function trans_rollback()
-	{
-		// When transactions are nested we only begin/commit/rollback the outermost ones
-		if ( ! $this->trans_enabled OR $this->_trans_depth > 0)
-		{
-			return TRUE;
-		}
-
->>>>>>> origin/master
 		return (bool) pg_query($this->conn_id, 'ROLLBACK');
 	}
 
@@ -350,26 +288,18 @@ class CI_DB_postgre_driver extends CI_DB {
 	 */
 	public function is_write_type($sql)
 	{
-<<<<<<< HEAD
 		if (preg_match('#^(INSERT|UPDATE).*RETURNING\s.+(\,\s?.+)*$#is', $sql))
 		{
 			return FALSE;
 		}
 
 		return parent::is_write_type($sql);
-=======
-		return (bool) preg_match('/^\s*"?(SET|INSERT(?![^\)]+\)\s+RETURNING)|UPDATE(?!.*\sRETURNING)|DELETE|CREATE|DROP|TRUNCATE|LOAD|COPY|ALTER|RENAME|GRANT|REVOKE|LOCK|UNLOCK|REINDEX)\s/i', str_replace(array("\r\n", "\r", "\n"), ' ', $sql));
->>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
 
 	/**
-<<<<<<< HEAD
 	 * Platform-dependent string escape
-=======
-	 * Platform-dependant string escape
->>>>>>> origin/master
 	 *
 	 * @param	string
 	 * @return	string
@@ -541,11 +471,7 @@ class CI_DB_postgre_driver extends CI_DB {
 	 * Error
 	 *
 	 * Returns an array containing code and message of the last
-<<<<<<< HEAD
 	 * database error that has occurred.
-=======
-	 * database error that has occured.
->>>>>>> origin/master
 	 *
 	 * @return	array
 	 */
@@ -624,21 +550,13 @@ class CI_DB_postgre_driver extends CI_DB {
 		$ids = array();
 		foreach ($values as $key => $val)
 		{
-<<<<<<< HEAD
 			$ids[] = $val[$index]['value'];
-=======
-			$ids[] = $val[$index];
->>>>>>> origin/master
 
 			foreach (array_keys($val) as $field)
 			{
 				if ($field !== $index)
 				{
-<<<<<<< HEAD
 					$final[$val[$field]['field']][] = 'WHEN '.$val[$index]['value'].' THEN '.$val[$field]['value'];
-=======
-					$final[$field][] = 'WHEN '.$val[$index].' THEN '.$val[$field];
->>>>>>> origin/master
 				}
 			}
 		}
@@ -646,20 +564,12 @@ class CI_DB_postgre_driver extends CI_DB {
 		$cases = '';
 		foreach ($final as $k => $v)
 		{
-<<<<<<< HEAD
 			$cases .= $k.' = (CASE '.$val[$index]['field']."\n"
-=======
-			$cases .= $k.' = (CASE '.$index."\n"
->>>>>>> origin/master
 				.implode("\n", $v)."\n"
 				.'ELSE '.$k.' END), ';
 		}
 
-<<<<<<< HEAD
 		$this->where($val[$index]['field'].' IN('.implode(',', $ids).')', NULL, FALSE);
-=======
-		$this->where($index.' IN('.implode(',', $ids).')', NULL, FALSE);
->>>>>>> origin/master
 
 		return 'UPDATE '.$table.' SET '.substr($cases, 0, -2).$this->_compile_wh('qb_where');
 	}

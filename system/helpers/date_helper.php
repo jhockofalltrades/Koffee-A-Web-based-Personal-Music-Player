@@ -6,11 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
-<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
-=======
- * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
->>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,17 +28,10 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
-<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
-=======
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
- * @license	http://opensource.org/licenses/MIT	MIT License
- * @link	http://codeigniter.com
->>>>>>> origin/master
  * @since	Version 1.0.0
  * @filesource
  */
@@ -55,11 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Helpers
  * @category	Helpers
  * @author		EllisLab Dev Team
-<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/helpers/date_helper.html
-=======
- * @link		http://codeigniter.com/user_guide/helpers/date_helper.html
->>>>>>> origin/master
  */
 
 // ------------------------------------------------------------------------
@@ -511,10 +496,7 @@ if ( ! function_exists('nice_date'))
 	 * Turns many "reasonably-date-like" strings into something
 	 * that is actually useful. This only works for dates after unix epoch.
 	 *
-<<<<<<< HEAD
 	 * @deprecated	3.1.3	Use DateTime::createFromFormat($input_format, $input)->format($output_format);
-=======
->>>>>>> origin/master
 	 * @param	string	The terribly formatted date-like string
 	 * @param	string	Date format to return (same as php date function)
 	 * @return	string
@@ -548,15 +530,9 @@ if ( ! function_exists('nice_date'))
 		}
 
 		// Date Like: YYYYMMDD
-<<<<<<< HEAD
 		if (preg_match('/^\d{8}$/i', $bad_date, $matches))
 		{
 			return DateTime::createFromFormat('Ymd', $bad_date)->format($format);
-=======
-		if (preg_match('/^(\d{2})\d{2}(\d{4})$/i', $bad_date, $matches))
-		{
-			return date($format, strtotime($matches[1].'/01/'.$matches[2]));
->>>>>>> origin/master
 		}
 
 		// Date Like: MM-DD-YYYY __or__ M-D-YYYY (or anything in between)
@@ -732,7 +708,6 @@ if ( ! function_exists('date_range'))
 
 		$range = array();
 
-<<<<<<< HEAD
 		$from = new DateTime();
 		$from->setTimestamp($unix_start);
 
@@ -740,71 +715,11 @@ if ( ! function_exists('date_range'))
 		{
 			$arg = new DateTime();
 			$arg->setTimestamp($mixed);
-=======
-		/* NOTE: Even though the DateTime object has many useful features, it appears that
-		 *	 it doesn't always handle properly timezones, when timestamps are passed
-		 *	 directly to its constructor. Neither of the following gave proper results:
-		 *
-		 *		new DateTime('<timestamp>')
-		 *		new DateTime('<timestamp>', '<timezone>')
-		 *
-		 *	 --- available in PHP 5.3:
-		 *
-		 *		DateTime::createFromFormat('<format>', '<timestamp>')
-		 *		DateTime::createFromFormat('<format>', '<timestamp>', '<timezone')
-		 *
-		 *	 ... so we'll have to set the timestamp after the object is instantiated.
-		 *	 Furthermore, in PHP 5.3 we can use DateTime::setTimestamp() to do that and
-		 *	 given that we have UNIX timestamps - we should use it.
-		*/
-		$from = new DateTime();
-
-		if (is_php('5.3'))
-		{
-			$from->setTimestamp($unix_start);
-			if ($is_unix)
-			{
-				$arg = new DateTime();
-				$arg->setTimestamp($mixed);
-			}
-			else
-			{
-				$arg = (int) $mixed;
-			}
-
-			$period = new DatePeriod($from, new DateInterval('P1D'), $arg);
-			foreach ($period as $date)
-			{
-				$range[] = $date->format($format);
-			}
-
-			/* If a period end date was passed to the DatePeriod constructor, it might not
-			 * be in our results. Not sure if this is a bug or it's just possible because
-			 * the end date might actually be less than 24 hours away from the previously
-			 * generated DateTime object, but either way - we have to append it manually.
-			 */
-			if ( ! is_int($arg) && $range[count($range) - 1] !== $arg->format($format))
-			{
-				$range[] = $arg->format($format);
-			}
-
-			return $range;
-		}
-
-		$from->setDate(date('Y', $unix_start), date('n', $unix_start), date('j', $unix_start));
-		$from->setTime(date('G', $unix_start), date('i', $unix_start), date('s', $unix_start));
-		if ($is_unix)
-		{
-			$arg = new DateTime();
-			$arg->setDate(date('Y', $mixed), date('n', $mixed), date('j', $mixed));
-			$arg->setTime(date('G', $mixed), date('i', $mixed), date('s', $mixed));
->>>>>>> origin/master
 		}
 		else
 		{
 			$arg = (int) $mixed;
 		}
-<<<<<<< HEAD
 
 		$period = new DatePeriod($from, new DateInterval('P1D'), $arg);
 		foreach ($period as $date)
@@ -819,27 +734,6 @@ if ( ! function_exists('date_range'))
 		 */
 		if ( ! is_int($arg) && $range[count($range) - 1] !== $arg->format($format))
 		{
-=======
-		$range[] = $from->format($format);
-
-		if (is_int($arg)) // Day intervals
-		{
-			do
-			{
-				$from->modify('+1 day');
-				$range[] = $from->format($format);
-			}
-			while (--$arg > 0);
-		}
-		else // end date UNIX timestamp
-		{
-			for ($from->modify('+1 day'), $end_check = $arg->format('Ymd'); $from->format('Ymd') < $end_check; $from->modify('+1 day'))
-			{
-				$range[] = $from->format($format);
-			}
-
-			// Our loop only appended dates prior to our end date
->>>>>>> origin/master
 			$range[] = $arg->format($format);
 		}
 

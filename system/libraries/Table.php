@@ -6,11 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
-<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
-=======
- * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
->>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,17 +28,10 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
-<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
-=======
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
- * @license	http://opensource.org/licenses/MIT	MIT License
- * @link	http://codeigniter.com
->>>>>>> origin/master
  * @since	Version 1.3.1
  * @filesource
  */
@@ -57,11 +46,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Libraries
  * @category	HTML Tables
  * @author		EllisLab Dev Team
-<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/libraries/table.html
-=======
- * @link		http://codeigniter.com/user_guide/libraries/table.html
->>>>>>> origin/master
  */
 class CI_Table {
 
@@ -292,10 +277,7 @@ class CI_Table {
 	public function set_caption($caption)
 	{
 		$this->caption = $caption;
-<<<<<<< HEAD
 		return $this;
-=======
->>>>>>> origin/master
 	}
 
 	// --------------------------------------------------------------------
@@ -453,11 +435,7 @@ class CI_Table {
 	/**
 	 * Set table data from a database result object
 	 *
-<<<<<<< HEAD
 	 * @param	CI_DB_result	$object	Database result object
-=======
-	 * @param	CI_DB_result	$db_result	Database result object
->>>>>>> origin/master
 	 * @return	void
 	 */
 	protected function _set_from_db_result($object)

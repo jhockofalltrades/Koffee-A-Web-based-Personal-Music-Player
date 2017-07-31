@@ -6,11 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
-<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
-=======
- * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
->>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,17 +28,10 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
-<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
-=======
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
- * @license	http://opensource.org/licenses/MIT	MIT License
- * @link	http://codeigniter.com
->>>>>>> origin/master
  * @since	Version 3.0.0
  * @filesource
  */
@@ -55,11 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Libraries
  * @category	Sessions
  * @author	Andrey Andreev
-<<<<<<< HEAD
  * @link	https://codeigniter.com/user_guide/libraries/sessions.html
-=======
- * @link	http://codeigniter.com/user_guide/libraries/sessions.html
->>>>>>> origin/master
  */
 abstract class CI_Session_driver implements SessionHandlerInterface {
 
@@ -89,7 +74,6 @@ abstract class CI_Session_driver implements SessionHandlerInterface {
 	 */
 	protected $_session_id;
 
-<<<<<<< HEAD
 	/**
 	 * Success and failure return values
 	 *
@@ -102,8 +86,6 @@ abstract class CI_Session_driver implements SessionHandlerInterface {
 	 */
 	protected $_success, $_failure;
 
-=======
->>>>>>> origin/master
 	// ------------------------------------------------------------------------
 
 	/**
@@ -115,7 +97,6 @@ abstract class CI_Session_driver implements SessionHandlerInterface {
 	public function __construct(&$params)
 	{
 		$this->_config =& $params;
-<<<<<<< HEAD
 
 		if (is_php('7'))
 		{
@@ -127,8 +108,6 @@ abstract class CI_Session_driver implements SessionHandlerInterface {
 			$this->_success = 0;
 			$this->_failure = -1;
 		}
-=======
->>>>>>> origin/master
 	}
 
 	// ------------------------------------------------------------------------
@@ -189,7 +168,6 @@ abstract class CI_Session_driver implements SessionHandlerInterface {
 		return TRUE;
 	}
 
-<<<<<<< HEAD
 	// ------------------------------------------------------------------------
 
 	/**
@@ -210,6 +188,4 @@ abstract class CI_Session_driver implements SessionHandlerInterface {
 		ini_set('session.save_path', config_item('sess_save_path'));
 		return $this->_failure;
 	}
-=======
->>>>>>> origin/master
 }

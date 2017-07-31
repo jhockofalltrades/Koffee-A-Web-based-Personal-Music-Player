@@ -6,11 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
-<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
-=======
- * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
->>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,17 +28,10 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
-<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
-=======
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
- * @license	http://opensource.org/licenses/MIT	MIT License
- * @link	http://codeigniter.com
->>>>>>> origin/master
  * @since	Version 1.0.0
  * @filesource
  */
@@ -57,11 +46,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Libraries
  * @category	Libraries
  * @author		EllisLab Dev Team
-<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/libraries/config.html
-=======
- * @link		http://codeigniter.com/user_guide/libraries/config.html
->>>>>>> origin/master
  */
 class CI_Config {
 
@@ -103,7 +88,6 @@ class CI_Config {
 		// Set the base_url automatically if none was provided
 		if (empty($this->config['base_url']))
 		{
-<<<<<<< HEAD
 			if (isset($_SERVER['SERVER_ADDR']))
 			{
 				if (strpos($_SERVER['SERVER_ADDR'], ':') !== FALSE)
@@ -116,13 +100,6 @@ class CI_Config {
 				}
 
 				$base_url = (is_https() ? 'https' : 'http').'://'.$server_addr
-=======
-			// The regular expression is only a basic validation for a valid "Host" header.
-			// It's not exhaustive, only checks for valid characters.
-			if (isset($_SERVER['HTTP_HOST']) && preg_match('/^((\[[0-9a-f:]+\])|(\d{1,3}(\.\d{1,3}){3})|[a-z0-9\-\.]+)(:\d+)?$/i', $_SERVER['HTTP_HOST']))
-			{
-				$base_url = (is_https() ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']
->>>>>>> origin/master
 					.substr($_SERVER['SCRIPT_NAME'], 0, strpos($_SERVER['SCRIPT_NAME'], basename($_SERVER['SCRIPT_FILENAME'])));
 			}
 			else
@@ -268,7 +245,6 @@ class CI_Config {
 
 		if (isset($protocol))
 		{
-<<<<<<< HEAD
 			// For protocol-relative links
 			if ($protocol === '')
 			{
@@ -278,9 +254,6 @@ class CI_Config {
 			{
 				$base_url = $protocol.substr($base_url, strpos($base_url, '://'));
 			}
-=======
-			$base_url = $protocol.substr($base_url, strpos($base_url, '://'));
->>>>>>> origin/master
 		}
 
 		if (empty($uri))
@@ -335,7 +308,6 @@ class CI_Config {
 
 		if (isset($protocol))
 		{
-<<<<<<< HEAD
 			// For protocol-relative links
 			if ($protocol === '')
 			{
@@ -348,12 +320,6 @@ class CI_Config {
 		}
 
 		return $base_url.$this->_uri_string($uri);
-=======
-			$base_url = $protocol.substr($base_url, strpos($base_url, '://'));
-		}
-
-		return $base_url.ltrim($this->_uri_string($uri), '/');
->>>>>>> origin/master
 	}
 
 	// -------------------------------------------------------------
@@ -371,16 +337,8 @@ class CI_Config {
 	{
 		if ($this->item('enable_query_strings') === FALSE)
 		{
-<<<<<<< HEAD
 			is_array($uri) && $uri = implode('/', $uri);
 			return ltrim($uri, '/');
-=======
-			if (is_array($uri))
-			{
-				$uri = implode('/', $uri);
-			}
-			return trim($uri, '/');
->>>>>>> origin/master
 		}
 		elseif (is_array($uri))
 		{

@@ -6,11 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
-<<<<<<< HEAD
  * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
-=======
- * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
->>>>>>> origin/master
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,17 +28,10 @@
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
-<<<<<<< HEAD
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
-=======
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
- * @license	http://opensource.org/licenses/MIT	MIT License
- * @link	http://codeigniter.com
->>>>>>> origin/master
  * @since	Version 1.0.0
  * @filesource
  */
@@ -55,11 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @subpackage	Libraries
  * @category	Exceptions
  * @author		EllisLab Dev Team
-<<<<<<< HEAD
  * @link		https://codeigniter.com/user_guide/libraries/exceptions.html
-=======
- * @link		http://codeigniter.com/user_guide/libraries/exceptions.html
->>>>>>> origin/master
  */
 class CI_Exceptions {
 
@@ -202,11 +187,7 @@ class CI_Exceptions {
 
 	// --------------------------------------------------------------------
 
-<<<<<<< HEAD
 	public function show_exception($exception)
-=======
-	public function show_exception(Exception $exception)
->>>>>>> origin/master
 	{
 		$templates_path = config_item('error_views_path');
 		if (empty($templates_path))
@@ -226,10 +207,6 @@ class CI_Exceptions {
 		}
 		else
 		{
-<<<<<<< HEAD
-=======
-			set_status_header(500);
->>>>>>> origin/master
 			$templates_path .= 'html'.DIRECTORY_SEPARATOR;
 		}
 
@@ -254,11 +231,7 @@ class CI_Exceptions {
 	 * @param	string	$message	Error message
 	 * @param	string	$filepath	File path
 	 * @param	int	$line		Line number
-<<<<<<< HEAD
 	 * @return	void
-=======
-	 * @return	string	Error page output
->>>>>>> origin/master
 	 */
 	public function show_php_error($severity, $message, $filepath, $line)
 	{
