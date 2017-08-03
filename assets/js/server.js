@@ -117,7 +117,7 @@ function getMostPlayed() {
 			if(data.length > 0 ) {
 				$.each(data, function(key, val){
 					results += `
-					<img src="`+val.album_art+`" alt="`+val.title+`" data-toggle="tooltip" data-placement="bottom" title="`+val.title+`" class="img-responsive img-circle most-played-thumb">
+					<img src="`+val.album_art+`" alt="`+val.title+`" data-toggle="tooltip" data-placement="bottom" data-artist="`+val.artist+`" data-title="`+val.title+`" class="img-responsive img-circle most-played-thumb">
 				`;
 				})
 			} else {
@@ -159,7 +159,7 @@ function loadRecommendations() {
 					body += `
 							<div class="col-lg-3">
 								<div class="recommended-thumb">
-									<img src="`+element.album_art+`" alt="`+element.title+`" class="img-responsive img-thumbnail recommended-entry center-block" data-toggle="tooltip" data-placement="top" title="`+element.title+`"  />
+									<img src="`+element.album_art+`" alt="`+element.title+`" class="img-responsive img-thumbnail recommended-entry center-block" data-toggle="tooltip" data-placement="top" data-artist="`+element.artist+`" data-title="`+element.title+`"  />
 									<p class="text-center">`+(element.title.substring(0, 17) + '...')+`</p>
 									<p class="text-center artist-block">`+element.artist+`</p>
 								</div>

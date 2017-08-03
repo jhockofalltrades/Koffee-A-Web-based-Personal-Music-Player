@@ -68,7 +68,7 @@ $(function(){
 		} else { 
 			min = (min.toString().length == 1) ? ('0'+min) : (min);	
 			sec = (sec.toString().length == 1) ? ('0'+sec) : (sec);
-			$('#timer').text(min+':'+sec);
+			$('#timer').text(min+' min : '+sec+' sec');
 		}
 		
 	}

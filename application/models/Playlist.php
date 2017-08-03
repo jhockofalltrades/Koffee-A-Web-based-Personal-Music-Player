@@ -32,7 +32,7 @@ Class Playlist extends CI_Model {
 
 	/*  GET TOP 15 MOST PLAYED SONGS  */
 	function get_most_played() {
-		$this->db->select('songs.song_id, songs.title,songs.album_art, count(interactions.song_id) as play')->from('songs')->order_by('play','desc');
+		$this->db->select('songs.song_id, songs.title, songs.artist, songs.album_art, count(interactions.song_id) as play')->from('songs')->order_by('play','desc');
 		$this->db->join('interactions', 'songs.song_id = interactions.song_id');
 		$this->db->group_by('songs.song_id');
 		$songs = $this->db->get();
@@ -48,12 +48,12 @@ Class Playlist extends CI_Model {
 		3. Combine the two (above) and retrieve all of it except songs you listen on the current day.
 
 		CATEGORIZATION OF TIME (Military Time):
-		23-02 - Midnight
-		03-04 - Early Morning
-		05-09 - Morning
-		10-12 - Noon
-		13-17 - Afternoon
-		18-22 - Night 
+		01-03 - Midnight
+		04-06 - Early Morning
+		07-11 - Morning
+		12-13 - Noon
+		14-17 - Afternoon
+		18-23 - Night 
 	*/
 	function get_recommendations($cur_hour, $cur_day, $mood) {
 

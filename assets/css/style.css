@@ -131,22 +131,19 @@ audio::-webkit-media-controls-panel {
 #selected-playlist {
 
 	background-color: #FFAB00;
-
 	color: white;
 	padding: 0px 10px;
-	border-radius: 3px;
 	margin-left: 2px;
 }
 
-.folder-playlist {
+/*.folder-playlist {
 	border-left: 3px solid white;
 	padding-left: 4px;
-}
+	color: black !important;
+}*/
 
 .current-playlist {
-
-	border-left: 3px solid #FFAB00;
-
+	border-left: 1px solid #FFAB00;
 	text-decoration: none !important;
 }
 
@@ -273,6 +270,10 @@ audio::-webkit-media-controls-panel {
 
 
 /* NAVBAR */
+.navbar-default {
+	border-radius: 0px !important;
+	border: none !important;
+}
 
 .navbar-default .navbar-nav > li > a {
 
@@ -296,16 +297,12 @@ audio::-webkit-media-controls-panel {
 }
 
 
-/*input[type="text"] {
-
-	outline: none !important;
-	border-radius: 40px !important;
-}
-
-input[type="text"]:focus {
+input {
+	padding: 20px 20px !important;
+	border-radius: 0px !important;
 	box-shadow: none !important;
-
-}*/
+	outline: none !important;
+}
 
 
 
@@ -418,4 +415,17 @@ input[type="text"]:focus {
 	background-color: #f1f1f1;
 	margin-bottom: 2em;
 	border: 2px dashed rgba(51, 51, 51, 0.64);
+}
+
+.title {
+	padding-left: 2px;
+}
+
+.btn {
+	border-radius: 30px !important;
+}
+
+#timer {
+	margin: 0px 40px;
+	margin-top: 7px;
 }

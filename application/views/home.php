@@ -23,12 +23,12 @@
 		<?php endif; ?>
 	
 		<div id="full-screen-player">
-			<button class="btn btn-sm btn-default pull-right" id="recommendations"><i class="fa fa-tags"></i>&nbsp;&nbsp;Recommendations</button>
+	<button class="btn btn-sm btn-default pull-right" style="margin-right: 38px" id="recommendations"><i class="fa fa-tags"></i>&nbsp;&nbsp;Recommendations</button><span id="timer" class="pull-right badge"></span>
 			<!-- PLAYER -->
 			<div id="player">
 				<div id="main">
 
-					<span id="timer" class="pull-right"></span>
+					
 					<img src="<?=base_url()?>assets/album-cover.jpg" alt="" class="img-responsive" id="album-art" width="260px" height="260px" >
 
 					<h2 id="playing"></h2>
@@ -56,17 +56,21 @@
 			</div>
 
 		</div>
+		<br>
+
 		<div class="row" id="track-lists">
 			<div class="col-lg-3">
 			<!-- AVAILABLE PLAYLISTS -->
-				<h3 class="title">Playlists</h3>
+				<h5 class="title"><strong>PLAYLISTS</strong></h5>
 
 
-				<?php foreach($songs as $folder) :?>	
-					<?php if($folder->isDir()) :?>
-						<a class="folder-playlist" href="<?=$folder->getFilename()?>"><?=str_replace('-',' ', $folder->getFilename())?></a> <br>
-					<?php endif ;?>
-				<?php endforeach; ?>
+				<ul class="list-group">
+					<?php foreach($songs as $folder) :?>	
+						<?php if($folder->isDir()) :?>
+							<a class="folder-playlist list-group-item" href="<?=$folder->getFilename()?>"><?=str_replace('-',' ', $folder->getFilename())?></a>
+						<?php endif ;?>
+					<?php endforeach; ?>
+				</ul>
 
 				<br>
 				<br>
@@ -76,8 +80,10 @@
 			<div class="col-lg-9">
 				<div id="playlist">
 					<div id="track-header">
-						<h3 class="title">Tracks</h3><h4 id="playlist-title" class="text-right"></h4>
+						<h5 class="title"><strong>TRACKS</strong></h5><h4 id="playlist-title" class="text-right"></h4>
+
 					</div>
+					
 					<!-- HIDDEN PLAYLISTS -->
 					<div id="container">
 					
