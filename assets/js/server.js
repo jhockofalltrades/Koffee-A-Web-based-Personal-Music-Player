@@ -1,4 +1,4 @@
-$(document).ready(function(){
+
  var signupBanner = $('#signup-banner');
  var loginBanner = $('#login-banner');
 
@@ -95,7 +95,11 @@ $('#count-song').on('submit', function(e){
 			if(data.success) {
 				alert('added');
 			}
+		}, 
+		error: function(jqXHR, textStatus, errorThrown) {
+		  console.log(textStatus, errorThrown);
 		}
+
 	}).fail(function(){
 		alert('Something went wrong');
 	});
@@ -141,6 +145,7 @@ getMostPlayed();
 /*------------------------------------------
 |			GET RECOMMENDED SONGS
  -------------------------------------------*/
+ var recommendedSongsContainer = $('#recommendations-body');
 function loadRecommendations() {
 	var body = "";
 
@@ -154,23 +159,35 @@ function loadRecommendations() {
 			} else {
 				body += '<div class="row">';
 				var counter = 0;
-				data.forEach( function(element, index) {
+					$.each(data, function(key, val){
 
 					body += `
 							<div class="col-lg-3">
-								<div class="recommended-thumb">
-									<img src="`+element.album_art+`" alt="`+element.title+`" class="img-responsive img-thumbnail recommended-entry center-block" data-toggle="tooltip" data-placement="top" data-artist="`+element.artist+`" data-title="`+element.title+`"  />
-									<p class="text-center">`+(element.title.substring(0, 17) + '...')+`</p>
-									<p class="text-center artist-block">`+element.artist+`</p>
+								<div class="song-thumb-parent center-block">
+									<div class="thumb-bg" style='background-image: url(`+val.album_art+`)'>
+										<p>`+val.artist+`&nbsp;&nbsp;-&nbsp;&nbsp;`+val.year +`</p>
+									</div>
+									<div class="thumb-label">
+										<h5>`+val.title+`</h5>
+										<span class="play-btn" data-title="`+val.title+`" data-artist="`+val.artist+`">
+											<i class="fa fa-play"></i>
+										</span>
+									</div>
 								</div>
 							</div>
 					`;
+
 					counter++;
 
 					body += (counter % 4 == 0) ? "</div><div class='row'>": "";
 				});
 			}
-			$('#recommendations-body').html(body);
+
+			recommendedSongsContainer.html(body);
+		},
+		error: function(xhr, status, error) {
+			 var err = eval("(" + xhr.responseText + ")");
+  			alert(err.Message);	
 		}
 	}).fail(function(){
 		alert('Something went wrong.');
@@ -179,4 +196,39 @@ function loadRecommendations() {
 
 loadRecommendations();
 
-});
+/*------------------------------------------
+|			GET DISCOVERY SONGS
+ -------------------------------------------*/
+function loadDiscovery() {
+	var body = '';
+	$.ajax({
+		type: 'GET',
+		url: 'http://localhost/koffee/koffee/load_discovery',
+		dataType: 'json',
+		success: function(data) {
+			data.forEach( function(element, index) {
+				body += `
+				<div class="song-thumb-parent center-block discover-thumb">
+					<div class="thumb-bg" style='background-image: url(`+element.album_art+`)'>
+						<p>`+element.artist+`</p>
+					</div>
+					<div class="thumb-label">
+						<h5>`+element.title+`</h5>
+						<span class="play-btn" data-title="`+element.title+`" data-artist="`+element.artist+`">
+							<i class="fa fa-play"></i>
+						</span>
+					</div>
+				</div>
+				`;
+			});
+
+
+
+			$('#discovery-body').html(body);
+		}
+	}).fail(function(){
+		alert('Something went wrong');
+	});
+}
+
+loadDiscovery();

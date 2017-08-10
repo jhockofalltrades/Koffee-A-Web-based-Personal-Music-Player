@@ -6,16 +6,14 @@
 	<link rel="stylesheet" href="<?=base_url()?>assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?=base_url()?>assets/css/style.css">
 	<link rel="stylesheet" href="<?=base_url()?>assets/font-awesome-4.7.0/css/font-awesome.min.css">
-	<link href="https://fonts.googleapis.com/css?family=Lilita+One|Pontano+Sans" rel="stylesheet">
-
-
+	<link rel="stylesheet" href="<?=base_url()?>assets/css/animations.css">
 </head>
 <body>
 
 <?php if($this->session->userdata('user_id') == TRUE) :?>
 
 	<!-- NAV -->
-	<nav class="navbar navbar-default" style="background-color: #1e3c72;">
+	<nav class="navbar navbar-default" style="  background: linear-gradient(to right, #de6161, #2657eb);">
 
 	  <div class="container-fluid">
 	    <!-- Brand and toggle get grouped for better mobile display -->

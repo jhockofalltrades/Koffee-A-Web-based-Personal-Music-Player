@@ -134,27 +134,32 @@ class Koffee extends CI_Controller {
 
 		$songs_added = 0;
 
-		foreach($songs as $song) {
-			if($song->isFile()) {
-				/*GET ID3 TAGS*/
-				$metadata = $id3v2->analyze($song->getPathname());
-				getid3_lib::CopyTagsToComments($metadata);
+		// foreach($songs as $song) {
+		// 	if($song->isFile()) {
+		// 		if(in_array($song->getExtension(), ['mp3','wav','ogg'])) {
+		// 			/*GET ID3 TAGS*/
+		// 			$metadata = $id3v2->analyze($song->getPathname());
+		// 			getid3_lib::CopyTagsToComments($metadata);
 
-				$data = [
-					'title'     => isset($metadata['tags_html']['id3v2']['title']) ? $metadata['tags_html']['id3v2']['title'][0] : $song->getBasename('.mp3'),
-					'artist'    => isset($metadata['tags_html']['id3v2']['artist']) ? $metadata['tags_html']['id3v2']['artist'][0] : 'Unknown',
-					'genre'     => isset($metadata['tags_html']['id3v2']['album']) ? $metadata['tags_html']['id3v2']['album'][0] : 'Unknown',
-					'album_art' => isset($metadata['comments']['picture'][0]) ? 'data:'.$metadata['comments']['picture'][0]['image_mime'].';charset=utf-8;base64,'.base64_encode($metadata['comments']['picture'][0]['data']) : base_url().'assets/album-cover.jpg'
-				];
+		// 			$data = [
+		// 				'playtime'  => isset($metadata['playtime_string']) ? $metadata['playtime_string'] : 'Unknown',
+		// 				'title'     => isset($metadata['tags_html']['id3v2']['title']) ? $metadata['tags_html']['id3v2']['title'][0] : $song->getBasename('.mp3'),
+		// 				'artist'    => isset($metadata['tags_html']['id3v2']['artist']) ? $metadata['tags_html']['id3v2']['artist'][0] : 'Unknown',
+		// 				'album'     => isset($metadata['tags_html']['id3v2']['album']) ? $metadata['tags_html']['id3v2']['album'][0] : 'Unknown',
+		// 				'genre'     => isset($metadata['tags_html']['id3v2']['album']) ? $metadata['tags_html']['id3v2']['album'][0] : 'Unknown',
+		// 				'year'      => isset($metadata['tags_html']['id3v2']['year']) ? $metadata['tags_html']['id3v2']['year'][0] : 'Unknown',
+		// 				'album_art' => isset($metadata['comments']['picture'][0]) ? 'data:'.$metadata['comments']['picture'][0]['image_mime'].';charset=utf-8;base64,'.base64_encode($metadata['comments']['picture'][0]['data']) : base_url().'assets/album-cover.png'
+		// 			]; 
 
-				if($this->playlist->check_existing_song($data['title'], $data['artist'])) {
+		// 			if($this->playlist->check_existing_song($data['title'], $data['artist'])) {
 
-				} else {
-					$this->playlist->add_song($data);
-					$songs_added += 1;
-				}
-			}
-		}
+		// 			} else {
+		// 				$this->playlist->add_song($data);
+		// 				$songs_added += 1;
+		// 			}
+		// 		}
+		// 	}
+		// }
 
 		$data['songs'] = $songs;
 		$data['songs_added'] = $songs_added;
@@ -165,10 +170,20 @@ class Koffee extends CI_Controller {
 		
 	}
 
+	/*SAMPLING*/
+	function sample_design() {
+		$this->load->view('templates/header');
+		$this->load->view('sample_design');
+		$this->load->view('templates/footer');
+	}
+	/*end*/
+
 	function update_mood() {
 		if($this->session->userdata('user_id') == FALSE ) {
 			redirect('koffee/','refresh');
 		}
+
+		header('Content-Type: application/json'); 
 
 		$updated = false;
 		$mood = $this->input->post('mood');
@@ -204,6 +219,8 @@ class Koffee extends CI_Controller {
 	function new_song_count() {
 		$success = false;
 
+		header('Content-Type: application/json'); 
+
 		$song_id = $this->playlist->get_song_id($this->input->post('cur-title'), $this->input->post('cur-artist'));
 		$user_id = $this->session->userdata('user_id');
 		$mood    = $this->session->userdata('current_mood');
@@ -224,6 +241,8 @@ class Koffee extends CI_Controller {
 	}
 
 	function load_recommendations() {
+		header('Content-Type: application/json'); 
+
 		// PHL Time zone Kuala_Lumpur
 		date_default_timezone_set('Asia/Manila');
 		$cur_hour = date('H');
@@ -235,6 +254,14 @@ class Koffee extends CI_Controller {
 
 	}
 
+	function load_discovery() {
+		header('Content-Type: application/json'); 
+		
+		$discovery = $this->playlist->get_discover_songs();
+
+		echo json_encode($discovery);
+	}
+
 	function cur_user() {
 		header('Content-Type: application/json'); 
 
@@ -242,6 +269,7 @@ class Koffee extends CI_Controller {
 		$user = $this->chat_thread->get_user($user_id);
 		echo json_encode(['user' => $user]);
 	}
+
 
 	function logout() {
 		if($this->session->userdata('user_id') == FALSE ) {

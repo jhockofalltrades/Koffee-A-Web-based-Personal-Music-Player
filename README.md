@@ -26,3 +26,7 @@ The Music player only uses HTML5 audio tag(I like its simplicity) and added with
 
 
 
+## CREDITS
+Default Album Art icon made by Freepik from www.flaticon.com 
+
+

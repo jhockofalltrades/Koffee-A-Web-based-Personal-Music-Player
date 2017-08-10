@@ -1,3 +1,4 @@
+<!-- RECOMENDATIONS -->
 <div id="recommendations-container" class="overlay">
 	<div class="container-fluid">
 		 <!-- Button to close the overlay navigation -->
@@ -12,75 +13,119 @@
 	</div>
 </div>
 
+<!-- DISCOVERY -->
+<div id="discovery-container" class="overlay">
+	<div class="container-fluid">
+		 <!-- Button to close the overlay navigation -->
+	  <span id="close-discovery" class="pull-right">&#x2715;</span>
+		<h1 class="text-center lg-font light-font">Discover songs</h1>
+		<br>
+		<br>
+		<br>
+
+	 <div id="discovery-body"></div>
+
+	</div>
+</div>
 
 <div class="container">
-
+	
 		<?php if($songs_added > 0) : ?>
 			<div class="alert alert-warning alert-dismissible" role="alert">
 			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&#x2715;</span></button>
-			  <strong>Hey!</strong> You have added <?=$songs_added?> new songs today.
+			  <strong>Hey! You have added <?=$songs_added?> new songs today.
 			</div>
 		<?php endif; ?>
 	
 		<div id="full-screen-player">
-	<button class="btn btn-sm btn-default pull-right" style="margin-right: 38px" id="recommendations"><i class="fa fa-tags"></i>&nbsp;&nbsp;Recommendations</button><span id="timer" class="pull-right badge"></span>
+		<span id="timer" class="pull-right badge"></span>
 			<!-- PLAYER -->
 			<div id="player">
-				<div id="main">
+				<div id="side">
+					<span id="shuffle" class="control-widget" data-toggle="tooltip" data-placement="bottom" title="Shuffle">
+						<img src="<?=base_url()?>assets/widget/svg/004-arrows-1.svg" class="widget-svg" alt="">
+					</span> <br>
+					<span id="repeat" class="control-widget" data-toggle="tooltip" data-placement="bottom" title="Repeat">
+						<img src="<?=base_url()?>assets/widget/svg/001-arrows.svg" class="widget-svg" alt="">
+					</span> <br>
+					<span id="coffee" class="control-widget" data-toggle="tooltip" data-placement="bottom" title="Chill Mode">
+						<img src="<?=base_url()?>assets/widget/svg/003-food.svg" class="widget-svg" alt="">
+					</span> <br>
+					<span id="clock" class="control-widget" data-toggle="tooltip" data-placement="bottom" title="Set Airplay Duration">
+						<img src="<?=base_url()?>assets/widget/svg/005-clock.svg" class="widget-svg" alt="">
+					</span> <br>
+					<span id="zoom" class="control-widget" data-toggle="tooltip" data-placement="bottom" title="Full Screen">
+						<img src="<?=base_url()?>assets/widget/svg/006-arrows-2.svg" class="widget-svg" alt="">
+					</span> <br>
+					<span id="dark-mode" class="control-widget" data-toggle="tooltip" data-placement="bottom" title="Night Mode">
+						<img src="<?=base_url()?>assets/widget/svg/002-moon.svg" class="widget-svg" alt="">
+					</span>
+				</div>
 
-					
-					<img src="<?=base_url()?>assets/album-cover.jpg" alt="" class="img-responsive" id="album-art" width="260px" height="260px" >
+				<div id="main">
+					<img src="<?=base_url()?>assets/album-cover.png" alt="" class="img-responsive" id="album-art" width="260px" height="260px" >
 
 					<h2 id="playing"></h2>
 					<span id="artist"></span>
+					<div id="audio-controls">
+						<button id="prev"><i class="fa fa-step-backward"></i></button>
+						<button id="play"><i class="fa fa-play"></i></button>
+						<button id="next"><i class="fa fa-step-forward"></i></button>
+					</div>
+					<div id="audio-sliders">
+						<progress id="seekbar" value="0" max="1"></progress>
+						<span class="pull-right" id="volume-control">
+							<i class="fa fa-volume-off" id="mute"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<i class="fa fa-minus" id="vol-min"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<i class="fa fa-plus" id="vol-max"></i>
+						</span>
+					</div>
+					<!-- <input type="range" name="points" id="points" value="50" min="0" max="100">	 -->
 				</div>
-				<div id="side">
-					<span id="shuffle" class="control-widget" data-toggle="tooltip" data-placement="right" title="Shuffle"><i class="fa fa-random"></i></span> <br>
-					<span id="repeat" class="control-widget" data-toggle="tooltip" data-placement="right" title="Repeat"><i class="fa fa-exchange"></i></span> <br>
-					<span id="coffee" class="control-widget" data-toggle="tooltip" data-placement="right" title="Chill Mode"><i class="fa fa-coffee"></i></span> <br>
-
-					<span id="clock" class="control-widget" data-toggle="tooltip" data-placement="right" title="Set Airplay Duration"><i class="fa fa-hourglass-half"></i></span> <br>
-					<span id="zoom" class="control-widget" data-toggle="tooltip" data-placement="right" title="Full Screen"><i class="fa fa-expand"></i></span> <br>
-					<span id="dark-mode" class="control-widget" data-toggle="tooltip" data-placement="right" title="Dark Mode"><i class="fa fa-adjust"></i></span>
-				</div>
-
 
 			</div>
 
 			<div id="controls">
-				<button class="control-btn" id="prev"><i class="fa fa-step-backward"></i>&nbsp;Prev</button>
-				<button class="control-btn" id="next"><i class="fa fa-step-forward"></i>&nbsp;Next</button>
+				<!-- <button class="control-btn" id="prev"><i class="fa fa-step-backward"></i>&nbsp;Prev</button>
+				<button class="control-btn" id="next"><i class="fa fa-step-forward"></i>&nbsp;Next</button> -->
 				<audio controls id="audio">
 					<source src="" type="audio/mp3">
 				</audio>	
 			</div>
 
 		</div>
-		<br>
+</div>
 
+<div class="container">
+		<!-- PLAYLISTS / SONGS -->
 		<div class="row" id="track-lists">
 			<div class="col-lg-3">
-			<!-- AVAILABLE PLAYLISTS -->
-				<h5 class="title"><strong>PLAYLISTS</strong></h5>
-
-
-				<ul class="list-group">
+	
+				<h4 class="title">PERSONAL</h4>
+				<hr>
+				<!-- RECOMMENDATION -->
+					<ul class="side-list">
+						<li><a href="" id="recommendations"><i class="fa fa-tags"></i>&nbsp;&nbsp;Recommendations</a></li>
+						<li><a href="" id="discovery"><i class="fa fa-fire"></i>&nbsp;&nbsp;&nbsp;Discover Songs</a></li>
+					</ul>
+				<br><br>
+				<h4 class="title">PLAYLISTS</h4>
+				<hr>
+				<!-- AVAILABLE PLAYLISTS -->
+					<ul class="side-list">
 					<?php foreach($songs as $folder) :?>	
-						<?php if($folder->isDir()) :?>
-							<a class="folder-playlist list-group-item" href="<?=$folder->getFilename()?>"><?=str_replace('-',' ', $folder->getFilename())?></a>
-						<?php endif ;?>
+						
+							<?php if($folder->isDir()) :?>
+								<li><a class="folder-playlist" href="<?=$folder->getFilename()?>"><img src="<?=base_url()?>assets/download.png" alt="" class="img-responsive list-group-thumb"><?=str_replace('-',' ', $folder->getFilename())?></a></li>
+							<?php endif ;?>
+						
 					<?php endforeach; ?>
 				</ul>
-
-				<br>
-				<br>
-				<br>
-				<button id="pauseBtn"><i class="fa fa-stop-circle"></i>&nbsp;&nbsp;PAUSE</button>
 			</div>
-			<div class="col-lg-9">
+			<div class="col-lg-9" id="side-menu">
 				<div id="playlist">
 					<div id="track-header">
-						<h5 class="title"><strong>TRACKS</strong></h5><h4 id="playlist-title" class="text-right"></h4>
+						<h4 class="title">TRACKS</h4><h4 id="playlist-title" class="text-right"></h4>
 
 					</div>
 					
@@ -91,18 +136,17 @@
 								<?php foreach($songs as $className) :?>	
 									<?php if($className->isDir()) :?>
 									<div class="hidden-playlists" id="<?=$className->getFilename()?>">
-									<table class="table table-striped table-hover" style="white-space: nowrap;">
+									<table class="table table-hover" style="white-space: nowrap;">
 										<thead>
 											<tr>
 												<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 												<th>Song</th>
 												<th>Artist</th>
-												<th>Album</th>
-												<th>Genre</th>
-												
+												<th>Album</th>		
+												<th>Length</th>								
 											</tr>
 										</thead>
-										<tbody>
+										<tbody id="<?=$className->getFilename()?>">
 												<?php 
 
 													$id3v2 = new getID3;
@@ -121,10 +165,7 @@
 															<td>
 																
 															</td>
-															<td></td>
-															<td></td>
-															
-															
+															<td></td>									
 														</tr>
 													<?php else : ?>
 														<?php 
@@ -146,7 +187,7 @@
 																		
 																		 $album_art='data:'.$metadata['comments']['picture'][0]['image_mime'].';charset=utf-8;base64,'.base64_encode($metadata['comments']['picture'][0]['data']);
 																	} else {
-																		$album_art = 'assets/album-cover.jpg';
+																		$album_art = 'assets/album-cover.png';
 																	}
 																?>
 																
@@ -161,10 +202,8 @@
 																<?=(isset($metadata['tags_html']['id3v2']['album'])) ? $metadata['tags_html']['id3v2']['album'][0] : 'Unknown' ?>
 															</td>
 															<td>
-																<?=(isset($metadata['tags_html']['id3v2']['genre'])) ? $metadata['tags_html']['id3v2']['genre'][0] : 'Unknown'?>
+																<?=isset($metadata['playtime_string']) ? $metadata['playtime_string'] : 'Unknown'?>
 															</td>
-															
-
 														</tr>
 													<?php endif; ?>
 												<?php endif; ?>
@@ -193,7 +232,7 @@
   	
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" id="close-timer" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&#x2715;</span></button>
+        <button type="button" class="close" id="close-timer" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color: white !important">&#x2715;</span></button>
         <h4 class="modal-title" id="myModalLabel">Set Custom Airplay Duration</h4>
       </div>
       <div class="modal-body">

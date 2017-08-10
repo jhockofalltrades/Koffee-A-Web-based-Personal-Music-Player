@@ -32,7 +32,7 @@ Class Playlist extends CI_Model {
 
 	/*  GET TOP 15 MOST PLAYED SONGS  */
 	function get_most_played() {
-		$this->db->select('songs.song_id, songs.title, songs.artist, songs.album_art, count(interactions.song_id) as play')->from('songs')->order_by('play','desc');
+		$this->db->select('songs.song_id, songs.title, songs.artist, songs.album_art, count(interactions.song_id) as play')->from('songs')->order_by('play','desc')->limit(15);
 		$this->db->join('interactions', 'songs.song_id = interactions.song_id');
 		$this->db->group_by('songs.song_id');
 		$songs = $this->db->get();
@@ -82,13 +82,21 @@ Class Playlist extends CI_Model {
 				break;
 		}
 
-		$this->db->select('songs.song_id, songs.title, songs.artist, songs.album_art, count(interactions.song_id) as play_count')->from('songs');
+		$this->db->select('songs.song_id, songs.title, songs.artist, songs.album_art, songs.year, count(interactions.song_id) as play_count')->from('songs');
 		$this->db->join('interactions', 'songs.song_id = interactions.song_id');
 		$this->db->where($where);
 		$this->db->group_by('songs.song_id');
 		$recommended_songs = $this->db->get();
 		return $recommended_songs->result();
-		echo $this->db->last_query();
+	}
+
+	function get_discover_songs() {
+		$this->db->select('songs.song_id, songs.title, songs.artist, songs.album_art, songs.album, count(interactions.song_id) as play_count')->from('songs');
+		$this->db->join('interactions', 'songs.song_id = interactions.song_id','left');
+		$this->db->group_by('songs.song_id');
+		$this->db->order_by('play_count','asc')->limit(25);
+		$discovery = $this->db->get();
+		return $discovery->result();
 	}
 
 	
