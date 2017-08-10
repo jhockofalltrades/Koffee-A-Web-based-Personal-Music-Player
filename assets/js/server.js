@@ -165,7 +165,7 @@ function loadRecommendations() {
 							<div class="col-lg-3">
 								<div class="song-thumb-parent center-block">
 									<div class="thumb-bg" style='background-image: url(`+val.album_art+`)'>
-										<p>`+val.artist+`&nbsp;&nbsp;-&nbsp;&nbsp;`+val.year +`</p>
+										<p>`+val.artist+`&nbsp;&nbsp;&#8226;&nbsp;&nbsp;`+val.year +`</p>
 									</div>
 									<div class="thumb-label">
 										<h5>`+val.title+`</h5>

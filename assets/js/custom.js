@@ -108,29 +108,53 @@
 			switch (this.currentSong.currentPlayingPlaylist) {
 				case 'pl':
 				    PlayerUI.updatePlaying($('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
+					// set new values
+					$('#cur-title').attr('value', $.trim($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text()));
+					$('#cur-artist').attr('value', $.trim($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text()));
 					break;
 				case 'mp':
-				    PlayerUI.updatePlaying($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text() , $('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input').val() , $('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
-					break;
+				    var title  = $('.most-played-thumb:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-title');
+					var artist = $('.most-played-thumb:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-artist');
+					var src      = $('td:contains('+title+')').prev('td').find('a').attr('href');
+					var albumArt = $('td:contains('+title+')').find('input').attr('value');
+					// se new values
+					$('#cur-title').attr('value', title);
+					$('#cur-artist').attr('value', artist);
+					// Update playing
+					PlayerUI.updatePlaying(title, artist, albumArt, src);
+					// set new values
+					$('#cur-title').attr('value', title);
+					$('#cur-artist').attr('value', title);
+				   break;
 				case 'rc':
-				    PlayerUI.updatePlaying($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text() , $('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input').val() , $('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
-					break;
+					var title  = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-title');
+					var artist = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-artist');
+					var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
+					var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input').attr('value');
+					// Update playing
+					PlayerUI.updatePlaying(title, artist, albumArt, src);
+					// set new values
+					$('#cur-title').attr('value', title);
+					$('#cur-artist').attr('value', title);
+				   break;
 				case 'ds':
-				    PlayerUI.updatePlaying($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text() , $('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input').val() , $('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
-					break;
+					var title  = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-title');
+					var artist = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-artist');
+					var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
+					var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input').attr('value');
+					// Update playing
+					PlayerUI.updatePlaying(title, artist, albumArt, src);
+					// se new values
+					$('#cur-title').attr('value', title);
+					$('#cur-artist').attr('value', artist);
+				   break;
 				default:
 					// statements_def
 					break;
 			}
-			 
-			// se new values
-			$('#cur-title').attr('value', $.trim($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text()));
-			$('#cur-artist').attr('value', $.trim($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text()));
 
 			$('a.music-entry').removeClass('now-playing');
 			$('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').addClass('now-playing');
-			
-
 		},
 
 		prev: function() {
@@ -147,14 +171,58 @@
 				this.currentSong.songIndex = songs.length - 1;
 			}
 			
-			PlayerUI.updatePlaying($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text() , $('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input').val() , $('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
-			
-			// se new values
-			$('#cur-title').attr('value', $.trim($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text()));
-			$('#cur-artist').attr('value', $.trim($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text()));
+		
+			/* SET PLAYLING PLAYLIST */
+			switch (this.currentSong.currentPlayingPlaylist) {
+				case 'pl':
+				    PlayerUI.updatePlaying($('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
+					// set new values
+					$('#cur-title').attr('value', $.trim($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text()));
+					$('#cur-artist').attr('value', $.trim($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text()));
+					break;
+				case 'mp':
+				    var title  = $('.most-played-thumb:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-title');
+					var artist = $('.most-played-thumb:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-artist');
+					var src      = $('td:contains('+title+')').prev('td').find('a').attr('href');
+					var albumArt = $('td:contains('+title+')').find('input').attr('value');
+					// se new values
+					$('#cur-title').attr('value', title);
+					$('#cur-artist').attr('value', artist);
+					// Update playing
+					PlayerUI.updatePlaying(title, artist, albumArt, src);
+					// set new values
+					$('#cur-title').attr('value', title);
+					$('#cur-artist').attr('value', title);
+				   break;
+				case 'rc':
+					var title  = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-title');
+					var artist = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-artist');
+					var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
+					var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input').attr('value');
+					// Update playing
+					PlayerUI.updatePlaying(title, artist, albumArt, src);
+					// set new values
+					$('#cur-title').attr('value', title);
+					$('#cur-artist').attr('value', title);
+				   break;
+				case 'ds':
+					var title  = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-title');
+					var artist = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-artist');
+					var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
+					var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input').attr('value');
+					// Update playing
+					PlayerUI.updatePlaying(title, artist, albumArt, src);
+					// se new values
+					$('#cur-title').attr('value', title);
+					$('#cur-artist').attr('value', artist);
+				   break;
+				default:
+					// statements_def
+					break;
+			}
 
 			$('a.music-entry').removeClass('now-playing');
-			$('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').addClass('now-playing');
+			$('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').addClass('now-playing');
 		}
 
 	}
@@ -170,23 +238,17 @@ $(document).ready(function() {
 	----------------------------------------------------*/
 	$('#next').on('click', function(e){
 		PlayerUI.next();
-
-
 		e.preventDefault();
 	});
-
 
 	/*--------------------------------------------------
 	|               PREV
 	----------------------------------------------------*/
 	$('#prev').on('click', function(e){
 		PlayerUI.prev();
-		
 		e.preventDefault();
 	});
 
-
-	
 	/*--------------------------------------------------
 	|               TRACK CLICK
 	----------------------------------------------------*/
@@ -239,19 +301,26 @@ $(document).ready(function() {
 		$('#'+$(this).attr('href')+'').show();
 
 		e.preventDefault();
-
-
 	});
-
 
 	/*--------------------------------------------------
 	|               MOST PLAYED CLICK
 	----------------------------------------------------*/
 	$('#most-played').on('click','.most-played-thumb', function(e){
+		songs = [];
+		Array.from($('.most-played-thumb')).forEach(function(el, index){
+			songs.push($('td:contains('+el.getAttribute('data-title')+')').prev('td').find('a').attr('href'));
+		});
+
+		// SET CURRENT PLAYING PLAYLIST
+		PlayerUI.currentSong.currentPlayingPlaylist = PlayerUI.currentSong.playlistType[1];
+
 		var title  = $(this).attr('data-title');
 		var artist = $(this).attr('data-artist');
-		var src      = $('td:contains('+title+')').prev('td').find('a').attr('href');
-		var albumArt = $('td:contains('+title+')').find('input').attr('value');
+		var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
+		var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input').attr('value');
+
+		PlayerUI.currentSong.songIndex = songs.indexOf(src);
 
 		// se new values
 		$('#cur-title').attr('value', title);
@@ -259,18 +328,26 @@ $(document).ready(function() {
 
 		// Update playing
 		PlayerUI.updatePlaying(title, artist, albumArt, src);
-
 	});
-
 
 	/*--------------------------------------------------
 	|               RECOMMENDED SONGS CLICK
 	----------------------------------------------------*/
 	$('#recommendations-body').on('click', '.play-btn' , function(e){
+		songs = [];
+		Array.from($('#recommendations-body').find('.play-btn')).forEach(function(el, index){
+			songs.push($('td:contains('+el.getAttribute('data-title')+')').prev('td').find('a').attr('href'));
+		});
+
+		// SET CURRENT PLAYING PLAYLIST
+		PlayerUI.currentSong.currentPlayingPlaylist = PlayerUI.currentSong.playlistType[2];
+
 		var title  = $(this).attr('data-title');
 		var artist = $(this).attr('data-artist');
-		var src      = $('td:contains('+title+')').prev('td').find('a').attr('href');
-		var albumArt = $('td:contains('+title+')').find('input').attr('value');
+		var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
+		var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input').attr('value');
+
+		PlayerUI.currentSong.songIndex = songs.indexOf(src);
 
 		// se new values
 		$('#cur-title').attr('value', title);
@@ -278,31 +355,34 @@ $(document).ready(function() {
 
 		// Update playing
 		PlayerUI.updatePlaying(title, artist, albumArt, src);
-
-		
 	});
 
 	/*--------------------------------------------------
 	|               DISCOVERY SONGS CLICK
 	----------------------------------------------------*/
 	$('#discovery-body').on('click', '.play-btn' , function(e){
+		songs = [];
+		Array.from($('#discovery-body').find('.play-btn')).forEach(function(el, index){
+			songs.push($('td:contains('+el.getAttribute('data-title')+')').prev('td').find('a').attr('href'));
+		});
+
+		// SET CURRENT PLAYING PLAYLIST
+		PlayerUI.currentSong.currentPlayingPlaylist = PlayerUI.currentSong.playlistType[3];
+
 		var title  = $(this).attr('data-title');
 		var artist = $(this).attr('data-artist');
-		var src      = $('td:contains('+title+')').prev('td').find('a').attr('href');
-		var albumArt = $('td:contains('+title+')').find('input').attr('value');
+		var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
+		var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input').attr('value');
+
+		PlayerUI.currentSong.songIndex = songs.indexOf(src);
 
 		// se new values
 		$('#cur-title').attr('value', title);
 		$('#cur-artist').attr('value', artist);
 
 		// Update playing
-		PlayerUI.updatePlaying(title, artist, albumArt, src);
-
-		
+		PlayerUI.updatePlaying(title, artist, albumArt, src);	
 	});
-
-
-	
 
 	/*--------------------------------------------------
 	|               AUDIO EVENTS
@@ -320,11 +400,54 @@ $(document).ready(function() {
 			PlayerUI.currentSong.songIndex = 0;
 		}
 
-		PlayerUI.updatePlaying($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text() , $('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input').val() , $('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
-		
-		// se new values
-		$('#cur-title').attr('value', $('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text());
-		$('#cur-artist').attr('value', $('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text());
+		/* SET PLAYLING PLAYLIST */
+		switch (PlayerUI.currentSong.currentPlayingPlaylist) {
+			case 'pl':
+			    PlayerUI.updatePlaying($('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
+				// set new values
+				$('#cur-title').attr('value', $.trim($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text()));
+				$('#cur-artist').attr('value', $.trim($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text()));
+				break;
+			case 'mp':
+			    var title  = $('.most-played-thumb:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-title');
+				var artist = $('.most-played-thumb:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-artist');
+				var src      = $('td:contains('+title+')').prev('td').find('a').attr('href');
+				var albumArt = $('td:contains('+title+')').find('input').attr('value');
+				// se new values
+				$('#cur-title').attr('value', title);
+				$('#cur-artist').attr('value', artist);
+				// Update playing
+				PlayerUI.updatePlaying(title, artist, albumArt, src);
+				// set new values
+				$('#cur-title').attr('value', title);
+				$('#cur-artist').attr('value', title);
+			   break;
+			case 'rc':
+				var title  = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-title');
+				var artist = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-artist');
+				var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
+				var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input').attr('value');
+				// Update playing
+				PlayerUI.updatePlaying(title, artist, albumArt, src);
+				// set new values
+				$('#cur-title').attr('value', title);
+				$('#cur-artist').attr('value', title);
+			   break;
+			case 'ds':
+				var title  = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-title');
+				var artist = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-artist');
+				var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
+				var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input').attr('value');
+				// Update playing
+				PlayerUI.updatePlaying(title, artist, albumArt, src);
+				// se new values
+				$('#cur-title').attr('value', title);
+				$('#cur-artist').attr('value', artist);
+			   break;
+			default:
+				// statements_def
+				break;
+		}
 
 		$('a.music-entry').removeClass('now-playing');
 		$('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').addClass('now-playing');

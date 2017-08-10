@@ -38,7 +38,6 @@
 		<?php endif; ?>
 	
 		<div id="full-screen-player">
-		<span id="timer" class="pull-right badge"></span>
 			<!-- PLAYER -->
 			<div id="player">
 				<div id="side">
@@ -66,7 +65,9 @@
 					<img src="<?=base_url()?>assets/album-cover.png" alt="" class="img-responsive" id="album-art" width="260px" height="260px" >
 
 					<h2 id="playing"></h2>
-					<span id="artist"></span>
+					<div>
+						<small id="playing-playlist">Recommendations</small>&nbsp;&nbsp;&#8226;&nbsp;&nbsp;<span id="artist"></span>
+					</div>
 					<div id="audio-controls">
 						<button id="prev"><i class="fa fa-step-backward"></i></button>
 						<button id="play"><i class="fa fa-play"></i></button>
@@ -80,7 +81,7 @@
 							<i class="fa fa-plus" id="vol-max"></i>
 						</span>
 					</div>
-					<!-- <input type="range" name="points" id="points" value="50" min="0" max="100">	 -->
+					<span id="timer" class="pull-right badge"></span>
 				</div>
 
 			</div>

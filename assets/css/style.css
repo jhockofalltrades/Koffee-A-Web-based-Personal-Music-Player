@@ -732,3 +732,10 @@ audio {
 #selected-playlist {
 	border-radius: 3px;	
 }
+
+#playing-playlist {
+	border: 1px solid #de6161;
+	border-radius: 4px;
+	color: #de6161;
+	padding: 0px 5px;
+}
