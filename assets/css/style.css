@@ -705,7 +705,6 @@ audio {
 
 .side-list > li {
 	list-style: none;
-
 }
 
 .side-list > li > a {
@@ -738,4 +737,15 @@ audio {
 	border-radius: 4px;
 	color: #de6161;
 	padding: 0px 5px;
+}
+
+.playing-playlist-inverse {
+	background: rgba(65, 67, 69, 0.49) !important;
+	color: #e7e7e7 !important;
+	border: 1px solid rgba(65, 67, 69, 0.49) !important;
+}
+
+#misc {
+	display: flex;
+	width: 100%;
 }

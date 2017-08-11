@@ -13,7 +13,7 @@
 	$('#timer').hide();
 	$('#recommendations-container').hide();
 	$('#discovery-container').hide();
-
+	$('#playing-playlist').hide();
 	/* GLOBALS */
 	var songs = []; //src containers
 	var parentPlaylist;  //Parent Playlist for -PLAYLISTS
@@ -22,6 +22,36 @@
 	// Array.from($('a.music-entry')).forEach(function(el, index){
 	// 	 songs.push(el.getAttribute('href'));
 	// });
+
+	   /*--------------------------------------------------
+	|               HELPER FUNCTIONS
+	----------------------------------------------------*/
+
+	function setPlayingPlaylist(playingPlaylistType) {
+		var playingplaylist = $('#playing-playlist');
+
+		switch (playingPlaylistType) {
+			case 'pl':
+				playingplaylist.text('Playlist');
+				break;
+			case 'mp':
+				playingplaylist.text('Most Played');
+				break;
+			case 'rc':
+				playingplaylist.text('Recommendations');
+				break;
+			case 'ds':
+				playingplaylist.text('Discovery Songs');
+				break;
+			default:
+				// statements_def
+				break;
+		}
+
+		playingplaylist.fadeIn();
+	}
+
+	/* end */
 
 	PlayerUI = {
 
@@ -284,7 +314,9 @@ $(document).ready(function() {
 
 		// SET CURRENT PLAYING PLAYLIST
 		PlayerUI.currentSong.currentPlayingPlaylist = PlayerUI.currentSong.playlistType[0];
-
+		// set playling playlist label
+		setPlayingPlaylist(PlayerUI.currentSong.playlistType[0]);
+		
 		$('#playlist-title').html('<span id="selected-playlist">'+ $(this).text() +'</span>');
 		
 		//styles
@@ -300,6 +332,7 @@ $(document).ready(function() {
 		// show its playlist
 		$('#'+$(this).attr('href')+'').show();
 
+	
 		e.preventDefault();
 	});
 
@@ -314,6 +347,8 @@ $(document).ready(function() {
 
 		// SET CURRENT PLAYING PLAYLIST
 		PlayerUI.currentSong.currentPlayingPlaylist = PlayerUI.currentSong.playlistType[1];
+		// set playling playlist label
+		setPlayingPlaylist(PlayerUI.currentSong.playlistType[1]);
 
 		var title  = $(this).attr('data-title');
 		var artist = $(this).attr('data-artist');
@@ -341,6 +376,8 @@ $(document).ready(function() {
 
 		// SET CURRENT PLAYING PLAYLIST
 		PlayerUI.currentSong.currentPlayingPlaylist = PlayerUI.currentSong.playlistType[2];
+		// set playling playlist label
+		setPlayingPlaylist(PlayerUI.currentSong.playlistType[2]);
 
 		var title  = $(this).attr('data-title');
 		var artist = $(this).attr('data-artist');
@@ -368,6 +405,8 @@ $(document).ready(function() {
 
 		// SET CURRENT PLAYING PLAYLIST
 		PlayerUI.currentSong.currentPlayingPlaylist = PlayerUI.currentSong.playlistType[3];
+		// set playling playlist label
+		setPlayingPlaylist(PlayerUI.currentSong.playlistType[3]);
 
 		var title  = $(this).attr('data-title');
 		var artist = $(this).attr('data-artist');
@@ -479,7 +518,7 @@ $(document).ready(function() {
 				zoomHandler = $('.folder-playlist').css({'border-left':'2px solid white'});
 			}
 			zoomHandler = $('#volume-control > .fa').removeClass('volume-zoom-mode');
-
+			zoomHandler = $('#playing-playlist').removeClass('playing-playlist-inverse');
 			zoomHandler = $('#side').removeClass('full-screen-ver');
 			zoomHandler = $('nav').show();
 			zoomHandler = $('#track-lists').show();
@@ -496,6 +535,7 @@ $(document).ready(function() {
 				setTimeout(function(){$('html, body').css({'background':'white'})}, 1000);			
 			}
 
+			zoomHandler = $('#playing-playlist').addClass('playing-playlist-inverse');
 			zoomHandler = $('#volume-control > .fa').addClass('volume-zoom-mode');
 			zoomHandler = $('#side').addClass('full-screen-ver');
 			zoomHandler = $('#recommendations').hide();
@@ -572,6 +612,8 @@ $(document).ready(function() {
 			PlayerUI.isDarkMode = true;
 		}
 	});
+
+
 
 
 

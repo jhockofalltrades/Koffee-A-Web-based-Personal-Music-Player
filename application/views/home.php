@@ -38,7 +38,7 @@
 		<?php endif; ?>
 	
 		<div id="full-screen-player">
-			<!-- PLAYER -->
+		 	<!-- PLAYER -->
 			<div id="player">
 				<div id="side">
 					<span id="shuffle" class="control-widget" data-toggle="tooltip" data-placement="bottom" title="Shuffle">
@@ -62,11 +62,14 @@
 				</div>
 
 				<div id="main">
+					<div id="misc">
+						<small id="playing-playlist"></small>
+					</div>
 					<img src="<?=base_url()?>assets/album-cover.png" alt="" class="img-responsive" id="album-art" width="260px" height="260px" >
 
 					<h2 id="playing"></h2>
 					<div>
-						<small id="playing-playlist">Recommendations</small>&nbsp;&nbsp;&#8226;&nbsp;&nbsp;<span id="artist"></span>
+						<!-- &nbsp;&nbsp;&#8226;&nbsp;&nbsp; --><span id="artist"></span>
 					</div>
 					<div id="audio-controls">
 						<button id="prev"><i class="fa fa-step-backward"></i></button>
