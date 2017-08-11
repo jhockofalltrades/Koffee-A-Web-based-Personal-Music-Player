@@ -1,6 +1,6 @@
 
 $(function(){
-		/* TIMER */
+	/* TIMER TOGGLE */
 	var timerHandler;
 	$('#clock').click(function(){
 		$(this).toggleClass('control-activate');
@@ -18,21 +18,30 @@ $(function(){
 		}
 	});
 
+	/* SETTING TIMER */
 	var min;
-	$('#set-time-limit').click(function(){
-		// set the value
-		min = $('#time-limit').val();
-		// start timer
-		startTime(min);
+	$('#set-time-limit').click(function(e){
+		var timeInput = $('#time-limit');
+		if($.trim(timeInput.val()) == "") {
+			return false;
+		} else {
+			// set the value
+			min = $('#time-limit').val();
+			// start timer
+			startTime(min);
 
-		setTimeout(function(){$('#timer').fadeIn()}, 1000);
+			setTimeout(function(){$('#timer').fadeIn()}, 1000);	
+		}
+		
 	});
 
+	/* CLOSE TIMER */
 	$('#close-timer').click(function(){
 		$('#clock').trigger('click');
 	});
 
 	
+	/* TIMER FUNCTION */
 	var sec = 60;
 	var theTimer;
 	function startTime(min) {
@@ -50,11 +59,13 @@ $(function(){
 		}, 1000);
 	}	
 
+	/* CLEAT TIMER */
 	function clearTimer() {
 		clearInterval(theTimer);
 		
 	}
 
+	/* UPDATE TIMER HELPER FUNCTION */
 	function updateTimer(min,sec) {
 		if(min == 0 && sec == 0) {
 			$('#timer').text('Timer is up!');

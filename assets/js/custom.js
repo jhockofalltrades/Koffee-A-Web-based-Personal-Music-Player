@@ -27,21 +27,21 @@
 	|               HELPER FUNCTIONS
 	----------------------------------------------------*/
 
-	function setPlayingPlaylist(playingPlaylistType) {
+	function setPlayingPlaylist(playingPlaylistType, playlistName = null) {
 		var playingplaylist = $('#playing-playlist');
 
 		switch (playingPlaylistType) {
 			case 'pl':
-				playingplaylist.text('Playlist');
+				playingplaylist.html('<i class="fa fa-play-circle"></i>&nbsp;&nbsp;' + playlistName);
 				break;
 			case 'mp':
-				playingplaylist.text('Most Played');
+				playingplaylist.html('<i class="fa fa-play-circle"></i>&nbsp;&nbsp;Most Played');
 				break;
 			case 'rc':
-				playingplaylist.text('Recommendations');
+				playingplaylist.html('<i class="fa fa-play-circle"></i>&nbsp;&nbsp;Recommendations');
 				break;
 			case 'ds':
-				playingplaylist.text('Discovery Songs');
+				playingplaylist.html('<i class="fa fa-play-circle"></i>&nbsp;&nbsp;Discovery Songs');
 				break;
 			default:
 				// statements_def
@@ -83,18 +83,7 @@
 
 		changeBackground: function() {
 			var rgb = getAverageRGB(document.getElementById('album-art'));
-			$('html, body').css({'background':'linear-gradient(to bottom, rgba('+rgb.r+','+rgb.g+','+rgb.b+', 100), #eef2f3)','transition':'all 0.7s ease-in'});
-			// $('body').attr('data-href', $('#album-art').attr('src'));
-			 
-			// setTimeout(function(){
-			// 	 $('body').blurr({
-		 //            height: document.body.scrollHeight, // Height, in pixels of this blurred div.
-		 //            sharpness: 30, // Sharpness, as a number between 0-100. 100 is very sharp, 0 is extremely blurry
-		 //            offsetX: 0, // The x (left - right) offset of the image
-		 //            offsetY: 0, // The y (top - bottom) offset of the image
-		 //            callback: null // Callback to be called after the blur has been rendered. Recieves the following arguments (href, offsetX, offsetY, sharpness)
-		 //        });
-			// 	}, 100);
+			$('html, body').css({'background':'linear-gradient(to bottom, rgba('+rgb.r+','+rgb.g+','+rgb.b+', 100), white)','transition':'all 0.7s ease-in'});
 		},
 
 		updatePlaying: function(song, artist, album, url) {
@@ -183,9 +172,13 @@
 					break;
 			}
 
-			$('a.music-entry').removeClass('now-playing');
-			$('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').addClass('now-playing');
-		},
+			// Change the play btn
+			$('#'+parentPlaylist+'').find('a.music-entry').html('<i class="fa fa-play"></i>');
+			$('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').html('<i class="fa fa-volume-up"></i>');
+			// Change the current playing background
+			$('#'+parentPlaylist+'').find('a.music-entry').parent().parent('tr').removeClass('row-active');
+			$('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').parent().parent('tr').addClass('row-active');
+			},
 
 		prev: function() {
 			if(this.isFullScreen) {
@@ -251,8 +244,12 @@
 					break;
 			}
 
-			$('a.music-entry').removeClass('now-playing');
-			$('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').addClass('now-playing');
+			// Change the play btn
+			$('#'+parentPlaylist+'').find('a.music-entry').html('<i class="fa fa-play"></i>');
+			$('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').html('<i class="fa fa-volume-up"></i>');
+			// Change the current playing background
+			$('#'+parentPlaylist+'').find('a.music-entry').parent().parent('tr').removeClass('row-active');
+			$('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').parent().parent('tr').addClass('row-active');
 		}
 
 	}
@@ -288,9 +285,13 @@ $(document).ready(function() {
 		PlayerUI.currentSong.songIndex = songs.indexOf($(this).attr('href'));
 		
 		PlayerUI.updatePlaying($('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
-		$('#'+parentPlaylist+'').find('a.music-entry').removeClass('now-playing');
-		$('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').addClass('now-playing');
 		
+		// Change the play btn
+		$('#'+parentPlaylist+'').find('a.music-entry').html('<i class="fa fa-play"></i>');
+		$('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').html('<i class="fa fa-volume-up"></i>');
+		// Change the current playing background
+		$('#'+parentPlaylist+'').find('a.music-entry').parent().parent('tr').removeClass('row-active');
+		$('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').parent().parent('tr').addClass('row-active');
 		// set new values
 		$('#cur-title').attr('value', $.trim($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text()));
 		$('#cur-artist').attr('value', $.trim($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text()));
@@ -315,7 +316,7 @@ $(document).ready(function() {
 		// SET CURRENT PLAYING PLAYLIST
 		PlayerUI.currentSong.currentPlayingPlaylist = PlayerUI.currentSong.playlistType[0];
 		// set playling playlist label
-		setPlayingPlaylist(PlayerUI.currentSong.playlistType[0]);
+		setPlayingPlaylist(PlayerUI.currentSong.playlistType[0], $(this).text());
 		
 		$('#playlist-title').html('<span id="selected-playlist">'+ $(this).text() +'</span>');
 		
@@ -508,6 +509,10 @@ $(document).ready(function() {
 		$('#album-art').toggleClass('album-art-zoom');
 		$('#zoom').toggleClass('control-activate');
 		$('#side').toggleClass('zoom-side');
+		$('.container').toggleClass('container-zoom');
+
+		$('.control-widget').attr('data-placement','top');
+
 		if(zoomHandler) {
 
 			if(PlayerUI.isDarkMode) {
@@ -517,6 +522,7 @@ $(document).ready(function() {
 				zoomHandler = $('html, body').css({'background':'white'});
 				zoomHandler = $('.folder-playlist').css({'border-left':'2px solid white'});
 			}
+
 			zoomHandler = $('#volume-control > .fa').removeClass('volume-zoom-mode');
 			zoomHandler = $('#playing-playlist').removeClass('playing-playlist-inverse');
 			zoomHandler = $('#side').removeClass('full-screen-ver');
@@ -600,13 +606,13 @@ $(document).ready(function() {
 		if(darkModeHandler) {
 			PlayerUI.isDarkMode = false;
 			darkModeHandler = $('#volume-control > .fa').removeClass('volume-zoom-mode');
-			darkModeHandler = $('#side').removeClass('full-screen-ver');
+			darkModeHandler = $('#side').removeClass('dark-mode-control');
 			darkModeHandler = $('html, body').css({'background-color':'white'});
 			darkModeHandler = $('.folder-playlist').css({'border-left':'2px solid white'});
 			darkModeHandler = null;
 		} else {
 			darkModeHandler = $('#volume-control > .fa').addClass('volume-zoom-mode');
-			darkModeHandler = $('#side').addClass('full-screen-ver');
+			darkModeHandler = $('#side').addClass('dark-mode-control');
 			darkModeHandler = $('html, body').css({'background-color':'#E0E0E0'});
 			darkModeHandler = $('.folder-playlist').css({'border-left':'2px solid #E0E0E0'});
 			PlayerUI.isDarkMode = true;

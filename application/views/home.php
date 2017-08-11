@@ -41,41 +41,41 @@
 		 	<!-- PLAYER -->
 			<div id="player">
 				<div id="side">
-					<span id="shuffle" class="control-widget" data-toggle="tooltip" data-placement="bottom" title="Shuffle">
+					<span id="shuffle" class="control-widget" data-toggle="tooltip" data-placement="top" title="Shuffle">
 						<img src="<?=base_url()?>assets/widget/svg/004-arrows-1.svg" class="widget-svg" alt="">
 					</span> <br>
-					<span id="repeat" class="control-widget" data-toggle="tooltip" data-placement="bottom" title="Repeat">
+					<span id="repeat" class="control-widget" data-toggle="tooltip" data-placement="top" title="Repeat">
 						<img src="<?=base_url()?>assets/widget/svg/001-arrows.svg" class="widget-svg" alt="">
 					</span> <br>
-					<span id="coffee" class="control-widget" data-toggle="tooltip" data-placement="bottom" title="Chill Mode">
+					<span id="coffee" class="control-widget" data-toggle="tooltip" data-placement="top" title="Chill Mode">
 						<img src="<?=base_url()?>assets/widget/svg/003-food.svg" class="widget-svg" alt="">
 					</span> <br>
-					<span id="clock" class="control-widget" data-toggle="tooltip" data-placement="bottom" title="Set Airplay Duration">
+					<span id="clock" class="control-widget" data-toggle="tooltip" data-placement="top" title="Set Airplay Duration">
 						<img src="<?=base_url()?>assets/widget/svg/005-clock.svg" class="widget-svg" alt="">
 					</span> <br>
-					<span id="zoom" class="control-widget" data-toggle="tooltip" data-placement="bottom" title="Full Screen">
+					<span id="zoom" class="control-widget" data-toggle="tooltip" data-placement="top" title="Full Screen">
 						<img src="<?=base_url()?>assets/widget/svg/006-arrows-2.svg" class="widget-svg" alt="">
 					</span> <br>
-					<span id="dark-mode" class="control-widget" data-toggle="tooltip" data-placement="bottom" title="Night Mode">
+					<span id="dark-mode" class="control-widget" data-toggle="tooltip" data-placement="top" title="Night Mode">
 						<img src="<?=base_url()?>assets/widget/svg/002-moon.svg" class="widget-svg" alt="">
 					</span>
 				</div>
 
 				<div id="main">
-					<div id="misc">
-						<small id="playing-playlist"></small>
-					</div>
 					<img src="<?=base_url()?>assets/album-cover.png" alt="" class="img-responsive" id="album-art" width="260px" height="260px" >
-
+					<small id="playing-playlist"></small>
 					<h2 id="playing"></h2>
-					<div>
-						<!-- &nbsp;&nbsp;&#8226;&nbsp;&nbsp; --><span id="artist"></span>
-					</div>
+					<span id="artist"></span>
+
+					<!-- &nbsp;&nbsp;&#8226;&nbsp;&nbsp; -->
 					<div id="audio-controls">
 						<button id="prev"><i class="fa fa-step-backward"></i></button>
 						<button id="play"><i class="fa fa-play"></i></button>
 						<button id="next"><i class="fa fa-step-forward"></i></button>
 					</div>
+
+					<span id="timer" class="pull-right badge"></span>
+
 					<div id="audio-sliders">
 						<progress id="seekbar" value="0" max="1"></progress>
 						<span class="pull-right" id="volume-control">
@@ -84,7 +84,7 @@
 							<i class="fa fa-plus" id="vol-max"></i>
 						</span>
 					</div>
-					<span id="timer" class="pull-right badge"></span>
+					
 				</div>
 
 			</div>
