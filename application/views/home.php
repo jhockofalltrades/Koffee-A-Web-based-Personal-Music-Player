@@ -106,21 +106,19 @@
 			<div class="col-lg-3">
 	
 				<h4 class="title">PERSONAL</h4>
-				<hr>
 				<!-- RECOMMENDATION -->
-					<ul class="side-list">
-						<li><a href="" id="recommendations"><i class="fa fa-tags"></i>&nbsp;&nbsp;Recommendations</a></li>
-						<li><a href="" id="discovery"><i class="fa fa-fire"></i>&nbsp;&nbsp;&nbsp;Discover Songs</a></li>
+					<ul class="list-group">
+						<a href="" id="recommendations" class="list-group-item"><i class="fa fa-tags"></i>&nbsp;&nbsp;Recommendations</a>
+						<a href="" id="discovery" class="list-group-item"><i class="fa fa-fire"></i>&nbsp;&nbsp;&nbsp;Discover Songs</a>
 					</ul>
 				<br><br>
 				<h4 class="title">PLAYLISTS</h4>
-				<hr>
 				<!-- AVAILABLE PLAYLISTS -->
-					<ul class="side-list">
+					<ul class="list-group">
 					<?php foreach($songs as $folder) :?>	
 						
 							<?php if($folder->isDir()) :?>
-								<li><a class="folder-playlist" href="<?=$folder->getFilename()?>"><img src="<?=base_url()?>assets/download.png" alt="" class="img-responsive list-group-thumb"><?=str_replace('-',' ', $folder->getFilename())?></a></li>
+								<a class=" list-group-item folder-playlist" href="<?=$folder->getFilename()?>"><img src="<?=base_url()?>assets/download.png" alt="" class="img-responsive list-group-thumb"><?=str_replace('-',' ', $folder->getFilename())?></a>
 							<?php endif ;?>
 						
 					<?php endforeach; ?>
@@ -134,7 +132,7 @@
 					</div>
 					
 					<!-- HIDDEN PLAYLISTS -->
-					<div id="container">
+					<div id="container" class="panel panel-default">
 					
 								
 								<?php foreach($songs as $className) :?>	
@@ -159,17 +157,16 @@
 												<?php foreach($songsUnderPlaylist as $song) : ?>
 													<?php if($song->isFile()) : ?>
 													<?php if($song->getExtension() != 'mp3') : ?>
-														<tr>
+														<tr colspan="1">
 															<td>
 																<a href="" class="music-entry"><i class="fa fa-times"></i></a>
 															</td>
 															<td>
 																<?=$song->getFilename()?><kbd class="pull-right">Not Supported</kbd>
-															</td>
-															<td>
-																
-															</td>
-															<td></td>									
+															</td>	
+															<td></td>
+															<td></td>
+															<td></td>								
 														</tr>
 													<?php else : ?>
 														<?php 

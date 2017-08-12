@@ -24,9 +24,11 @@ $(document).ready(function(){
 	  if(audioControl.audio.paused) {
 	  	audioControl.audio.play();
 	  	$('#play').html('<i class="fa fa-pause"></i>');
+	  	$('.row-active').find('a').html('<i class="fa fa-volume-up"></i>');
 	  } else {
 	  	audioControl.audio.pause();
 	  	$('#play').html('<i class="fa fa-play"></i>');
+	  	$('.row-active').find('a').html('<i class="fa fa-play"></i>');
 	  }
 	};
 

@@ -32,16 +32,16 @@
 
 		switch (playingPlaylistType) {
 			case 'pl':
-				playingplaylist.html('<i class="fa fa-play-circle"></i>&nbsp;&nbsp;' + playlistName);
+				playingplaylist.html('<i class="fa fa-play-circle"></i>&nbsp;&nbsp;From ' + playlistName);
 				break;
 			case 'mp':
-				playingplaylist.html('<i class="fa fa-play-circle"></i>&nbsp;&nbsp;Most Played');
+				playingplaylist.html('<i class="fa fa-play-circle"></i>&nbsp;&nbsp;From Most Played');
 				break;
 			case 'rc':
-				playingplaylist.html('<i class="fa fa-play-circle"></i>&nbsp;&nbsp;Recommendations');
+				playingplaylist.html('<i class="fa fa-play-circle"></i>&nbsp;&nbsp;From Recommendations');
 				break;
 			case 'ds':
-				playingplaylist.html('<i class="fa fa-play-circle"></i>&nbsp;&nbsp;Discovery Songs');
+				playingplaylist.html('<i class="fa fa-play-circle"></i>&nbsp;&nbsp;From Discover Songs');
 				break;
 			default:
 				// statements_def
@@ -285,7 +285,8 @@ $(document).ready(function() {
 		PlayerUI.currentSong.songIndex = songs.indexOf($(this).attr('href'));
 		
 		PlayerUI.updatePlaying($('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
-		
+		// set playling playlist label
+		setPlayingPlaylist(PlayerUI.currentSong.playlistType[0], $('#selected-playlist').text());
 		// Change the play btn
 		$('#'+parentPlaylist+'').find('a.music-entry').html('<i class="fa fa-play"></i>');
 		$('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').html('<i class="fa fa-volume-up"></i>');
@@ -315,16 +316,14 @@ $(document).ready(function() {
 
 		// SET CURRENT PLAYING PLAYLIST
 		PlayerUI.currentSong.currentPlayingPlaylist = PlayerUI.currentSong.playlistType[0];
-		// set playling playlist label
-		setPlayingPlaylist(PlayerUI.currentSong.playlistType[0], $(this).text());
 		
 		$('#playlist-title').html('<span id="selected-playlist">'+ $(this).text() +'</span>');
 		
 		//styles
-		$(this).addClass('.side-list-active');
+		$(this).addClass('side-list-active');
+		$('.folder-playlist').removeClass('side-list-active');
 
-		$('.folder-playlist').removeClass('.side-list-active');
-
+			
 		// hide other playlists
 		$('.hidden-playlists').hide();
 		$('#all-songs').hide();
@@ -517,10 +516,10 @@ $(document).ready(function() {
 
 			if(PlayerUI.isDarkMode) {
 				zoomHandler = $('html, body').css({'background':'#E0E0E0'});
-				zoomHandler = $('.folder-playlist').css({'border-left':'2px solid #E0E0E0'});
+			
 			} else {
 				zoomHandler = $('html, body').css({'background':'white'});
-				zoomHandler = $('.folder-playlist').css({'border-left':'2px solid white'});
+				
 			}
 
 			zoomHandler = $('#volume-control > .fa').removeClass('volume-zoom-mode');
@@ -608,13 +607,11 @@ $(document).ready(function() {
 			darkModeHandler = $('#volume-control > .fa').removeClass('volume-zoom-mode');
 			darkModeHandler = $('#side').removeClass('dark-mode-control');
 			darkModeHandler = $('html, body').css({'background-color':'white'});
-			darkModeHandler = $('.folder-playlist').css({'border-left':'2px solid white'});
 			darkModeHandler = null;
 		} else {
 			darkModeHandler = $('#volume-control > .fa').addClass('volume-zoom-mode');
 			darkModeHandler = $('#side').addClass('dark-mode-control');
 			darkModeHandler = $('html, body').css({'background-color':'#E0E0E0'});
-			darkModeHandler = $('.folder-playlist').css({'border-left':'2px solid #E0E0E0'});
 			PlayerUI.isDarkMode = true;
 		}
 	});

@@ -42,7 +42,6 @@
 
 html, body {
 	font-family: defaultFont, sans-serif;		
-	
 }
 
 .folder {
@@ -276,6 +275,7 @@ audio::-webkit-media-controls-panel {
 .album-art-zoom {
 	width: 350px;
 	height: auto;
+	box-shadow: none !important;
 	transition: all 0.5s ease;
 }
 
@@ -730,7 +730,7 @@ audio {
 	display: block;
 	text-decoration: none;
 	color: inherit;
-	padding: 10px 7px;
+	padding: 10px 10px;
 
 }
 
@@ -739,8 +739,8 @@ audio {
 }
 
 .side-list-active {
-	background: linear-gradient(to right, #de6161, #2657eb) !important;
-	color: white !important;
+	background: linear-gradient(to right, rgba(222, 97, 97, 0.5), rgba(38, 87, 235, 0.5)) !important;
+
 }
 
 #side-menu {
@@ -763,9 +763,14 @@ audio {
 .playing-playlist-inverse {
 	background: rgba(65, 67, 69, 0.49) !important;
 	color: #e7e7e7 !important;
-	border: 1px solid rgba(65, 67, 69, 0.49) !important;
+	border: none !important;
+	padding: 0px 6px !important;
 }
 
 .row-active {
 	background-color: #f1f1f1;
+}
+
+.list-group {
+	border-radius: 0px !important;
 }
