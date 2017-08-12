@@ -51,7 +51,19 @@
 		playingplaylist.fadeIn();
 	}
 
+	function setPlaylistImg() {
+		var play = [];
+		Array.from($('.folder-playlist')).forEach( function(element, index) {
+			play.push(element.getAttribute('href'));
+		});
 
+		for(var i = 0; i <= play.length; i++) {
+			$('.folder-playlist:eq('+i+')').find('img').attr('src', $('#'+$('.folder-playlist:eq('+i+')').attr('href')+'').find('a.music-entry:eq('+i+')').closest('td').next().find('input#hidden-album').val());		
+		}
+		
+	}
+
+	setPlaylistImg();
 	/* end */
 
 	PlayerUI = {	

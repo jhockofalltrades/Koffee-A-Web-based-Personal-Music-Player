@@ -118,7 +118,7 @@
 					<?php foreach($songs as $folder) :?>	
 						
 							<?php if($folder->isDir()) :?>
-								<a class=" list-group-item folder-playlist" href="<?=$folder->getFilename()?>"><img src="<?=base_url()?>assets/download.png" alt="" class="img-responsive list-group-thumb"><?=str_replace('-',' ', $folder->getFilename())?></a>
+								<a class=" list-group-item folder-playlist" href="<?=$folder->getFilename()?>"><img src="<?=base_url()?>assets/album-cover.png" alt="" class="img-responsive list-group-thumb"><?=str_replace('-',' ', $folder->getFilename())?></a>
 							<?php endif ;?>
 						
 					<?php endforeach; ?>

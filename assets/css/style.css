@@ -741,4 +741,7 @@ audio {
 	background-color: #f1f1f1;
 }
 
-
+.list-group {
+	border-bottom-left-radius: 0px !important;
+	border: none !important;
+}
