@@ -363,7 +363,6 @@ input {
 
 #track-header {
 	display: flex;
-
 	justify-content: space-between;	
 	align-items: center;
 }
@@ -718,35 +717,6 @@ audio {
 	transform: scale(1.1);
 }
 
-.side-list {
-	padding: 0px;
-}
-
-.side-list > li {
-	list-style: none;
-}
-
-.side-list > li > a {
-	display: block;
-	text-decoration: none;
-	color: inherit;
-	padding: 10px 10px;
-
-}
-
-.side-list > li > a:hover {
-	background-color: #f1f1f1;
-}
-
-.side-list-active {
-	background: linear-gradient(to right, rgba(222, 97, 97, 0.5), rgba(38, 87, 235, 0.5)) !important;
-
-}
-
-#side-menu {
-	border-left: 1px solid #f1f1f1;
-}
-
 #selected-playlist {
 	border-radius: 4px;	
 	background: linear-gradient(to right, rgb(128,25,187), #2657eb) !important;
@@ -771,6 +741,4 @@ audio {
 	background-color: #f1f1f1;
 }
 
-.list-group {
-	border-radius: 0px !important;
-}
+

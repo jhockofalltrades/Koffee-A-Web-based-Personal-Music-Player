@@ -104,14 +104,14 @@
 		<!-- PLAYLISTS / SONGS -->
 		<div class="row" id="track-lists">
 			<div class="col-lg-3">
-	
+				<br>
 				<h4 class="title">PERSONAL</h4>
 				<!-- RECOMMENDATION -->
 					<ul class="list-group">
 						<a href="" id="recommendations" class="list-group-item"><i class="fa fa-tags"></i>&nbsp;&nbsp;Recommendations</a>
 						<a href="" id="discovery" class="list-group-item"><i class="fa fa-fire"></i>&nbsp;&nbsp;&nbsp;Discover Songs</a>
 					</ul>
-				<br><br>
+				<br>
 				<h4 class="title">PLAYLISTS</h4>
 				<!-- AVAILABLE PLAYLISTS -->
 					<ul class="list-group">
@@ -124,11 +124,10 @@
 					<?php endforeach; ?>
 				</ul>
 			</div>
-			<div class="col-lg-9" id="side-menu">
+			<div class="col-lg-9">
 				<div id="playlist">
 					<div id="track-header">
 						<h4 class="title">TRACKS</h4><h4 id="playlist-title" class="text-right"></h4>
-
 					</div>
 					
 					<!-- HIDDEN PLAYLISTS -->
@@ -192,9 +191,19 @@
 																	}
 																?>
 																
-																<?=(isset($metadata['tags_html']['id3v2']['title'])) ? $metadata['tags_html']['id3v2']['title'][0] : $song->getBasename('.mp3') ?> 
-
-																<input type="hidden" value="<?=@$album_art?>">
+																<?php 
+																	$title = (isset($metadata['tags_html']['id3v2']['title'])) ? $metadata['tags_html']['id3v2']['title'][0] : $song->getBasename('.mp3');
+																	if(strlen($title) > 30) {
+																		echo substr($title , 0, 30) . ' ...';
+																	} else {
+																		echo $title;
+																	}
+																 ?>
+																
+																<!-- TITLE -->
+																<input type="hidden" id="hidden-title" value="<?=(isset($metadata['tags_html']['id3v2']['title'])) ? $metadata['tags_html']['id3v2']['title'][0] : $song->getBasename('.mp3') ?>">
+																<!-- ALBUM ART -->
+																<input type="hidden" id="hidden-album" value="<?=@$album_art?>">
 															</td>
 															<td>
 																<?=(isset($metadata['tags_html']['id3v2']['artist'])) ? $metadata['tags_html']['id3v2']['artist'][0] : 'Unknown'?> 

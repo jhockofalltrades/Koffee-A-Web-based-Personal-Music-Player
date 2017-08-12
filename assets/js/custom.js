@@ -51,9 +51,10 @@
 		playingplaylist.fadeIn();
 	}
 
+
 	/* end */
 
-	PlayerUI = {
+	PlayerUI = {	
 
 		cache: {
 		
@@ -65,7 +66,7 @@
 		},
 
 		isFullScreen: false,
-		isDarkMode: false,
+		isNightMode: false,
 		
 		currentSong: {
 			songIndex: 0,
@@ -126,7 +127,7 @@
 			/* SET PLAYLING PLAYLIST */
 			switch (this.currentSong.currentPlayingPlaylist) {
 				case 'pl':
-				    PlayerUI.updatePlaying($('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
+				    PlayerUI.updatePlaying($('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input#hidden-title').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input#hidden-album').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
 					// set new values
 					$('#cur-title').attr('value', $.trim($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text()));
 					$('#cur-artist').attr('value', $.trim($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text()));
@@ -135,7 +136,7 @@
 				    var title  = $('.most-played-thumb:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-title');
 					var artist = $('.most-played-thumb:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-artist');
 					var src      = $('td:contains('+title+')').prev('td').find('a').attr('href');
-					var albumArt = $('td:contains('+title+')').find('input').attr('value');
+					var albumArt = $('td:contains('+title+')').find('input#hidden-album').attr('value');
 					// se new values
 					$('#cur-title').attr('value', title);
 					$('#cur-artist').attr('value', artist);
@@ -149,7 +150,7 @@
 					var title  = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-title');
 					var artist = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-artist');
 					var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
-					var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input').attr('value');
+					var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input#hidden-album').attr('value');
 					// Update playing
 					PlayerUI.updatePlaying(title, artist, albumArt, src);
 					// set new values
@@ -160,7 +161,7 @@
 					var title  = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-title');
 					var artist = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-artist');
 					var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
-					var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input').attr('value');
+					var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input#hidden-album').attr('value');
 					// Update playing
 					PlayerUI.updatePlaying(title, artist, albumArt, src);
 					// se new values
@@ -198,7 +199,7 @@
 			/* SET PLAYLING PLAYLIST */
 			switch (this.currentSong.currentPlayingPlaylist) {
 				case 'pl':
-				    PlayerUI.updatePlaying($('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
+				    PlayerUI.updatePlaying($('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input#hidden-title').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input#hidden-album').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
 					// set new values
 					$('#cur-title').attr('value', $.trim($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text()));
 					$('#cur-artist').attr('value', $.trim($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text()));
@@ -207,7 +208,7 @@
 				    var title  = $('.most-played-thumb:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-title');
 					var artist = $('.most-played-thumb:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-artist');
 					var src      = $('td:contains('+title+')').prev('td').find('a').attr('href');
-					var albumArt = $('td:contains('+title+')').find('input').attr('value');
+					var albumArt = $('td:contains('+title+')').find('input#hidden-album').attr('value');
 					// se new values
 					$('#cur-title').attr('value', title);
 					$('#cur-artist').attr('value', artist);
@@ -221,7 +222,7 @@
 					var title  = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-title');
 					var artist = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-artist');
 					var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
-					var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input').attr('value');
+					var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input#hidden-album').attr('value');
 					// Update playing
 					PlayerUI.updatePlaying(title, artist, albumArt, src);
 					// set new values
@@ -232,7 +233,7 @@
 					var title  = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-title');
 					var artist = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-artist');
 					var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
-					var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input').attr('value');
+					var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input#hidden-album').attr('value');
 					// Update playing
 					PlayerUI.updatePlaying(title, artist, albumArt, src);
 					// se new values
@@ -284,7 +285,7 @@ $(document).ready(function() {
 
 		PlayerUI.currentSong.songIndex = songs.indexOf($(this).attr('href'));
 		
-		PlayerUI.updatePlaying($('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
+		PlayerUI.updatePlaying($('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input#hidden-title').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input#hidden-album').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
 		// set playling playlist label
 		setPlayingPlaylist(PlayerUI.currentSong.playlistType[0], $('#selected-playlist').text());
 		// Change the play btn
@@ -353,7 +354,7 @@ $(document).ready(function() {
 		var title  = $(this).attr('data-title');
 		var artist = $(this).attr('data-artist');
 		var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
-		var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input').attr('value');
+		var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input#hidden-album').attr('value');
 
 		PlayerUI.currentSong.songIndex = songs.indexOf(src);
 
@@ -382,7 +383,7 @@ $(document).ready(function() {
 		var title  = $(this).attr('data-title');
 		var artist = $(this).attr('data-artist');
 		var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
-		var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input').attr('value');
+		var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input#hidden-album').attr('value');
 
 		PlayerUI.currentSong.songIndex = songs.indexOf(src);
 
@@ -411,7 +412,7 @@ $(document).ready(function() {
 		var title  = $(this).attr('data-title');
 		var artist = $(this).attr('data-artist');
 		var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
-		var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input').attr('value');
+		var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input#hidden-album').attr('value');
 
 		PlayerUI.currentSong.songIndex = songs.indexOf(src);
 
@@ -442,7 +443,7 @@ $(document).ready(function() {
 		/* SET PLAYLING PLAYLIST */
 		switch (PlayerUI.currentSong.currentPlayingPlaylist) {
 			case 'pl':
-			    PlayerUI.updatePlaying($('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
+			    PlayerUI.updatePlaying($('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input#hidden-title').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input#hidden-album').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
 				// set new values
 				$('#cur-title').attr('value', $.trim($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().text()));
 				$('#cur-artist').attr('value', $.trim($('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text()));
@@ -451,7 +452,7 @@ $(document).ready(function() {
 			    var title  = $('.most-played-thumb:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-title');
 				var artist = $('.most-played-thumb:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-artist');
 				var src      = $('td:contains('+title+')').prev('td').find('a').attr('href');
-				var albumArt = $('td:contains('+title+')').find('input').attr('value');
+				var albumArt = $('td:contains('+title+')').find('input#hidden-album').attr('value');
 				// se new values
 				$('#cur-title').attr('value', title);
 				$('#cur-artist').attr('value', artist);
@@ -465,7 +466,7 @@ $(document).ready(function() {
 				var title  = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-title');
 				var artist = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-artist');
 				var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
-				var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input').attr('value');
+				var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input#hidden-album').attr('value');
 				// Update playing
 				PlayerUI.updatePlaying(title, artist, albumArt, src);
 				// set new values
@@ -476,7 +477,7 @@ $(document).ready(function() {
 				var title  = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-title');
 				var artist = $('.play-btn:eq('+[PlayerUI.currentSong.songIndex]+')').attr('data-artist');
 				var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
-				var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input').attr('value');
+				var albumArt = $('td').filter(function(){return $.trim($(this).text()) == title}).find('input#hidden-album').attr('value');
 				// Update playing
 				PlayerUI.updatePlaying(title, artist, albumArt, src);
 				// se new values
@@ -514,12 +515,10 @@ $(document).ready(function() {
 
 		if(zoomHandler) {
 
-			if(PlayerUI.isDarkMode) {
-				zoomHandler = $('html, body').css({'background':'#E0E0E0'});
-			
+			if(PlayerUI.isNightMode) {
+				$('html, body').css({'background':'rgba(255, 248, 225, 0.2'});
 			} else {
-				zoomHandler = $('html, body').css({'background':'white'});
-				
+				$('html, body').css({'background':'white'});
 			}
 
 			zoomHandler = $('#volume-control > .fa').removeClass('volume-zoom-mode');
@@ -596,23 +595,23 @@ $(document).ready(function() {
 	});
 
 
-	/* DARK MODE */
+	/* NIGHT MODE */
 
-	var darkModeHandler;
+	var nightModeHandler;
 	$('#dark-mode').click(function(){
 		$(this).toggleClass('control-activate');
 
-		if(darkModeHandler) {
-			PlayerUI.isDarkMode = false;
-			darkModeHandler = $('#volume-control > .fa').removeClass('volume-zoom-mode');
-			darkModeHandler = $('#side').removeClass('dark-mode-control');
-			darkModeHandler = $('html, body').css({'background-color':'white'});
-			darkModeHandler = null;
+		if(nightModeHandler) {
+			PlayerUI.isNightMode = false;
+			nightModeHandler = $('#volume-control > .fa').removeClass('volume-zoom-mode');
+			nightModeHandler = $('#side').removeClass('dark-mode-control');
+			nightModeHandler = $('html, body').css({'background-color':'white'});
+			nightModeHandler = null;
 		} else {
-			darkModeHandler = $('#volume-control > .fa').addClass('volume-zoom-mode');
-			darkModeHandler = $('#side').addClass('dark-mode-control');
-			darkModeHandler = $('html, body').css({'background-color':'#E0E0E0'});
-			PlayerUI.isDarkMode = true;
+			nightModeHandler = $('#volume-control > .fa').addClass('volume-zoom-mode');
+			nightModeHandler = $('#side').addClass('dark-mode-control');
+			nightModeHandler = $('html, body').css({'background-color':'rgba(255, 248, 225, 0.2)'});
+			PlayerUI.isNightMode = true;
 		}
 	});
 
