@@ -142,6 +142,85 @@ getMostPlayed();
 // setInterval(getMostPlayed, 10000);
 
 
+function createMostPlayedChart() {
+	var chartData = [];
+	var chartLabels = [];
+	$.ajax({
+		type: 'GET',
+		url: 'http://localhost/koffee/koffee/load_most_played',
+		dataType: 'json',
+		success: function(data){
+			$.each(data, function(key, val){
+				chartData.push(val.play);
+				chartLabels.push(val.title);
+			})
+		}
+	}).fail(function(){
+		alert('Something went wrong.');
+	});
+
+	var ctx = document.getElementById("myChart").getContext('2d');
+	var myChart = new Chart(ctx, {
+	    type: 'bar',
+	    data: {
+	        labels: chartLabels,
+	        datasets: [{
+	            label: '# Airplay',
+	            data: chartData,
+	            backgroundColor: [
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',	
+	                'rgba(75, 192, 192, 0.2)',
+	                'rgba(153, 102, 255, 0.2)',
+	                'rgba(255, 159, 64, 0.2)',
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',	
+	                'rgba(75, 192, 192, 0.2)',
+	                'rgba(153, 102, 255, 0.2)',
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',	
+	                'rgba(75, 192, 192, 0.2)',
+	            ],
+	            borderColor: [
+	                'rgba(255,99,132,1)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)',
+	                'rgba(153, 102, 255, 1)',
+	                'rgba(255, 159, 64, 1)',
+	                 'rgba(255,99,132,1)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)',
+	                'rgba(153, 102, 255, 1)',
+	                 'rgba(255,99,132,1)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)',
+	            ],
+	            borderWidth: 1
+	        }]
+	    },
+	    options: {
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero:true
+	                }
+	            }]
+	        }
+	    }
+	});
+}
+
+setTimeout(function() {
+	createMostPlayedChart();
+}, 2000);
+
+
 /*------------------------------------------
 |			GET RECOMMENDED SONGS
  -------------------------------------------*/
@@ -196,6 +275,7 @@ function loadRecommendations() {
 
 loadRecommendations();
 
+
 /*------------------------------------------
 |			GET DISCOVERY SONGS
  -------------------------------------------*/
@@ -206,23 +286,34 @@ function loadDiscovery() {
 		url: 'http://localhost/koffee/koffee/load_discovery',
 		dataType: 'json',
 		success: function(data) {
-			data.forEach( function(element, index) {
-				body += `
-				<div class="song-thumb-parent center-block discover-thumb">
-					<div class="thumb-bg" style='background-image: url(`+element.album_art+`)'>
-						<p>`+element.artist+`</p>
-					</div>
-					<div class="thumb-label">
-						<h5>`+element.title+`</h5>
-						<span class="play-btn" data-title="`+element.title+`" data-artist="`+element.artist+`">
-							<i class="fa fa-play"></i>
-						</span>
-					</div>
-				</div>
-				`;
-			});
+			if(data.length == 0) {
+				body += '<h3 class="text-center"><i class="fa fa-frown-o"></i>&nbsp;&nbsp;Discover Songs are not available for now.</h3>';
+			} else {
+				body += '<div class="row">';
+				var counter = 0;
+					$.each(data, function(key, val){
 
+					body += `
+							<div class="col-lg-3">
+								<div class="song-thumb-parent center-block">
+									<div class="thumb-bg" style='background-image: url(`+val.album_art+`)'>
+										<p>`+val.artist+`&nbsp;&nbsp;&#8226;&nbsp;&nbsp;`+val.year +`</p>
+									</div>
+									<div class="thumb-label">
+										<h5>`+val.title+`</h5>
+										<span class="play-btn" data-title="`+val.title+`" data-artist="`+val.artist+`">
+											<i class="fa fa-play"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+					`;
 
+					counter++;
+
+					body += (counter % 4 == 0) ? "</div><div class='row'>": "";
+				});
+			}
 
 			$('#discovery-body').html(body);
 		}

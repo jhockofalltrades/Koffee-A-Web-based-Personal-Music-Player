@@ -91,7 +91,7 @@ Class Playlist extends CI_Model {
 	}
 
 	function get_discover_songs() {
-		$this->db->select('songs.song_id, songs.title, songs.artist, songs.album_art, songs.album, count(interactions.song_id) as play_count')->from('songs');
+		$this->db->select('songs.song_id, songs.title, songs.artist, songs.album_art, songs.year, count(interactions.song_id) as play_count')->from('songs');
 		$this->db->join('interactions', 'songs.song_id = interactions.song_id','left');
 		$this->db->group_by('songs.song_id');
 		$this->db->order_by('play_count','asc')->limit(25);

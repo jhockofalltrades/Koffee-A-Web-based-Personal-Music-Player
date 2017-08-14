@@ -1,33 +1,3 @@
-<!-- RECOMENDATIONS -->
-<div id="recommendations-container" class="overlay">
-	<div class="container-fluid">
-		 <!-- Button to close the overlay navigation -->
-	  <span id="close-recommendations" class="pull-right">&#x2715;</span>
-		<h1 class="text-center lg-font light-font">Recommendations</h1>
-		<br>
-		<br>
-		<br>
-
-	 <div id="recommendations-body"></div>
-
-	</div>
-</div>
-
-<!-- DISCOVERY -->
-<div id="discovery-container" class="overlay">
-	<div class="container-fluid">
-		 <!-- Button to close the overlay navigation -->
-	  <span id="close-discovery" class="pull-right">&#x2715;</span>
-		<h1 class="text-center lg-font light-font">Discover songs</h1>
-		<br>
-		<br>
-		<br>
-
-	 <div id="discovery-body"></div>
-
-	</div>
-</div>
-
 <div class="container">
 	
 		<?php if($songs_added > 0) : ?>
@@ -47,7 +17,7 @@
 					<span id="repeat" class="control-widget" data-toggle="tooltip" data-placement="top" title="Repeat">
 						<img src="<?=base_url()?>assets/widget/svg/001-arrows.svg" class="widget-svg" alt="">
 					</span> <br>
-					<span id="coffee" class="control-widget" data-toggle="tooltip" data-placement="top" title="Chill Mode">
+					<span id="chill-mode" class="control-widget" data-toggle="tooltip" data-placement="top" title="Chill Mode">
 						<img src="<?=base_url()?>assets/widget/svg/003-food.svg" class="widget-svg" alt="">
 					</span> <br>
 					<span id="clock" class="control-widget" data-toggle="tooltip" data-placement="top" title="Set Airplay Duration">
@@ -100,19 +70,27 @@
 		</div>
 </div>
 
-<div class="container">
+<div class="container" id="contents">
 		<!-- PLAYLISTS / SONGS -->
 		<div class="row" id="track-lists">
 			<div class="col-lg-3">
-				<br>
-				<h4 class="title">PERSONAL</h4>
+				<h4 class="title">Personal</h4>
 				<!-- RECOMMENDATION -->
 					<ul class="list-group">
 						<a href="" id="recommendations" class="list-group-item"><i class="fa fa-tags"></i>&nbsp;&nbsp;Recommendations</a>
 						<a href="" id="discovery" class="list-group-item"><i class="fa fa-fire"></i>&nbsp;&nbsp;&nbsp;Discover Songs</a>
 					</ul>
 				<br>
-				<h4 class="title">PLAYLISTS</h4>
+
+				<h4 class="title">Interactions</h4>
+				<!-- CHARTS -->
+					<ul class="list-group">
+						<a href="" id="top-fifteen" class="list-group-item"><i class="fa fa-music"></i>&nbsp;&nbsp;Most Played</a>
+						<a href="" id="discovery" class="list-group-item"><i class="fa fa-fire"></i>&nbsp;&nbsp;&nbsp;Discover Songs</a>
+					</ul>
+				<br>
+
+				<h4 class="title">Playlists</h4>
 				<!-- AVAILABLE PLAYLISTS -->
 					<ul class="list-group">
 					<?php foreach($songs as $folder) :?>	
@@ -127,13 +105,36 @@
 			<div class="col-lg-9">
 				<div id="playlist">
 					<div id="track-header">
-						<h4 class="title">TRACKS</h4><h4 id="playlist-title" class="text-right"></h4>
+						<h4 class="title">Tracks</h4><h4 id="playlist-title" class="text-right"></h4>
 					</div>
 					
-					<!-- HIDDEN PLAYLISTS -->
-					<div id="container" class="panel panel-default">
 					
-								
+					<div id="container" class="panel panel-default">
+						<div class="panel-body">
+							<!-- PLACEHOLDER -->
+							<div id="placeholder">
+								<h1 class="light-font text-center">Select your playlist</h1>
+								<p class="text-center">Choose any of your saved playlist and play your favorite songs.</p>
+							</div>
+
+								<!-- RECOMENDATIONS -->
+							<div id="recommendations-container">
+								 <div id="recommendations-body"></div>
+							</div>
+							<!-- DISCOVERY -->
+							<div id="discovery-container">
+								<div class="container-fluid">
+								 <div id="discovery-body"></div>
+								</div>
+							</div>
+							<!-- CHART -->
+							<div id="chartjs">
+								<div class="panel-body">
+									<canvas id="myChart" width="400" height="400"></canvas>
+								</div>
+							</div>
+							<!-- end -->
+								<!-- HIDDEN PLAYLISTS -->
 								<?php foreach($songs as $className) :?>	
 									<?php if($className->isDir()) :?>
 									<div class="hidden-playlists" id="<?=$className->getFilename()?>">
@@ -224,13 +225,9 @@
 											</div>
 									<?php endif ;?>
 								<?php endforeach; ?>
+						</div>
 					</div>
-					<!-- PLACEHOLDER -->
-					<div id="empty-placeholder">
-						<h4><i class="fa fa-folder-open"></i>&nbsp;&nbsp;Select your playlist</h4>
-					</div>
-					<!-- end -->
-
+					
 				</div>
 			</div>
 		</div>

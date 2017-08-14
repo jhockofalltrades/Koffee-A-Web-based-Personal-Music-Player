@@ -170,14 +170,6 @@ class Koffee extends CI_Controller {
 		
 	}
 
-	/*SAMPLING*/
-	function sample_design() {
-		$this->load->view('templates/header');
-		$this->load->view('sample_design');
-		$this->load->view('templates/footer');
-	}
-	/*end*/
-
 	function update_mood() {
 		if($this->session->userdata('user_id') == FALSE ) {
 			redirect('koffee/','refresh');

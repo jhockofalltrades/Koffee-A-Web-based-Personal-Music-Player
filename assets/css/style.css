@@ -414,7 +414,7 @@ input {
 }
 
 /* The Overlay (background) */
-.overlay {
+/*.overlay {
     /* Height & width depends on how you want to reveal the overlay (see JS below) */    
     height: 100%;
     width: 100%;
@@ -422,10 +422,9 @@ input {
     z-index: 1; /* Sit on top */
     left: 0;
     top: 0;
-    background-color: rgb(0,0,0); /* Black fallback color */
-    background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
+ 
     overflow-x: hidden; /* Disable horizontal scroll */
-}
+}*/
 
 #close-recommendations, #close-discovery {
 	cursor: pointer;
@@ -449,17 +448,10 @@ input {
 	line-height: 10%;
 }
 
-#empty-placeholder {
-	text-align: center;
-	padding: 7em;
-	background-color: rgba(241, 241, 241, 0.65);
-	border: 1px dashed #f1f1f1;
-	border-radius: 4px;
-}
 
 .title {
 	padding-left: 2px;
-	line-height: 10%;
+
 }
 
 .btn {
@@ -488,22 +480,7 @@ input {
 
 }
 
-#discovery-body {
-	display: flex;
-	justify-content: center;
-	align-items: center;
 
-}
-
-#discovery-body > .discover-thumb {
-	visibility: hidden;
-	height: 400px !important;
-	width: 340px !important;
-}
-
-.discover-thumb > .thumb-bg {
-	height: 340px !important;
-}
 
 .list-group-item {
 	display: block !important;
@@ -536,25 +513,18 @@ input {
 #login-testimony {
 	height: 100vh;
 	display: flex;
-
 	justify-content: center;
 	flex-direction: column;
 }
 
 #recommendations-container {
-	height: 100vh;
-	background-image: url('../recommendation.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
-	color: white;
 }
 
 #discovery-container {
-	height: 100vh;
-	background-image: url('../discover.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
-	color: white;
 }
 
 /* PROGRESSBAR */
@@ -654,17 +624,17 @@ audio {
 
 /* THUMBNAILS DESIGN */
 .song-thumb-parent {
-	background-color: white;
+	background-color: #FAFAFA;
 	margin-bottom: 60px;
 	height: 270px;
 	width: 210px;
 	display: flex;
 	flex-direction: column;
-	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 	border-radius: 2px;
 }
 .song-thumb-parent:hover {
-	 box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+	 box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 	 transition: 0.3s;
 }
 
@@ -744,4 +714,12 @@ audio {
 .list-group {
 	border-bottom-left-radius: 0px !important;
 	border: none !important;
+}
+
+#myChart {
+	width: inherit;
+}
+
+#contents {
+	width: 90vw !important; 
 }
