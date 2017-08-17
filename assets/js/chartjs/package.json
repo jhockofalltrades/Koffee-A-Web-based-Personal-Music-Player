@@ -1,5 +1,5 @@
 {
-  "name": "chart.js",
+  "name": "chart",
   "homepage": "http://www.chartjs.org",
   "description": "Simple HTML5 charts using the canvas element.",
   "version": "2.6.0",
@@ -7,7 +7,7 @@
   "main": "src/chart.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chartjs/Chart.js.git"
+    "url": "git+https://github.com/chartjs/Chart.js.git"
   },
   "devDependencies": {
     "browserify": "^14.3.0",
@@ -52,5 +52,16 @@
     "chartjs-color": "^2.1.0",
     "gulp-install": "^1.1.0",
     "moment": "^2.18.1"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/chartjs/Chart.js/issues"
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": ""
 }

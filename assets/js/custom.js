@@ -1,4 +1,5 @@
 
+$(document).ready(function() {
 	
 
 	// ACTIVATE BOOTSTRAP TOOLTIP
@@ -132,9 +133,9 @@
 			$('title').text('Now Playing: ' + song);
 
 			// server.js
-			// setTimeout(function(){
-			// 	$('#count-song').trigger('submit');
-			// }, 1000);
+			setTimeout(function(){
+				$('#count-song').trigger('submit');
+			}, 1000);
 		},
 
 		next: function() {
@@ -289,7 +290,6 @@
 
 
 
-$(document).ready(function() {
 
 
 	/*--------------------------------------------------
@@ -370,7 +370,7 @@ $(document).ready(function() {
   		// set the playlist title
   		$('#playlist-title').html('<span id="selected-playlist">Recommendations</span>');
   		// Hide unneccessary divs
-		toggleHideplaylist($('#recommendations-container'), [$('#hidden-playlists'), $('#discovery-container'), $('#placeholder'), $('#chartjs')]);
+		toggleHideplaylist($('#recommendations-container'), [$('.hidden-playlists'), $('#discovery-container'), $('#placeholder'), $('#chartjs')]);
   		
   		e.preventDefault();
   	});
@@ -380,7 +380,7 @@ $(document).ready(function() {
   		// set the playlist title
   		$('#playlist-title').html('<span id="selected-playlist">Discover Songs</span>');
   		// Hide unneccessary divs
-		toggleHideplaylist($('#discovery-container'), [$('#hidden-playlists'), $('#recommendations-container'), $('#placeholder'), $('#chartjs')]);
+		toggleHideplaylist($('#discovery-container'), [$('.hidden-playlists'), $('#recommendations-container'), $('#placeholder'), $('#chartjs')]);
 
   		e.preventDefault();
   	})
@@ -390,7 +390,7 @@ $(document).ready(function() {
   		// set the playlist title
   		$('#playlist-title').html('<span id="selected-playlist">Most played songs Chart</span>');
   		// Hide unneccessary divs
-		toggleHideplaylist($('#chartjs'), [$('#hidden-playlists'), $('#recommendations-container'), $('#discovery-container'), $('#placeholder'), $('#placeholder')]);
+		toggleHideplaylist($('#chartjs'), [$('.hidden-playlists'), $('#recommendations-container'), $('#discovery-container'), $('#placeholder'), $('#placeholder')]);
 
   		e.preventDefault();
   	});

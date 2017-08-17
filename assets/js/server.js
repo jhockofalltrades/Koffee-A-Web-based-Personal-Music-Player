@@ -1,6 +1,8 @@
 
+	
  var signupBanner = $('#signup-banner');
  var loginBanner = $('#login-banner');
+ var baseURL = $('#base-url').val();
 
 /*-----------------------------------------
 |			SIGNUP
@@ -11,7 +13,7 @@ $('#signup').on('submit', function(e){
 
 	$.ajax({
 		type: 'POST',
-		url: 'http://localhost/koffee/koffee/add_user',
+		url: baseURL+'koffee/add_user',
 		dataType: 'json',
 		data: creds,
 		success: function(data){
@@ -40,12 +42,12 @@ $('#login').on('submit', function(){
 
 	$.ajax({
 		type: 'POST',
-		url: 'http://localhost/koffee/koffee/login',
+		url: baseURL+'koffee/login',
 		data: creds,
 		dataType: 'json',
 		success: function(data) {
 			if(data.user) {
-				window.location.href = 'http://localhost/koffee/koffee/mood';
+				window.location.href = baseURL+'koffee/mood';
 			} else {	
 				loginBanner.text('Wrong username or password.');
 			}
@@ -65,12 +67,12 @@ $('#update-mood').on('submit', function(e){
 
 	$.ajax({
 		type: 'POST',
-		url: 'http://localhost/koffee/koffee/update_mood',
+		url: baseURL+'koffee/update_mood',
 		data: creds,
 		dataType: 'json',
 		success: function(data){
 			if(data.success) {
-				window.location.href = 'http://localhost/koffee/koffee/app';
+				window.location.href = baseURL+'koffee/app';
 			}
 		}
 	}).fail(function(){
@@ -88,12 +90,12 @@ $('#count-song').on('submit', function(e){
 
 	$.ajax({
 		type: 'POST',
-		url: 'http://localhost/koffee/koffee/new_song_count',
+		url: baseURL+'koffee/new_song_count',
 		data: creds,
 		dataType: 'json',
 		success: function(data) {
 			if(data.success) {
-				alert('added');
+				//yehey!
 			}
 		}, 
 		error: function(jqXHR, textStatus, errorThrown) {
@@ -115,7 +117,7 @@ function getMostPlayed() {
 	var results = '';
 	$.ajax({
 		type: 'GET',
-		url: 'http://localhost/koffee/koffee/load_most_played',
+		url: baseURL+'koffee/load_most_played',
 		dataType: 'json',
 		success: function(data) {
 			if(data.length > 0 ) {
@@ -139,7 +141,7 @@ function getMostPlayed() {
 
 
 getMostPlayed();
-// setInterval(getMostPlayed, 10000);
+setInterval(getMostPlayed, 10000);
 
 
 function createMostPlayedChart() {
@@ -147,7 +149,7 @@ function createMostPlayedChart() {
 	var chartLabels = [];
 	$.ajax({
 		type: 'GET',
-		url: 'http://localhost/koffee/koffee/load_most_played',
+		url: baseURL+'koffee/load_most_played',
 		dataType: 'json',
 		success: function(data){
 			$.each(data, function(key, val){
@@ -216,9 +218,9 @@ function createMostPlayedChart() {
 	});
 }
 
-setTimeout(function() {
-	createMostPlayedChart();
-}, 2000);
+
+createMostPlayedChart();
+
 
 
 /*------------------------------------------
@@ -230,11 +232,16 @@ function loadRecommendations() {
 
 	$.ajax({
 		type: 'GET',
-		url: 'http://localhost/koffee/koffee/load_recommendations',
+		url: baseURL+'koffee/load_recommendations',
 		dataType: 'json',
 		success: function(data) {
 			if(data.length == 0) {
-				body += '<h3 class="text-center"><i class="fa fa-frown-o"></i>&nbsp;&nbsp;Recommendations are not available for now.</h3>';
+				body += `
+					<div id="placeholder">
+								<h1 class="light-font text-center">Recommendations are not available</h1>
+								<p class="text-center">Recommendations are based on your interactions with your songs in your playlists.</p>
+							</div>
+				`;
 			} else {
 				body += '<div class="row">';
 				var counter = 0;
@@ -263,10 +270,6 @@ function loadRecommendations() {
 			}
 
 			recommendedSongsContainer.html(body);
-		},
-		error: function(xhr, status, error) {
-			 var err = eval("(" + xhr.responseText + ")");
-  			alert(err.Message);	
 		}
 	}).fail(function(){
 		alert('Something went wrong.');
@@ -283,11 +286,16 @@ function loadDiscovery() {
 	var body = '';
 	$.ajax({
 		type: 'GET',
-		url: 'http://localhost/koffee/koffee/load_discovery',
+		url: baseURL+'koffee/load_discovery',
 		dataType: 'json',
 		success: function(data) {
 			if(data.length == 0) {
-				body += '<h3 class="text-center"><i class="fa fa-frown-o"></i>&nbsp;&nbsp;Discover Songs are not available for now.</h3>';
+				body += `
+					<div id="placeholder">
+								<h1 class="light-font text-center">Discover music is not available</h1>
+								<p class="text-center">Interact with your playlist to discovery more of your songs.</p>
+							</div>
+				`;
 			} else {
 				body += '<div class="row">';
 				var counter = 0;
