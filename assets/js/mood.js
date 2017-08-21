@@ -5,6 +5,8 @@ $(function(){
 
 
 	$('.emoji').click(function(e){
+		$('nav').show(); //bring back the nav
+
 		var moodVal = e.target.getAttribute('id');
 		
 		$('#mood').attr('value',moodVal);

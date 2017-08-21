@@ -77,19 +77,12 @@
 				<h4 class="title">Personal</h4>
 				<!-- RECOMMENDATION -->
 					<ul class="list-group">
+						<a href="" id="trend" class="list-group-item"><i class="fa fa-search"></i>&nbsp;&nbsp;&nbsp;Search</a>
+						<a href="" id="top-fifteen" class="list-group-item"><i class="fa fa-area-chart"></i>&nbsp;&nbsp;Your Charts</a>
 						<a href="" id="recommendations" class="list-group-item"><i class="fa fa-tags"></i>&nbsp;&nbsp;Recommendations</a>
 						<a href="" id="discovery" class="list-group-item"><i class="fa fa-fire"></i>&nbsp;&nbsp;&nbsp;Discover Songs</a>
 					</ul>
 				<br>
-
-				<h4 class="title">Interactions</h4>
-				<!-- CHARTS -->
-					<ul class="list-group">
-						<a href="" id="top-fifteen" class="list-group-item"><i class="fa fa-music"></i>&nbsp;&nbsp;Most Played</a>
-						<a href="" id="discovery" class="list-group-item"><i class="fa fa-fire"></i>&nbsp;&nbsp;&nbsp;Discover Songs</a>
-					</ul>
-				<br>
-
 				<h4 class="title">Playlists</h4>
 				<!-- AVAILABLE PLAYLISTS -->
 					<ul class="list-group">
@@ -130,7 +123,32 @@
 							<!-- CHART -->
 							<div id="chartjs">
 								<div class="panel-body">
+									<div id="placeholder">
+										<h1 class="light-font text-center">Most played Chart</h1>
+									</div>
 									<canvas id="myChart" width="400" height="400"></canvas>
+									<div id="placeholder">
+										<h1 class="light-font text-center">Weekly Listening Chart</h1>
+										<canvas id="myChartweekly" width="400" height="400"></canvas>
+									</div>
+								</div>
+							</div>
+							<!-- MUSIC TREND -->
+							<div id="trend-container">
+								<div class="panel-body">
+									<div class="form-group">
+										<h1 class="light-font text-center">Search your favorite song</h1>
+										<p class="text-center">Choose any of your saved songs and see your interactions within the week.</p>
+								
+											<form action="" method="post" id="trend-search">
+												<input type="text" name="search-song" id="search-song" placeholder="Search a song or the artist" class="form-control">
+												<button id="search-btn" type="submit"><i class="fa fa-play"></i>&nbsp;&nbsp;<strong>Play</strong></button>
+											</form>
+											<div id="results">
+												
+											</div>
+									
+									</div>
 								</div>
 							</div>
 							<!-- end -->

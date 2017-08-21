@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 require_once(APPPATH.'libraries/GetID3/getid3/getid3.php');
 class Koffee extends CI_Controller {
 	
@@ -16,9 +17,7 @@ class Koffee extends CI_Controller {
 
 	function login()  {
 		if($this->session->userdata('user_id') == TRUE ) {
-
 			redirect('koffee/','refresh');
-
 		}
 			$existing = false;
 
@@ -27,9 +26,7 @@ class Koffee extends CI_Controller {
 		
 			if( !empty($username) && !empty($password) ) {
 
-
 				$user = $this->user->login(trim($username),trim($password));
-
 
 				if( $user ) {
 					$existing = true; //Set existing to TRUE
@@ -80,7 +77,6 @@ class Koffee extends CI_Controller {
 		$verify_pass = $this->input->post('repassword');
 		// Check if any field is not empty
 		if(empty($username) || empty($password)) {
-
 			$empty = true;
 
 		} else {
@@ -134,32 +130,32 @@ class Koffee extends CI_Controller {
 
 		$songs_added = 0;
 
-		foreach($songs as $song) {
-			if($song->isFile()) {
-				if(in_array($song->getExtension(), ['mp3','wav','ogg'])) {
-					/*GET ID3 TAGS*/
-					$metadata = $id3v2->analyze($song->getPathname());
-					getid3_lib::CopyTagsToComments($metadata);
+		// foreach($songs as $song) {
+		// 	if($song->isFile()) {
+		// 		if(in_array($song->getExtension(), ['mp3','wav','ogg'])) {
+		// 			/*GET ID3 TAGS*/
+		// 			$metadata = $id3v2->analyze($song->getPathname());
+		// 			getid3_lib::CopyTagsToComments($metadata);
 
-					$data = [
-						'playtime'  => isset($metadata['playtime_string']) ? $metadata['playtime_string'] : 'Unknown',
-						'title'     => isset($metadata['tags_html']['id3v2']['title']) ? $metadata['tags_html']['id3v2']['title'][0] : $song->getBasename('.mp3'),
-						'artist'    => isset($metadata['tags_html']['id3v2']['artist']) ? $metadata['tags_html']['id3v2']['artist'][0] : 'Unknown',
-						'album'     => isset($metadata['tags_html']['id3v2']['album']) ? $metadata['tags_html']['id3v2']['album'][0] : 'Unknown',
-						'genre'     => isset($metadata['tags_html']['id3v2']['genre']) ? $metadata['tags_html']['id3v2']['genre'][0] : 'Unknown',
-						'year'      => isset($metadata['tags_html']['id3v2']['year']) ? $metadata['tags_html']['id3v2']['year'][0] : 'Unknown',
-						'album_art' => isset($metadata['comments']['picture'][0]) ? 'data:'.$metadata['comments']['picture'][0]['image_mime'].';charset=utf-8;base64,'.base64_encode($metadata['comments']['picture'][0]['data']) : base_url().'assets/album-cover.png'
-					]; 
+		// 			$data = [
+		// 				'playtime'  => isset($metadata['playtime_string']) ? $metadata['playtime_string'] : 'Unknown',
+		// 				'title'     => isset($metadata['tags_html']['id3v2']['title']) ? $metadata['tags_html']['id3v2']['title'][0] : $song->getBasename('.mp3'),
+		// 				'artist'    => isset($metadata['tags_html']['id3v2']['artist']) ? $metadata['tags_html']['id3v2']['artist'][0] : 'Unknown',
+		// 				'album'     => isset($metadata['tags_html']['id3v2']['album']) ? $metadata['tags_html']['id3v2']['album'][0] : 'Unknown',
+		// 				'genre'     => isset($metadata['tags_html']['id3v2']['genre']) ? $metadata['tags_html']['id3v2']['genre'][0] : 'Unknown',
+		// 				'year'      => isset($metadata['tags_html']['id3v2']['year']) ? $metadata['tags_html']['id3v2']['year'][0] : 'Unknown',
+		// 				'album_art' => isset($metadata['comments']['picture'][0]) ? 'data:'.$metadata['comments']['picture'][0]['image_mime'].';charset=utf-8;base64,'.base64_encode($metadata['comments']['picture'][0]['data']) : base_url().'assets/album-cover.png'
+		// 			]; 
 
-					if($this->playlist->check_existing_song($data['title'], $data['artist'])) {
+		// 			if($this->playlist->check_existing_song($data['title'], $data['artist'])) {
 
-					} else {
-						$this->playlist->add_song($data);
-						$songs_added += 1;
-					}
-				}
-			}
-		}
+		// 			} else {
+		// 				$this->playlist->add_song($data);
+		// 				$songs_added += 1;
+		// 			}
+		// 		}
+		// 	}
+		// }
 
 		$data['songs'] = $songs;
 		$data['songs_added'] = $songs_added;
@@ -195,7 +191,7 @@ class Koffee extends CI_Controller {
 		echo json_encode(['success' => $updated]);
 		
 	}
-
+	
 	// ====== AJAX Request =========
 	function load_most_played() {
 
@@ -254,6 +250,21 @@ class Koffee extends CI_Controller {
 		echo json_encode($discovery);
 	}
 
+	function search_song($search_string) {
+		header('Content-Type: application/json'); 
+
+		$result = $this->playlist->get_matched_songs($search_string);
+
+		echo json_encode($result);
+	}
+
+	function get_weekly_trend() {
+
+		$result = $this->playlist->get_weekly_trend();
+
+		echo json_encode($result);
+	}
+
 	function cur_user() {
 		header('Content-Type: application/json'); 
 
@@ -265,9 +276,9 @@ class Koffee extends CI_Controller {
 
 	function logout() {
 		if($this->session->userdata('user_id') == FALSE ) {
-
 			redirect('koffee','refresh');
 		}
+
 		$newdata = ['user_id' => ''];
 
 		$this->session->unset_userdata($newdata);

@@ -3,8 +3,8 @@
 		<div class="row">
 			<div class="col-lg-8">
 				<div id="login-testimony">
-					<h1 class="slim-font lg-font">Welcome to Koffee.</h1>
-					<p>Create your own music experience</p>
+					<h1 class="light-font lg-font"><img src="<?=base_url()?>assets/icon.png" alt="Logo" style="height: 78px; width: auto; transform: translateY(-10px);">Welcome to Koffee.</h1>
+					<p style="margin-left: 5.4em">Create your own music experience.</p>
 				</div>
 			</div>
 			<div class="col-lg-4">

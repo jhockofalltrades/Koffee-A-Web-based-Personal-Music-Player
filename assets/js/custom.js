@@ -9,6 +9,7 @@ $(document).ready(function() {
     $('body').tooltip({
 	    selector: '[data-toggle="tooltip"]'
 	});
+
 	// PRE-HIDE ELEMENTS
 	$('.hidden-playlists').hide();
 	$('#timer').hide();
@@ -16,6 +17,7 @@ $(document).ready(function() {
   	$('#discovery-container').hide();
   	$('#chartjs').hide();
 	$('#playing-playlist').hide();
+	$('#trend-container').hide();
 	/* GLOBALS */
 	var songs = []; //src containers
 	var parentPlaylist;  //Parent Playlist for -PLAYLISTS
@@ -44,6 +46,12 @@ $(document).ready(function() {
 				break;
 			case 'ds':
 				playingplaylist.html('<i class="fa fa-play-circle"></i>&nbsp;&nbsp;From Discover Songs');
+				break;
+			case 'ch':
+				playingplaylist.html('<i class="fa fa-coffee"></i>&nbsp;&nbsp;Chill Mode');
+				break;
+				case 'sc':
+				playingplaylist.html('<i class="fa fa-play-circle"></i>&nbsp;&nbsp;From Search');
 				break;
 			default:
 				// statements_def
@@ -74,6 +82,15 @@ $(document).ready(function() {
 		}
 	}
 
+	function initControl() {
+		if(PlayerUI.disableControl) {
+			$('#next').prop('disabled',true);
+			$('#prev').prop('disabled', true);
+		} else {
+			$('#next').prop('disabled',false);
+			$('#prev').prop('disabled', false);
+		}
+	}
 
 
 	function toggleHideplaylist(openedPlaylist, playlistToBeClosed ) {
@@ -98,7 +115,7 @@ $(document).ready(function() {
 
 		isFullScreen: false,
 		isNightMode: false,
-		
+		disableControl: true,
 		currentSong: {
 			songIndex: 0,
 			shuffle: false,
@@ -111,7 +128,7 @@ $(document).ready(function() {
 		      ds => Discovered Songs (Songs from Discovery Area)
 		      ds => Chill Mode (All music available)
 			*/
-			playlistType: ['pl','mp','rc','ds','ch']
+			playlistType: ['pl','mp','rc','ds','ch','sc']
 		},
 
 		changeBackground: function() {
@@ -120,6 +137,8 @@ $(document).ready(function() {
 		},
 
 		updatePlaying: function(song, artist, album, url) {
+			initControl();
+
 			$('source').attr('src',url);
 			this.cache.albumArt.attr('src', album);
 			this.cache.playingTitle.text(song);
@@ -200,6 +219,21 @@ $(document).ready(function() {
 					$('#cur-title').attr('value', title);
 					$('#cur-artist').attr('value', artist);
 				   break;
+
+				 case 'ch': 
+				 		// vars
+						var src      = songs[PlayerUI.currentSong.songIndex]; 
+						var title    = $('a').filter(function(){return $.trim($(this).attr('href')) == src}).parent().next('td').find('input#hidden-title').attr('value');
+						var albumArt = $('a').filter(function(){return $.trim($(this).attr('href')) == src}).parent().next('td').find('input#hidden-album').attr('value');
+						var artist   = $.trim($('a').filter(function(){return $.trim($(this).attr('href')) == src}).parent().next('td').next('td').text());	
+						
+						// Update playing
+						PlayerUI.updatePlaying(title, artist, albumArt, src);	
+						// se new values
+						$('#cur-title').attr('value', title);
+						$('#cur-artist').attr('value', artist);
+
+				 	break;
 				default:
 					// statements_def
 					break;
@@ -272,6 +306,20 @@ $(document).ready(function() {
 					$('#cur-title').attr('value', title);
 					$('#cur-artist').attr('value', artist);
 				   break;
+			  case 'ch': 
+			 		// vars
+					var src      = songs[PlayerUI.currentSong.songIndex]; 
+					var title    = $('a').filter(function(){return $.trim($(this).attr('href')) == src}).parent().next('td').find('input#hidden-title').attr('value');
+					var albumArt = $('a').filter(function(){return $.trim($(this).attr('href')) == src}).parent().next('td').find('input#hidden-album').attr('value');
+					var artist   = $.trim($('a').filter(function(){return $.trim($(this).attr('href')) == src}).parent().next('td').next('td').text());	
+					
+					// Update playing
+					PlayerUI.updatePlaying(title, artist, albumArt, src);	
+					// se new values
+					$('#cur-title').attr('value', title);
+					$('#cur-artist').attr('value', artist);
+			 	break;
+
 				default:
 					// statements_def
 					break;
@@ -287,10 +335,7 @@ $(document).ready(function() {
 
 	}
 
-
-
-
-
+	initControl();
 
 	/*--------------------------------------------------
 	|               NEXT
@@ -313,7 +358,7 @@ $(document).ready(function() {
 	----------------------------------------------------*/
 
 	$('a.music-entry').on('click', function(e){	
-
+		PlayerUI.disableControl = false;
 		PlayerUI.currentSong.songIndex = songs.indexOf($(this).attr('href'));
 		
 		PlayerUI.updatePlaying($('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input#hidden-title').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').siblings(':eq(1)').text(), $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').closest('td').next().find('input#hidden-album').val() , $('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').attr('href') );
@@ -350,6 +395,7 @@ $(document).ready(function() {
 
 		// SET CURRENT PLAYING PLAYLIST
 		PlayerUI.currentSong.currentPlayingPlaylist = PlayerUI.currentSong.playlistType[0];
+		
 		// set the playlist title
 		$('#playlist-title').html('<span id="selected-playlist">'+ $(this).text() +'</span>');
 		
@@ -359,7 +405,7 @@ $(document).ready(function() {
 
 
 		// Hide unneccessary divs
-		toggleHideplaylist($('#'+$(this).attr('href')+''), [$('.hidden-playlists'), $('#recommendations-container'), $('#discovery-container'), $('#placeholder'), $('#chartjs')]);
+		toggleHideplaylist($('#'+$(this).attr('href')+''), [$('#trend-container'), $('.hidden-playlists'), $('#recommendations-container'), $('#discovery-container'), $('#placeholder'), $('#chartjs')]);
 
 		e.preventDefault();	
 		
@@ -370,7 +416,7 @@ $(document).ready(function() {
   		// set the playlist title
   		$('#playlist-title').html('<span id="selected-playlist">Recommendations</span>');
   		// Hide unneccessary divs
-		toggleHideplaylist($('#recommendations-container'), [$('.hidden-playlists'), $('#discovery-container'), $('#placeholder'), $('#chartjs')]);
+		toggleHideplaylist($('#recommendations-container'), [$('#trend-container'), $('.hidden-playlists'), $('#discovery-container'), $('#placeholder'), $('#chartjs')]);
   		
   		e.preventDefault();
   	});
@@ -380,7 +426,7 @@ $(document).ready(function() {
   		// set the playlist title
   		$('#playlist-title').html('<span id="selected-playlist">Discover Songs</span>');
   		// Hide unneccessary divs
-		toggleHideplaylist($('#discovery-container'), [$('.hidden-playlists'), $('#recommendations-container'), $('#placeholder'), $('#chartjs')]);
+		toggleHideplaylist($('#discovery-container'), [$('#trend-container'), $('.hidden-playlists'), $('#recommendations-container'), $('#placeholder'), $('#chartjs')]);
 
   		e.preventDefault();
   	})
@@ -390,15 +436,65 @@ $(document).ready(function() {
   		// set the playlist title
   		$('#playlist-title').html('<span id="selected-playlist">Most played songs Chart</span>');
   		// Hide unneccessary divs
-		toggleHideplaylist($('#chartjs'), [$('.hidden-playlists'), $('#recommendations-container'), $('#discovery-container'), $('#placeholder'), $('#placeholder')]);
+		toggleHideplaylist($('#chartjs'), [$('#trend-container'), $('.hidden-playlists'), $('#recommendations-container'), $('#discovery-container'), $('#placeholder'), $('#placeholder')]);
 
   		e.preventDefault();
   	});
+
+  	/* Music Trend */
+  	$('#trend').click(function(e){
+  		// set the playlist title
+  		$('#playlist-title').html('<span id="selected-playlist">Most played songs Chart</span>');
+  		// Hide unneccessary divs
+		toggleHideplaylist($('#trend-container'), [$('#chartjs'), $('.hidden-playlists'), $('#recommendations-container'), $('#discovery-container'), $('#placeholder'), $('#placeholder')]);
+
+  		e.preventDefault();
+  	});
+
+
+	/*--------------------------------------------------
+	|              SEARCH CLICK
+	----------------------------------------------------*/
+	$('#search-btn').click(function(e){
+		PlayerUI.disableControl = true;
+
+		var searchAttr = $('#search-song');
+
+		if($('#search-song').val() != '') {	
+			
+		// SET CURRENT PLAYING PLAYLIST
+		PlayerUI.currentSong.currentPlayingPlaylist = PlayerUI.currentSong.playlistType[5];
+		// set playling playlist label
+		setPlayingPlaylist(PlayerUI.currentSong.playlistType[5]);
+			
+			// set the playlist title
+			$('#playlist-title').html('<span id="selected-playlist">Playing fro search</span>');
+
+			var title    = searchAttr.val();
+			var artist   = searchAttr.attr('data-artist');
+			var albumArt = searchAttr.attr('data-album-art');
+			var src      = $('td').filter(function(){return $.trim($(this).text()) == title}).prev('td').find('a').attr('href');
+
+			PlayerUI.currentSong.songIndex = songs.indexOf(src);
+
+			// se new values
+			$('#cur-title').attr('value', title);
+			$('#cur-artist').attr('value', artist);
+
+			// Update playing
+			PlayerUI.updatePlaying(title, artist, albumArt, src);
+
+		} else {
+			$('#trend-search').attr('style','border: 1px solid red !important');
+		}
+		e.preventDefault();
+	});
 
 	/*--------------------------------------------------
 	|               MOST PLAYED CLICK
 	----------------------------------------------------*/
 	$('#most-played').on('click','.most-played-thumb', function(e){
+		PlayerUI.disableControl = false;
 		songs = [];
 		Array.from($('.most-played-thumb')).forEach(function(el, index){
 			songs.push($('td:contains('+el.getAttribute('data-title')+')').prev('td').find('a').attr('href'));
@@ -428,6 +524,7 @@ $(document).ready(function() {
 	|               RECOMMENDED SONGS CLICK
 	----------------------------------------------------*/
 	$('#recommendations-body').on('click', '.play-btn' , function(e){
+		PlayerUI.disableControl = false;
 		songs = [];
 		Array.from($('#recommendations-body').find('.play-btn')).forEach(function(el, index){
 			songs.push($('td:contains('+el.getAttribute('data-title')+')').prev('td').find('a').attr('href'));
@@ -457,6 +554,7 @@ $(document).ready(function() {
 	|               DISCOVERY SONGS CLICK
 	----------------------------------------------------*/
 	$('#discovery-body').on('click', '.play-btn' , function(e){
+		PlayerUI.disableControl = false;
 		songs = [];
 		Array.from($('#discovery-body').find('.play-btn')).forEach(function(el, index){
 			songs.push($('td:contains('+el.getAttribute('data-title')+')').prev('td').find('a').attr('href'));
@@ -542,13 +640,31 @@ $(document).ready(function() {
 				$('#cur-title').attr('value', title);
 				$('#cur-artist').attr('value', artist);
 			   break;
+		    case 'ch': 
+			 		// vars
+					var src      = songs[PlayerUI.currentSong.songIndex]; 
+					var title    = $('a').filter(function(){return $.trim($(this).attr('href')) == src}).parent().next('td').find('input#hidden-title').attr('value');
+					var albumArt = $('a').filter(function(){return $.trim($(this).attr('href')) == src}).parent().next('td').find('input#hidden-album').attr('value');
+					var artist   = $.trim($('a').filter(function(){return $.trim($(this).attr('href')) == src}).parent().next('td').next('td').text());	
+					
+					// Update playing
+					PlayerUI.updatePlaying(title, artist, albumArt, src);	
+					// se new values
+					$('#cur-title').attr('value', title);
+					$('#cur-artist').attr('value', artist);
+
+			 	break;
 			default:
 				// statements_def
 				break;
 		}
 
-		$('a.music-entry').removeClass('now-playing');
-		$('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').addClass('now-playing');
+		// Change the play btn
+		$('#'+parentPlaylist+'').find('a.music-entry').html('<i class="fa fa-play"></i>');
+		$('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').html('<i class="fa fa-volume-up"></i>');
+		// Change the current playing background
+		$('#'+parentPlaylist+'').find('a.music-entry').parent().parent('tr').removeClass('row-active');
+		$('#'+parentPlaylist+'').find('a.music-entry:eq('+[PlayerUI.currentSong.songIndex]+')').parent().parent('tr').addClass('row-active');
 	};
 
 	
@@ -638,19 +754,35 @@ $(document).ready(function() {
 		$(this).toggleClass('control-activate');
 
 		if(chillHandler) {
-		
+			alert('nope');
 			chillHandler = 'decoy';
 			chillHandler = null
 		} else {
+			chillHandler = 'decoy';
 			songs = [];
 			Array.from($('a.music-entry')).forEach(function(el, index){
 				songs.push(el.getAttribute('href'));
 			});
-
+			
 			// SET CURRENT PLAYING PLAYLIST
 			PlayerUI.currentSong.currentPlayingPlaylist = PlayerUI.currentSong.playlistType[4];
 			// set playling playlist label
 			setPlayingPlaylist(PlayerUI.currentSong.playlistType[4]);
+
+			// vars
+			var src      = songs[0];
+			var title    = $('a').filter(function(){return $.trim($(this).attr('href')) == src}).parent().next('td').find('input#hidden-title').attr('value');
+			var albumArt = $('a').filter(function(){return $.trim($(this).attr('href')) == src}).parent().next('td').find('input#hidden-album').attr('value');
+			var artist   = $.trim($('a').filter(function(){return $.trim($(this).attr('href')) == src}).parent().next('td').next('td').text());	
+
+			PlayerUI.currentSong.songIndex = songs.indexOf(src);
+
+			// se new values
+			$('#cur-title').attr('value', title);
+			$('#cur-artist').attr('value', artist);
+
+			// Update playing
+			PlayerUI.updatePlaying(title, artist, albumArt, src);	
 		}
 
 	});

@@ -48,6 +48,8 @@ $('#login').on('submit', function(){
 		success: function(data) {
 			if(data.user) {
 				window.location.href = baseURL+'koffee/mood';
+
+				$('nav').hide(); //this will not ruin the UI of the mood-display
 			} else {	
 				loginBanner.text('Wrong username or password.');
 			}
@@ -95,13 +97,9 @@ $('#count-song').on('submit', function(e){
 		dataType: 'json',
 		success: function(data) {
 			if(data.success) {
-				//yehey!
+				alert('Working');
 			}
-		}, 
-		error: function(jqXHR, textStatus, errorThrown) {
-		  console.log(textStatus, errorThrown);
 		}
-
 	}).fail(function(){
 		alert('Something went wrong');
 	});
@@ -141,7 +139,7 @@ function getMostPlayed() {
 
 
 getMostPlayed();
-setInterval(getMostPlayed, 10000);
+// setInterval(getMostPlayed, 10000);
 
 
 function createMostPlayedChart() {
@@ -216,12 +214,88 @@ function createMostPlayedChart() {
 	        }
 	    }
 	});
-}
 
+}
 
 createMostPlayedChart();
 
+function creatWeeklyChart() {
+	var chartData = [];
+	var chartLabels = [];
+	$.ajax({
+		type: 'GET',
+		url: baseURL+'koffee/get_weekly_trend',
+		dataType: 'json',
+		success: function(data){
+			$.each(data, function(key, val){
+				chartData.push(val.songs_played);
+				chartLabels.push(val.weekd);
+			})
+		}
+	}).fail(function(){
+		alert('Something went wrong.');
+	});
 
+	var weekctx = document.getElementById("myChartweekly").getContext('2d');
+	var myChart = new Chart(weekctx, {
+	    type: 'line',
+	    filled: true,
+	    data: {
+	        labels: chartLabels,
+	        datasets: [{
+	            label: '# Airplay',
+	            data: chartData,
+	            backgroundColor: [
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',	
+	                'rgba(75, 192, 192, 0.2)',
+	                'rgba(153, 102, 255, 0.2)',
+	                'rgba(255, 159, 64, 0.2)',
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',	
+	                'rgba(75, 192, 192, 0.2)',
+	                'rgba(153, 102, 255, 0.2)',
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',	
+	                'rgba(75, 192, 192, 0.2)',
+	            ],
+	            borderColor: [
+	                'rgba(255,99,132,1)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)',
+	                'rgba(153, 102, 255, 1)',
+	                'rgba(255, 159, 64, 1)',
+	                 'rgba(255,99,132,1)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)',
+	                'rgba(153, 102, 255, 1)',
+	                 'rgba(255,99,132,1)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)',
+	            ],
+	            borderWidth: 1
+	        }]
+	    },
+	    options: {
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero:true
+	                }
+	            }]
+	        }
+	    }
+	});
+
+}
+
+creatWeeklyChart();
 
 /*------------------------------------------
 |			GET RECOMMENDED SONGS
@@ -331,3 +405,59 @@ function loadDiscovery() {
 }
 
 loadDiscovery();
+
+
+
+/*------------------------------------------
+|			SEARCH A SONG
+ -------------------------------------------*/
+
+ /* GET THE SONG */
+ var seachResultsContainer = $('#results');
+ seachResultsContainer.hide();
+
+$('#search-song').on('keyup', function(){
+	var res = '';
+	$.ajax({
+		type: 'GET',
+		url: baseURL+'koffee/search_song/'+$('#search-song').val(),
+		dataType: 'json',
+		success: function(data){
+			if($('#search-song').val() != '') {
+				if(data) {
+					$.each(data, function(key, val){
+						res += '<p class="search-result" data-artist="'+val.artist+'"><img src="'+val.album_art+'" class="list-group-thumb img-responsive" alt="" />'+val.title+'</p>';
+					});
+				}
+			}
+			setTimeout(function(){
+				seachResultsContainer.html(res).slideDown();
+			}, 1000);
+			
+		}
+	}).fail(function(){
+		alert('Something went wrong.');
+	});
+});
+
+$('#results').on('click','.search-result',function(){
+	var searchAttr = $('#search-song');
+
+	searchAttr.val($(this).text());
+	searchAttr.attr('data-artist', $(this).attr('data-artist'));
+	searchAttr.attr('data-album-art', $(this).find('img').attr('src'));
+	seachResultsContainer.slideUp();
+});
+
+
+/* SUBMIT AND DISPLAY CHART */
+// $('#trend-search').on('submit', function(e){
+// 	var creds = $(this).serialize();
+// 	$.ajax({
+// 		type: 'POST',
+
+// 	}).fail(function(){
+// 		alert('Something went wrong');
+// 	});
+// 	e.preventDefault();
+// });

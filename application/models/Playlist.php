@@ -8,6 +8,8 @@ Class Playlist extends CI_Model {
 		return $this->db->insert('songs', $data);
 	}
 
+
+
 	function check_existing_song($title, $artist) {
 		$this->db->select()->from('songs')->where(['title' => $title, 'artist' => $artist ]);
 		$result = $this->db->get();
@@ -99,7 +101,38 @@ Class Playlist extends CI_Model {
 		return $discovery->result();
 	}
 
-	
+	function get_matched_songs($string)  {
+		$this->db->select('title, artist, album_art')->from('songs');
+		$this->db->like('title', $string);
+		$this->db->or_like('artist', $string);
+		$results = $this->db->get();
+		return $results->result();
+	}
+
+	// function get_weekly_trend($song) {
+	// 	$this->db->select("count(song_id) as num_play, date_format(date_listened, '%Y-%m-%d') as weekd")->from('interactions');
+	// 	$this->db->where('song_id', $song);
+	// 	$this->db->where("date_format(date_listened, '%Y-%m-%d') BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE()");
+	// 	$this->db->group_by("weekd");
+	// 	$result = $this->db->get();
+	// 	return $result->result();
+	// }
+
+	function get_weekly_trend() {
+		$this->db->select("count(song_id) as songs_played,	date_format(date_listened, '%Y-%m-%d') as weekd")->from('interactions')->order_by('songs_played','desc');
+		$this->db->where("date_format(date_listened, '%Y-%m-%d') BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE()");
+		$this->db->group_by('weekd');
+		$weekly_played = $this->db->get();
+		return $weekly_played->result();
+	}
+
+
+
+	/*
+		 select songs.title, date_format(interactions.date_listened, '%Y-%m-%d'), group_concat(interactions.mood) from interactions join songs on songs.song_id = interactions.song_id WHERE  date_format(interactions.date_listened, '%Y-%m-%d') BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE() AND songs.title = "Shake It Off" GROUP BY date_format(interactions.date_listened, '%Y-%m-%d');
+
+		  select count(song_id), date_format(date_listened, '%Y-%m-%d') as weekd from interactions WHERE date_format(date_listened, '%Y-%m-%d') BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE() GROUP BY weekd;
+	*/
 
 }
 
