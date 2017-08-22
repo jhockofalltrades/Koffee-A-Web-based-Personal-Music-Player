@@ -51,6 +51,7 @@ Customize + improve your experience by specifying your current mood when you lis
 ![alt text](Screenshots/Player.png "Player")
 
 ### Full-screen version
+Background-color will adapt on your album art's average color.
 ![alt text](Screenshots/full_screen.png "Full Screen")
 
 ### Login
