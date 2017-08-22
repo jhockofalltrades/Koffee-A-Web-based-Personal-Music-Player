@@ -48,7 +48,7 @@ Customize + improve your experience by specifying your current mood when you lis
 
 ## Other Screenshots
 ### Player
-![alt text](Screenshots/player.png "Player")
+![alt text](Screenshots/Player.png "Player")
 
 ### Full-screen version
 ![alt text](Screenshots/full_screen.png "Full Screen")
