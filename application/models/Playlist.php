@@ -109,18 +109,12 @@ Class Playlist extends CI_Model {
 		return $results->result();
 	}
 
-	// function get_weekly_trend($song) {
-	// 	$this->db->select("count(song_id) as num_play, date_format(date_listened, '%Y-%m-%d') as weekd")->from('interactions');
-	// 	$this->db->where('song_id', $song);
-	// 	$this->db->where("date_format(date_listened, '%Y-%m-%d') BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE()");
-	// 	$this->db->group_by("weekd");
-	// 	$result = $this->db->get();
-	// 	return $result->result();
-	// }
+
 
 	function get_weekly_trend() {
-		$this->db->select("count(song_id) as songs_played,	date_format(date_listened, '%Y-%m-%d') as weekd")->from('interactions')->order_by('songs_played','desc');
-		$this->db->where("date_format(date_listened, '%Y-%m-%d') BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE()");
+		$this->db->select("count(song_id) as songs_played,	date_format(date_listened, '%Y-%m-%d') as weekd")->from('interactions');
+		$this->db->order_by('weekd','desc');
+		$this->db->where("date_format(date_listened, '%Y-%m-%d') BETWEEN DATE_SUB(CURDATE(), INTERVAL 6 DAY) AND CURDATE()");
 		$this->db->group_by('weekd');
 		$weekly_played = $this->db->get();
 		return $weekly_played->result();
