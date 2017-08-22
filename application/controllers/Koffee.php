@@ -273,6 +273,34 @@ class Koffee extends CI_Controller {
 		echo json_encode(['user' => $user]);
 	}
 
+	function account() {
+		$this->load->view('templates/header');
+		$this->load->view('account');
+		$this->load->view('templates/footer');
+	}
+
+	function get_info() {
+		$user = $this->user->get_info($this->session->userdata('user_id'));
+		echo json_encode($user);
+	}
+
+	function update_user() {
+
+		$username =  $this->input->post('set-username');
+
+		$new_user = $this->user->update_username($this->session->userdata('user_id'), ['username' => $username]);
+
+		echo json_encode(['success' => true]);
+	}
+
+	function update_pass() {
+
+		$password =  $this->input->post('set-passw');
+
+		$new_user = $this->user->update_pass($this->session->userdata('user_id'), ['password' => md5($password)]);
+
+		echo json_encode(['success' => true]);
+	}
 
 	function logout() {
 		if($this->session->userdata('user_id') == FALSE ) {
@@ -285,6 +313,8 @@ class Koffee extends CI_Controller {
 		$this->session->sess_destroy();
 		redirect('/', 'refresh');
 	}
+
+
 
 
 }

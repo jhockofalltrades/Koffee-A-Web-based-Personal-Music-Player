@@ -832,3 +832,48 @@ audio {
   <div class="double-bounce2"></div>
 </div>
 */
+
+
+.control-setting {
+	cursor: pointer;
+}
+
+.form-control-sm {
+	padding: 3px !important;
+	border-radius: 3px !important;
+	border: 1px solid #bdc3c7;
+}
+
+.btn-sm {
+	border: 1px solid #bdc3c7;
+	outline: none;
+}
+
+.setting-form {
+	padding-top: 20px;
+}
+
+#setting-tds > td {
+	min-width: 250px;
+}
+
+
+.back-arrow > a {
+	display: inline-block;
+	padding: 0px 20px;
+	border: 1px solid #95a5a6;
+	color: #95a5a6;
+	border-radius: 40px;
+	cursor: pointer;
+}
+
+.back-arrow > a:hover {
+	transition: 0.3s;
+	background-color: #95a5a6;
+	color: white !important;
+	text-decoration: none;
+}
+
+.back-arrow > a:focus {
+	text-decoration: none;
+}

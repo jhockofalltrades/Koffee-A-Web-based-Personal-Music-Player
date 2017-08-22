@@ -3,7 +3,7 @@
  var signupBanner = $('#signup-banner');
  var loginBanner = $('#login-banner');
  var baseURL = $('#base-url').val();
-
+ var userID = $('#user-id').val();
 /*-----------------------------------------
 |			SIGNUP
  -------------------------------------------*/
@@ -450,14 +450,5 @@ $('#results').on('click','.search-result',function(){
 });
 
 
-/* SUBMIT AND DISPLAY CHART */
-// $('#trend-search').on('submit', function(e){
-// 	var creds = $(this).serialize();
-// 	$.ajax({
-// 		type: 'POST',
 
-// 	}).fail(function(){
-// 		alert('Something went wrong');
-// 	});
-// 	e.preventDefault();
-// });
+

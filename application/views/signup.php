@@ -8,7 +8,7 @@
 			<div class="panel panel-default" style="width: 300px">
 				<div class="panel-heading text-center">Sign up</div>
 				<div class="panel-body">
-					<form action="http://localhost/koffee/koffee/add_user" id="signup" method="post">
+					<form action="" id="signup" method="post">
 
 						<small id="signup-banner"></small>
 						<div class="form-group">

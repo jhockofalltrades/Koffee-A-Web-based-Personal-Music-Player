@@ -22,7 +22,6 @@ Class User extends CI_Model {
 	}
 
 
-
 	function login($username, $password) {
 		$where = array(
 			'username' => $username,
@@ -32,6 +31,22 @@ Class User extends CI_Model {
 		$this->db->select()->from('user')->where($where);
 		$query = $this->db->get();
 		return $query->first_row();
+	}
+
+	function get_info($user_id) {
+		$this->db->select('username')->from('user')->where('user_id', $user_id);
+		$user = $this->db->get();
+		return $user->first_row();
+	}
+
+	function update_username($user_id, $data) {
+		$this->db->where('user_id', $user_id);
+		return $this->db->update('user', $data);
+	}
+
+	function update_pass($user_id, $data) {
+		$this->db->where('user_id', $user_id);
+		return $this->db->update('user', $data);
 	}
 
 

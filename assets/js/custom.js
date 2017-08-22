@@ -750,7 +750,9 @@ $(document).ready(function() {
 
 	/* CHILL MODE */
 	var chillHandler;
+
 	$('#chill-mode').click(function(){
+		PlayerUI.disableControl = false;
 		$(this).toggleClass('control-activate');
 
 		if(chillHandler) {
