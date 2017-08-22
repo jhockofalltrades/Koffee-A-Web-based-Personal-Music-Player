@@ -386,14 +386,17 @@ input[name="search-song"] {
 }
 
 #mood-container {
-	height: 100vh;
-	width: 100vw;
+	height: 93vh;
+	width: 99vw;
 	display: flex;	
 	flex-direction: column;
 	justify-content: center;	
 	align-items: center;	
 	background: linear-gradient(to bottom, #6190e8, #a7bfe8);
 	color: white;
+	margin: 0px auto;
+	transform: translateY(-20px);
+	overflow: hidden;
 }
 
 .mood-child:first-child {
@@ -785,8 +788,8 @@ audio {
 
 /*  */
 .spinner {
-  width: 40px;
-  height: 40px;
+  width: 100px;
+  height: 100px;
 
   position: relative;
   margin: 100px auto;
@@ -826,12 +829,6 @@ audio {
   }
 }
 
-/*
-<div class="spinner">
-  <div class="double-bounce1"></div>
-  <div class="double-bounce2"></div>
-</div>
-*/
 
 
 .control-setting {

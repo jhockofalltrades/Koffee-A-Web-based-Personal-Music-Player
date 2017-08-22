@@ -9,6 +9,7 @@
 	<script src="<?=base_url()?>assets/js/jquery.js" type="text/javascript"></script>
 	<script src="<?=base_url()?>assets/js/bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
+    <script src="<?=base_url()?>assets/js/helpers.js" type="text/javascript"></script>
 	<script src="<?=base_url()?>assets/js/custom.js" type="text/javascript"></script>
 	<script src="<?=base_url()?>assets/js/audio.js" type="text/javascript"></script>
 	<script src="<?=base_url()?>assets/js/server.js" type="text/javascript"></script>

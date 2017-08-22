@@ -3,7 +3,7 @@
  var signupBanner = $('#signup-banner');
  var loginBanner = $('#login-banner');
  var baseURL = $('#base-url').val();
- var userID = $('#user-id').val();
+
 /*-----------------------------------------
 |			SIGNUP
  -------------------------------------------*/
@@ -97,7 +97,7 @@ $('#count-song').on('submit', function(e){
 		dataType: 'json',
 		success: function(data) {
 			if(data.success) {
-				alert('Working');
+				//
 			}
 		}
 	}).fail(function(){
@@ -139,7 +139,7 @@ function getMostPlayed() {
 
 
 getMostPlayed();
-// setInterval(getMostPlayed, 10000);
+setInterval(getMostPlayed, 15000);
 
 
 function createMostPlayedChart() {
@@ -217,7 +217,7 @@ function createMostPlayedChart() {
 
 }
 
-createMostPlayedChart();
+setTimeout(createMostPlayedChart(), 2000);
 
 function creatWeeklyChart() {
 	var chartData = [];
@@ -295,7 +295,7 @@ function creatWeeklyChart() {
 
 }
 
-creatWeeklyChart();
+setTimeout(creatWeeklyChart(), 2000);
 
 /*------------------------------------------
 |			GET RECOMMENDED SONGS

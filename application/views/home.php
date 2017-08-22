@@ -77,10 +77,10 @@
 				<h4 class="title">Personal</h4>
 				<!-- RECOMMENDATION -->
 					<ul class="list-group">
-						<a href="" id="trend" class="list-group-item"><i class="fa fa-search"></i>&nbsp;&nbsp;&nbsp;Search</a>
-						<a href="" id="top-fifteen" class="list-group-item"><i class="fa fa-area-chart"></i>&nbsp;&nbsp;Your Charts</a>
-						<a href="" id="recommendations" class="list-group-item"><i class="fa fa-tags"></i>&nbsp;&nbsp;Recommendations</a>
-						<a href="" id="discovery" class="list-group-item"><i class="fa fa-fire"></i>&nbsp;&nbsp;&nbsp;Discover Songs</a>
+						<a href="" id="trend" class="list-group-item"><i class="fa fa-search" style="color: #34495e"></i>&nbsp;&nbsp;&nbsp;Search</a>
+						<a href="" id="top-fifteen" class="list-group-item"><i class="fa fa-area-chart" style="color: #8e44ad"></i>&nbsp;&nbsp;Your Charts</a>
+						<a href="" id="recommendations" class="list-group-item"><i class="fa fa-tags" style="color: #d35400"></i>&nbsp;&nbsp;Recommendations</a>
+						<a href="" id="discovery" class="list-group-item"><i class="fa fa-fire" style="color: #c0392b;"></i>&nbsp;&nbsp;&nbsp;Discover Songs</a>
 					</ul>
 				<br>
 				<h4 class="title">Playlists</h4>
@@ -156,7 +156,7 @@
 								<?php foreach($songs as $className) :?>	
 									<?php if($className->isDir()) :?>
 									<div class="hidden-playlists" id="<?=$className->getFilename()?>">
-									<table class="table table-hover" style="white-space: nowrap;">
+									<table class="table table-hover table-striped" style="white-space: nowrap;">
 										<thead>
 											<tr>
 												<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
