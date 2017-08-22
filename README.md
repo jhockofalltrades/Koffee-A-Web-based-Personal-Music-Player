@@ -3,7 +3,7 @@ A Web-based Music Player Application. This application is inspired by Spotify --
     
 
 ## Setup   
-After creating an account, select a folder containing all of your songs. PLAYLISTS are automatically created when you add a sub-folder container your songs in '/songs' folder.
+After creating an account, select a folder containing all of your songs. PLAYLISTS are automatically created when you add a sub-folder container your songs in `/songs` folder.
 <!-- SIGNUP -->
 <!-- SELECT FOLDER -->
 
@@ -20,24 +20,41 @@ The Music player only uses HTML5 audio tag(I like its simplicity) and added with
 <!-- FEATURES -->
 ### Playlists 
 Create your custom playlist by creating folder within '/songs' folder inside the project
+![alt text](Screenshots/playlist.png "Playlist")
 
 ### Recommendations
 Recommendations are created by your custom mood and interactions/hour.
+![alt text](Screenshots/recommendations.png "Recommendations")
 
 ### Discover songs
 No songs are unplayed here cause discover songs will cover that up!
 
+
 ### Search
 Use simple search to play your favorite music.
 
+
 ### Graphs
 See how you interact with your music using graphs.
+![alt text](Screenshots/charts.png "Graphs")
 
 ### Custom Airplay
 Automatically turn off your music using custom timer.
 
+
 ### Moods
 Customize + improve your experience by specifying your current mood when you listen to music.
+![alt text](Screenshots/moods.png "Moods")
+
+## Other Screenshots
+### Player
+![alt text](Screenshots/player.png "Player")
+
+### Full-screen version
+![alt text](Screenshots/full_screen.png "Full Screen")
+
+### Login
+![alt text](Screenshots/login.png "Login")
 
 ## Vendors
 1. Charts
