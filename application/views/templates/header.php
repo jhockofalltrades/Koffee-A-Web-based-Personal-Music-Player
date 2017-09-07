@@ -3,11 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Music Player</title>
-	<link rel="stylesheet" href="<?=base_url()?>assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="<?=base_url()?>assets/css/style.css">
+	
+	<!-- inject:css -->
+    <link rel="stylesheet" href="<?=base_url()?>assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>assets/css/style.min.css">
 	<link rel="stylesheet" href="<?=base_url()?>assets/font-awesome-4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="<?=base_url()?>assets/css/animations.css">
 	<link rel="icon" href="<?=base_url()?>assets/favicon.ico?v=2" type="image/x-icon" />
+    <!-- endinject -->
 </head>
 <body>
 

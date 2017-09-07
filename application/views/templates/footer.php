@@ -4,6 +4,8 @@
 		<input type="hidden" id="cur-title" name="cur-title" value="">
 		<input type="hidden" id="cur-artist" name="cur-artist" value="">
 	</form>
+
+	  <!-- inject:js -->
 	<input type="hidden" id="base-url" value="<?=base_url()?>">
 	<input type="hidden" id="user-id" value="<?=$this->session->userdata('user_id')?>">
 	<script src="<?=base_url()?>assets/js/jquery.js" type="text/javascript"></script>
@@ -17,6 +19,7 @@
 	<script src="<?=base_url()?>assets/js/timer.js" type="text/javascript"></script>
 	<script src="<?=base_url()?>assets/js/mood.js" type="text/javascript"></script>
 	<script src="<?=base_url()?>assets/js/average-color.js" type="text/javascript"></script>
+  	  <!-- endinject -->
 </body>
 </html>
 

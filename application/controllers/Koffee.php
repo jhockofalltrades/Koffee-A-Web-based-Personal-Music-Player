@@ -126,8 +126,6 @@ class Koffee extends CI_Controller {
 			rename($old_name->getPathname(), str_replace(' ', '-', $old_name->getPathname()));
 		}
 
-
-
 		$songs_added = 0;
 
 		foreach($songs as $song) {
