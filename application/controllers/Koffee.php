@@ -165,8 +165,7 @@ class Koffee extends CI_Controller {
 	}
 
 	function update_mood() {
-		
-
+	
 		header('Content-Type: application/json'); 
 
 		$updated = false;
