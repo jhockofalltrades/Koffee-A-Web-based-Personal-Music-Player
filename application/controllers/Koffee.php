@@ -18,7 +18,7 @@ class Koffee extends CI_Controller {
 
 	function login()  {
 		if($this->session->userdata('user_id') == TRUE ) {
-			redirect('koffee/','refresh');
+			redirect('koffee/app','refresh');
 		}
 			$existing = false;
 
@@ -44,7 +44,6 @@ class Koffee extends CI_Controller {
 
 	function signup() {
 		if($this->session->userdata('user_id') == TRUE ) {
-
 			redirect('koffee/app','refresh');
 		}
 		$this->load->view('templates/header');

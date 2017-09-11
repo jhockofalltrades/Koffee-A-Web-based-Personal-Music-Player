@@ -135,7 +135,7 @@ function getMostPlayed() {
 }
 
 
-setTimeout(getMostPlayed, 1000);
+// setTimeout(getMostPlayed, 1000);
 // setInterval(getMostPlayed, 15000);
 
 
