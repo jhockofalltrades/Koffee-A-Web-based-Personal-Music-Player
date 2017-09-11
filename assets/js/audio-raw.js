@@ -1,6 +1,5 @@
-$(document).ready(function(){
-
-	var audioControl = {
+$(function(){
+		var audioControl = {
 		audio: $('#audio')[0],
 		isMute: false,
 		isMax: false,
@@ -101,6 +100,4 @@ $(document).ready(function(){
 		}
 	})
 
-
-
-});
+}());

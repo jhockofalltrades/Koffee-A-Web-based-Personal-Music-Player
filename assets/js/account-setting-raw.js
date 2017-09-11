@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(function(){
 	var settingForms = $('.setting-form');
 	var controlSetting = $('.control-setting');
 
@@ -74,5 +74,4 @@ $('#set-pass-form').on('submit', function(e){
 	e.preventDefault();
 });
 
-
-});
+}());

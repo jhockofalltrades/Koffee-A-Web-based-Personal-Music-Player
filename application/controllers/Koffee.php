@@ -2,12 +2,13 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 require_once(APPPATH.'libraries/GetID3/getid3/getid3.php');
+
 class Koffee extends CI_Controller {
 	
 	function index() {
 		if($this->session->userdata('user_id') == TRUE ) {
 
-			redirect('koffee','refresh');
+			redirect('koffee/app','refresh');
 
 		}
 		$this->load->view('templates/header');

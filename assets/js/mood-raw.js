@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(function(){
 		// Hide the form
 	var moodForm = $('#update-mood');
 	moodForm.hide();
@@ -17,5 +17,4 @@ $(document).ready(function(){
 			moodForm.trigger('submit'); //server.js
 		},2000);
 	});
-
-});
+}());

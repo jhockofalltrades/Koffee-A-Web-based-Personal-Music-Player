@@ -1,5 +1,5 @@
-$(document).ready(function(){
-		/* TIMER TOGGLE */
+$(function(){
+	/* TIMER TOGGLE */
 	var timerHandler;
 	$('#clock').click(function(){
 		$(this).toggleClass('control-activate');
@@ -82,4 +82,4 @@ $(document).ready(function(){
 		}
 		
 	}
-});
+}());

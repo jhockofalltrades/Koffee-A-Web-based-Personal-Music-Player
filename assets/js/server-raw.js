@@ -1,9 +1,7 @@
-$(document).ready(function(){
 
-	
- var signupBanner = $('#signup-banner');
- var loginBanner = $('#login-banner');
- var baseURL = $('#base-url').val();
+var signupBanner = $('#signup-banner');
+var loginBanner = $('#login-banner');
+var baseURL = $('#base-url').val();
 
 /*-----------------------------------------
 |			SIGNUP
@@ -27,7 +25,7 @@ $('#signup').on('submit', function(e){
 			}
 		}
 	}).fail(function(){
-		signupBanner.text('Something went wrong.');
+		signupBanner.text('Signup: Something went wrong.');
 	});
 
 	e.preventDefault();
@@ -56,7 +54,7 @@ $('#login').on('submit', function(){
 			}
 		}
 	}).fail(function(){
-		signupBanner.text('Something went wrong.');
+		signupBanner.text('Login: Something went wrong.');
 	});
 });
 
@@ -79,7 +77,7 @@ $('#update-mood').on('submit', function(e){
 			}
 		}
 	}).fail(function(){
-		alert('Something went wrong.');
+		alert('Update mood: Something went wrong.');
 	});
 	e.preventDefault();
 });
@@ -102,7 +100,7 @@ $('#count-song').on('submit', function(e){
 			}
 		}
 	}).fail(function(){
-		alert('Something went wrong');
+		alert('Add new airplay: Something went wrong');
 	});
 
 	e.preventDefault();
@@ -132,13 +130,13 @@ function getMostPlayed() {
 		}
 
 	}).fail(function(){
-		alert('Something went wrong.');
+		alert('Get top 15: Something went wrong.');
 	});
 }
 
 
-getMostPlayed();
-setInterval(getMostPlayed, 15000);
+setTimeout(getMostPlayed, 1000);
+// setInterval(getMostPlayed, 15000);
 
 
 function createMostPlayedChart() {
@@ -155,7 +153,7 @@ function createMostPlayedChart() {
 			})
 		}
 	}).fail(function(){
-		alert('Something went wrong.');
+		alert('Load chart: Something went wrong.');
 	});
 
 	var ctx = document.getElementById("myChart").getContext('2d');
@@ -216,7 +214,7 @@ function createMostPlayedChart() {
 
 }
 
-setTimeout(createMostPlayedChart(), 2000);
+// setTimeout(createMostPlayedChart, 3500);
 
 function creatWeeklyChart() {
 	var chartData = [];
@@ -232,7 +230,7 @@ function creatWeeklyChart() {
 			})
 		}
 	}).fail(function(){
-		alert('Something went wrong.');
+		alert('Weekly chart: Something went wrong.');
 	});
 
 	var weekctx = document.getElementById("myChartweekly").getContext('2d');
@@ -294,7 +292,7 @@ function creatWeeklyChart() {
 
 }
 
-setTimeout(creatWeeklyChart(), 2000);
+// setTimeout(creatWeeklyChart, 3500);
 
 /*------------------------------------------
 |			GET RECOMMENDED SONGS
@@ -345,11 +343,11 @@ function loadRecommendations() {
 			recommendedSongsContainer.html(body);
 		}
 	}).fail(function(){
-		alert('Something went wrong.');
+		alert('Load Recommendations: Something went wrong.');
 	});
 }
+// setTimeout(loadRecommendations, 3500);
 
-loadRecommendations();
 
 
 /*------------------------------------------
@@ -399,11 +397,11 @@ function loadDiscovery() {
 			$('#discovery-body').html(body);
 		}
 	}).fail(function(){
-		alert('Something went wrong');
+		alert('Load Discovery: Something went wrong');
 	});
 }
 
-loadDiscovery();
+// setTimeout(loadDiscovery, 3500);
 
 
 
@@ -435,7 +433,7 @@ $('#search-song').on('keyup', function(){
 			
 		}
 	}).fail(function(){
-		alert('Something went wrong.');
+		alert('Search song: Something went wrong.');
 	});
 });
 
@@ -448,8 +446,3 @@ $('#results').on('click','.search-result',function(){
 	seachResultsContainer.slideUp();
 });
 
-
-
-
-
-});
