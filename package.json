@@ -1,0 +1,36 @@
+{
+  "name": "koffee",
+  "version": "1.0.0",
+  "description": "A personal music player",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-clean-css": "^3.8.0",
+    "gulp-copy": "^1.0.1",
+    "gulp-csso": "^3.0.0",
+    "gulp-inject": "^4.2.0",
+    "gulp-minify": "^1.0.0",
+    "gulp-postcss": "^7.0.0",
+    "gulp-uglify": "^3.0.0",
+    "pump": "^1.0.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+     "gulp": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1jhock/Koffee-A-Web-based-Personal-Music-Player.git"
+  },
+  "keywords": [
+    "koffee"
+  ],
+  "author": "Jack Owen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1jhock/Koffee-A-Web-based-Personal-Music-Player/issues"
+  },
+  "homepage": "https://github.com/1jhock/Koffee-A-Web-based-Personal-Music-Player#readme"
+}
