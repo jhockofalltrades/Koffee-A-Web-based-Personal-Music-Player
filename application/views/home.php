@@ -112,24 +112,31 @@
 
 								<!-- RECOMENDATIONS -->
 							<div id="recommendations-container">
-								 <div id="recommendations-body"></div>
+								 <div id="recommendations-body">
+								 	<h2 class="light-font text-center">Getting your Recommendations...</h2>
+								 	<div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div>
+								 </div>
 							</div>
 							<!-- DISCOVERY -->
 							<div id="discovery-container">
 								<div class="container-fluid">
-								 <div id="discovery-body"></div>
+								 <div id="discovery-body">
+								 	<h2 class="light-font text-center">Fetching your songs...</h2>
+								 	<div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div>
+								 </div>
 								</div>
 							</div>
 							<!-- CHART -->
 							<div id="chartjs">
 								<div class="panel-body">
-									<div id="placeholder">
+									<div id="placeholder1">
 										<h1 class="light-font text-center">Most played Chart</h1>
+										<canvas id="myChart" width="400" height="300"></canvas>
 									</div>
-									<canvas id="myChart" width="400" height="400"></canvas>
-									<div id="placeholder">
-										<h1 class="light-font text-center">Weekly Listening Chart</h1>
-										<canvas id="myChartweekly" width="400" height="400"></canvas>
+									
+									<div id="placeholder2">
+										<h1 class="light-font text-center">Listening Activity Chart</h1>
+										<canvas id="myChartweekly" width="400" height="300"></canvas>
 									</div>
 								</div>
 							</div>

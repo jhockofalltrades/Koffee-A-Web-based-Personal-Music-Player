@@ -1,1 +1,463 @@
-$(document).ready(function(){function t(){var t="";$.ajax({type:"GET",url:n+"koffee/load_most_played",dataType:"json",success:function(a){a.length>0?$.each(a,function(a,e){t+='<img src="'+e.album_art+'" alt="'+e.title+'" data-toggle="tooltip" data-placement="bottom" data-artist="'+e.artist+'" data-title="'+e.title+'" class="img-responsive img-circle most-played-thumb">'}):t='<li style="padding-top: 7px; color: white"><small><i class="fa fa-circle-o"></i>&nbsp;&nbsp;Play your favorite tracks and directly access it here.</small></li style="padding-top: 7px; color: white">',s.html(t)}}).fail(function(){alert("Something went wrong.")})}var a=$("#signup-banner"),e=$("#login-banner"),n=$("#base-url").val();$("#signup").on("submit",function(t){var e=$(this).serialize();$.ajax({type:"POST",url:n+"koffee/add_user",dataType:"json",data:e,success:function(t){t.added?$("#signup-banner").text("Successful!"):t.empty?$("#signup-banner").text("Please provide the necessary fields."):0==t.passwordNotMatched&&$("#signup-banner").text("Password not match")}}).fail(function(){a.text("Something went wrong.")}),t.preventDefault()}),$("#login").on("submit",function(){var t=$(this).serialize();$.ajax({type:"POST",url:n+"koffee/login",data:t,dataType:"json",success:function(t){t.user?(window.location.href=n+"koffee/mood",$("nav").hide()):e.text("Wrong username or password.")}}).fail(function(){a.text("Something went wrong.")})}),$("#update-mood").on("submit",function(t){var a=$(this).serialize();$.ajax({type:"POST",url:n+"koffee/update_mood",data:a,dataType:"json",success:function(t){t.success&&(window.location.href=n+"koffee/app")}}).fail(function(){alert("Something went wrong.")}),t.preventDefault()}),$("#count-song").on("submit",function(t){var a=$(this).serialize();$.ajax({type:"POST",url:n+"koffee/new_song_count",data:a,dataType:"json",success:function(t){t.success}}).fail(function(){alert("Something went wrong")}),t.preventDefault()});var s=$("#most-played");t(),setInterval(t,15e3),setTimeout(function(){var t=[],a=[];$.ajax({type:"GET",url:n+"koffee/load_most_played",dataType:"json",success:function(e){$.each(e,function(e,n){t.push(n.play),a.push(n.title)})}}).fail(function(){alert("Something went wrong.")});var e=document.getElementById("myChart").getContext("2d");new Chart(e,{type:"bar",data:{labels:a,datasets:[{label:"# Airplay",data:t,backgroundColor:["rgba(255, 99, 132, 0.2)","rgba(54, 162, 235, 0.2)","rgba(255, 206, 86, 0.2)","rgba(75, 192, 192, 0.2)","rgba(153, 102, 255, 0.2)","rgba(255, 159, 64, 0.2)","rgba(255, 99, 132, 0.2)","rgba(54, 162, 235, 0.2)","rgba(255, 206, 86, 0.2)","rgba(75, 192, 192, 0.2)","rgba(153, 102, 255, 0.2)","rgba(255, 99, 132, 0.2)","rgba(54, 162, 235, 0.2)","rgba(255, 206, 86, 0.2)","rgba(75, 192, 192, 0.2)"],borderColor:["rgba(255,99,132,1)","rgba(54, 162, 235, 1)","rgba(255, 206, 86, 1)","rgba(75, 192, 192, 1)","rgba(153, 102, 255, 1)","rgba(255, 159, 64, 1)","rgba(255,99,132,1)","rgba(54, 162, 235, 1)","rgba(255, 206, 86, 1)","rgba(75, 192, 192, 1)","rgba(153, 102, 255, 1)","rgba(255,99,132,1)","rgba(54, 162, 235, 1)","rgba(255, 206, 86, 1)","rgba(75, 192, 192, 1)"],borderWidth:1}]},options:{scales:{yAxes:[{ticks:{beginAtZero:!0}}]}}})}(),2e3),setTimeout(function(){var t=[],a=[];$.ajax({type:"GET",url:n+"koffee/get_weekly_trend",dataType:"json",success:function(e){$.each(e,function(e,n){t.push(n.songs_played),a.push(n.weekd)})}}).fail(function(){alert("Something went wrong.")});var e=document.getElementById("myChartweekly").getContext("2d");new Chart(e,{type:"line",filled:!0,data:{labels:a,datasets:[{label:"# Airplay",data:t,backgroundColor:["rgba(255, 99, 132, 0.2)","rgba(54, 162, 235, 0.2)","rgba(255, 206, 86, 0.2)","rgba(75, 192, 192, 0.2)","rgba(153, 102, 255, 0.2)","rgba(255, 159, 64, 0.2)","rgba(255, 99, 132, 0.2)","rgba(54, 162, 235, 0.2)","rgba(255, 206, 86, 0.2)","rgba(75, 192, 192, 0.2)","rgba(153, 102, 255, 0.2)","rgba(255, 99, 132, 0.2)","rgba(54, 162, 235, 0.2)","rgba(255, 206, 86, 0.2)","rgba(75, 192, 192, 0.2)"],borderColor:["rgba(255,99,132,1)","rgba(54, 162, 235, 1)","rgba(255, 206, 86, 1)","rgba(75, 192, 192, 1)","rgba(153, 102, 255, 1)","rgba(255, 159, 64, 1)","rgba(255,99,132,1)","rgba(54, 162, 235, 1)","rgba(255, 206, 86, 1)","rgba(75, 192, 192, 1)","rgba(153, 102, 255, 1)","rgba(255,99,132,1)","rgba(54, 162, 235, 1)","rgba(255, 206, 86, 1)","rgba(75, 192, 192, 1)"],borderWidth:1}]},options:{scales:{yAxes:[{ticks:{beginAtZero:!0}}]}}})}(),2e3);var r=$("#recommendations-body");!function(){var t="";$.ajax({type:"GET",url:n+"koffee/load_recommendations",dataType:"json",success:function(a){if(0==a.length)t+=`\n\t\t\t\t\t<div id="placeholder">\n\t\t\t\t\t\t\t\t<h1 class="light-font text-center">Recommendations are not available</h1>\n\t\t\t\t\t\t\t\t<p class="text-center">Recommendations are based on your interactions with your songs in your playlists.</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t`;else{t+='<div class="row">';var e=0;$.each(a,function(a,n){t+=`\n\t\t\t\t\t\t\t<div class="col-lg-3">\n\t\t\t\t\t\t\t\t<div class="song-thumb-parent center-block">\n\t\t\t\t\t\t\t\t\t<div class="thumb-bg" style='background-image: url(`+n.album_art+`)'>\n\t\t\t\t\t\t\t\t\t\t<p>`+n.artist+`&nbsp;&nbsp;&#8226;&nbsp;&nbsp;`+n.year+`</p>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class="thumb-label">\n\t\t\t\t\t\t\t\t\t\t<h5>`+n.title+`</h5>\n\t\t\t\t\t\t\t\t\t\t<span class="play-btn" data-title="`+n.title+`" data-artist="`+n.artist+`">\n\t\t\t\t\t\t\t\t\t\t\t<i class="fa fa-play"></i>\n\t\t\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t`,t+=++e%4==0?"</div><div class='row'>":""})}r.html(t)}}).fail(function(){alert("Something went wrong.")})}(),function(){var t="";$.ajax({type:"GET",url:n+"koffee/load_discovery",dataType:"json",success:function(a){if(0==a.length)t+=`\n\t\t\t\t\t<div id="placeholder">\n\t\t\t\t\t\t\t\t<h1 class="light-font text-center">Discover music is not available</h1>\n\t\t\t\t\t\t\t\t<p class="text-center">Interact with your playlist to discovery more of your songs.</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t`;else{t+='<div class="row">';var e=0;$.each(a,function(a,n){t+=`\n\t\t\t\t\t\t\t<div class="col-lg-3">\n\t\t\t\t\t\t\t\t<div class="song-thumb-parent center-block">\n\t\t\t\t\t\t\t\t\t<div class="thumb-bg" style='background-image: url(`+n.album_art+`)'>\n\t\t\t\t\t\t\t\t\t\t<p>`+n.artist+`&nbsp;&nbsp;&#8226;&nbsp;&nbsp;`+n.year+`</p>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class="thumb-label">\n\t\t\t\t\t\t\t\t\t\t<h5>`+n.title+`</h5>\n\t\t\t\t\t\t\t\t\t\t<span class="play-btn" data-title="`+n.title+`" data-artist="`+n.artist+`">\n\t\t\t\t\t\t\t\t\t\t\t<i class="fa fa-play"></i>\n\t\t\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t`,t+=++e%4==0?"</div><div class='row'>":""})}$("#discovery-body").html(t)}}).fail(function(){alert("Something went wrong")})}();var o=$("#results");o.hide(),$("#search-song").on("keyup",function(){var t="";$.ajax({type:"GET",url:n+"koffee/search_song/"+$("#search-song").val(),dataType:"json",success:function(a){""!=$("#search-song").val()&&a&&$.each(a,function(a,e){t+='<p class="search-result" data-artist="'+e.artist+'"><img src="'+e.album_art+'" class="list-group-thumb img-responsive" alt="" />'+e.title+"</p>"}),setTimeout(function(){o.html(t).slideDown()},1e3)}}).fail(function(){alert("Something went wrong.")})}),$("#results").on("click",".search-result",function(){var t=$("#search-song");t.val($(this).text()),t.attr("data-artist",$(this).attr("data-artist")),t.attr("data-album-art",$(this).find("img").attr("src")),o.slideUp()})});
+
+	
+ var signupBanner = $('#signup-banner');
+ var loginBanner = $('#login-banner');
+ var baseURL = $('#base-url').val();
+
+/*-----------------------------------------
+|			SIGNUP
+ -------------------------------------------*/
+
+$('#signup').on('submit', function(e){
+	var creds = $(this).serialize();
+
+	$.ajax({
+		type: 'POST',
+		url: baseURL+'koffee/add_user',
+		dataType: 'json',
+		data: creds,
+		success: function(data){
+			if(data.added) {
+				$('#signup-banner').text('Successful!');
+			} else if(data.empty) {
+				$('#signup-banner').text('Please provide the necessary fields.');
+			}else if(data.passwordNotMatched == false) {
+				$('#signup-banner').text('Password not match');
+			}
+		}
+	}).fail(function(){
+		signupBanner.text('DEV_ERROR_Signup: Something went wrong.');
+	});
+
+	e.preventDefault();
+});
+
+
+/*-----------------------------------------
+|			LOGIN
+ -------------------------------------------*/
+
+$('#login').on('submit', function(){
+	var creds = $(this).serialize();
+
+	$.ajax({
+		type: 'POST',
+		url: baseURL+'koffee/login',
+		data: creds,
+		dataType: 'json',
+		success: function(data) {
+			if(data.user) {
+				window.location.href = baseURL+'koffee/mood';
+
+				$('nav').hide(); //this will not ruin the UI of the mood-display
+			} else {	
+				loginBanner.text('Wrong username or password.');
+			}
+		}
+	}).fail(function(){
+		signupBanner.text('DEV_ERROR_Login: Something went wrong.');
+	});
+});
+
+
+/*-----------------------------------------
+|			UPDATE MOOD
+ -------------------------------------------*/
+
+$('#update-mood').on('submit', function(e){
+	var creds = $(this).serialize();
+
+	$.ajax({
+		type: 'POST',
+		url: baseURL+'koffee/update_mood',
+		data: creds,
+		dataType: 'json',
+		success: function(data){
+			if(data.success) {
+				window.location.href = baseURL+'koffee/app';
+			}
+		}
+	}).fail(function(){
+		alert('DEV_ERROR_Update Mood: Something went wrong.');
+	});
+	e.preventDefault();
+});
+
+
+/*-----------------------------------------
+|			ADD SONG COUNT
+ -------------------------------------------*/
+$('#count-song').on('submit', function(e){
+	var creds = $(this).serialize();
+
+	$.ajax({
+		type: 'POST',
+		url: baseURL+'koffee/new_song_count',
+		data: creds,
+		dataType: 'json',
+		success: function(data) {
+			if(data.success) {
+				//
+			}
+		}
+	}).fail(function(){
+		alert('DEV_ERROR_New Ariplay: Something went wrong');
+	});
+
+	e.preventDefault();
+});
+
+/*------------------------------------------
+|			GET MOST PLAYED: TOP 15
+ -------------------------------------------*/
+ var mostPlayedContainer = $('#most-played');
+function getMostPlayed() {
+	var results = '';
+	$.ajax({
+		type: 'GET',
+		url: baseURL+'koffee/load_most_played',
+		dataType: 'json',
+		success: function(data) {
+			if(data.length > 0 ) {
+				$.each(data, function(key, val){
+					results += `
+					<img src="`+val.album_art+`" alt="`+val.title+`" data-toggle="tooltip" data-placement="bottom" data-artist="`+val.artist+`" data-title="`+val.title+`" class="img-responsive img-circle most-played-thumb">
+				`;
+				})
+			} else {
+				results = '<li style="padding-top: 7px; color: white"><small><i class="fa fa-circle-o"></i>&nbsp;&nbsp;Play your favorite tracks and directly access it here.</small></li style="padding-top: 7px; color: white">';
+			}
+
+			mostPlayedContainer.html(results);
+
+		}
+
+	}).fail(function(){
+		alert('DEV_ERROR_Get Most Played: Something went wrong.');
+	});
+}
+// fetch most played
+getMostPlayed();
+
+
+/*------------------------------------------
+|			CHARTS/GRAPHS
+ -------------------------------------------*/
+function createMostPlayedChart() {
+	var chartData = [];
+	var chartLabels = [];
+	$.ajax({
+		type: 'GET',
+		url: baseURL+'koffee/load_most_played',
+		dataType: 'json',
+		success: function(data){
+
+			$.each(data, function(key, val){
+				chartData.push(val.play);
+				chartLabels.push(val.title);
+			});
+			var ctx = document.getElementById("myChart").getContext('2d');
+			ctx.height = 500; //set height
+			var myChart = new Chart(ctx, {
+			    type: 'bar',
+			    data: {
+			        labels: chartLabels,
+			        datasets: [{
+			            label: '# Airplay',
+			            data: chartData,
+			            backgroundColor: [
+			                'rgba(255, 99, 132, 0.2)',
+			                'rgba(54, 162, 235, 0.2)',
+			                'rgba(255, 206, 86, 0.2)',	
+			                'rgba(75, 192, 192, 0.2)',
+			                'rgba(153, 102, 255, 0.2)',
+			                'rgba(255, 159, 64, 0.2)',
+			                'rgba(255, 99, 132, 0.2)',
+			                'rgba(54, 162, 235, 0.2)',
+			                'rgba(255, 206, 86, 0.2)',	
+			                'rgba(75, 192, 192, 0.2)',
+			                'rgba(153, 102, 255, 0.2)',
+			                'rgba(255, 99, 132, 0.2)',
+			                'rgba(54, 162, 235, 0.2)',
+			                'rgba(255, 206, 86, 0.2)',	
+			                'rgba(75, 192, 192, 0.2)',
+			            ],
+			            borderColor: [
+			                'rgba(255,99,132,1)',
+			                'rgba(54, 162, 235, 1)',
+			                'rgba(255, 206, 86, 1)',
+			                'rgba(75, 192, 192, 1)',
+			                'rgba(153, 102, 255, 1)',
+			                'rgba(255, 159, 64, 1)',
+			                 'rgba(255,99,132,1)',
+			                'rgba(54, 162, 235, 1)',
+			                'rgba(255, 206, 86, 1)',
+			                'rgba(75, 192, 192, 1)',
+			                'rgba(153, 102, 255, 1)',
+			                 'rgba(255,99,132,1)',
+			                'rgba(54, 162, 235, 1)',
+			                'rgba(255, 206, 86, 1)',
+			                'rgba(75, 192, 192, 1)',
+			            ],
+			            borderWidth: 1
+			        }]
+			    },
+			    options: {
+			        scales: {
+			            yAxes: [{
+			                ticks: {
+			                    beginAtZero:true
+			                }
+			            }]
+			        },
+			         maintainAspectRatio: false,
+			    }
+			});
+		}
+	}).fail(function(){
+		alert('DEV_ERROR_Load Chart: Something went wrong.');
+	});
+
+}
+
+function creatWeeklyChart() {
+	var chartData = [];
+	var chartLabels = [];
+	$.ajax({
+		type: 'GET',
+		url: baseURL+'koffee/get_weekly_trend',
+		dataType: 'json',
+		success: function(data){
+			$.each(data, function(key, val){
+				chartData.push(val.songs_played);
+				chartLabels.push(val.weekd);
+			});
+			var weekctx = document.getElementById("myChartweekly").getContext('2d');
+			ctx.height = 500; //set height
+			var myChart = new Chart(weekctx, {
+			    type: 'line',
+			    filled: true,
+			    data: {
+			        labels: chartLabels,
+			        datasets: [{
+			            label: '# Airplay',
+			            data: chartData,
+			            backgroundColor: [
+			                'rgba(255, 99, 132, 0.2)',
+			                'rgba(54, 162, 235, 0.2)',
+			                'rgba(255, 206, 86, 0.2)',	
+			                'rgba(75, 192, 192, 0.2)',
+			                'rgba(153, 102, 255, 0.2)',
+			                'rgba(255, 159, 64, 0.2)',
+			                'rgba(255, 99, 132, 0.2)',
+			                'rgba(54, 162, 235, 0.2)',
+			                'rgba(255, 206, 86, 0.2)',	
+			                'rgba(75, 192, 192, 0.2)',
+			                'rgba(153, 102, 255, 0.2)',
+			                'rgba(255, 99, 132, 0.2)',
+			                'rgba(54, 162, 235, 0.2)',
+			                'rgba(255, 206, 86, 0.2)',	
+			                'rgba(75, 192, 192, 0.2)',
+			            ],
+			            borderColor: [
+			                'rgba(255,99,132,1)',
+			                'rgba(54, 162, 235, 1)',
+			                'rgba(255, 206, 86, 1)',
+			                'rgba(75, 192, 192, 1)',
+			                'rgba(153, 102, 255, 1)',
+			                'rgba(255, 159, 64, 1)',
+			                 'rgba(255,99,132,1)',
+			                'rgba(54, 162, 235, 1)',
+			                'rgba(255, 206, 86, 1)',
+			                'rgba(75, 192, 192, 1)',
+			                'rgba(153, 102, 255, 1)',
+			                 'rgba(255,99,132,1)',
+			                'rgba(54, 162, 235, 1)',
+			                'rgba(255, 206, 86, 1)',
+			                'rgba(75, 192, 192, 1)',
+			            ],
+			            borderWidth: 1
+			        }]
+			    },
+			    options: {
+			        scales: {
+			            yAxes: [{
+			                ticks: {
+			                    beginAtZero:true
+			                }
+			            }]
+			        },
+			         maintainAspectRatio: false,
+			    }
+			});
+		}
+	}).fail(function(){
+		alert('DEV_ERROR_Weekly Chart: Something went wrong.');
+	});
+}
+
+// load the 2 graphs
+$('#top-fifteen').click(function(){
+	createMostPlayedChart();
+	creatWeeklyChart();
+});
+
+/*------------------------------------------
+|			GET RECOMMENDED SONGS
+ -------------------------------------------*/
+ var recommendedSongsContainer = $('#recommendations-body');
+function loadRecommendations() {
+	var body = "";
+
+	$.ajax({
+		type: 'GET',
+		url: baseURL+'koffee/load_recommendations',
+		dataType: 'json',
+		success: function(data) {
+			if(data.length == 0) {
+				body += `
+					<div id="placeholder">
+								<h1 class="light-font text-center">Recommendations are not available</h1>
+								<p class="text-center">Recommendations are based on your interactions with your songs in your playlists.</p>
+							</div>
+				`;
+			} else {
+				body += '<div class="row">';
+				var counter = 0;
+					$.each(data, function(key, val){
+
+					body += `
+							<div class="col-lg-3">
+								<div class="song-thumb-parent center-block">
+									<div class="thumb-bg" style='background-image: url(`+val.album_art+`)'>
+										<p>`+val.artist+`&nbsp;&nbsp;&#8226;&nbsp;&nbsp;`+val.year +`</p>
+									</div>
+									<div class="thumb-label">
+										<h5>`+val.title+`</h5>
+										<span class="play-btn" data-title="`+val.title+`" data-artist="`+val.artist+`">
+											<i class="fa fa-play"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+					`;
+
+					counter++;
+
+					body += (counter % 4 == 0) ? "</div><div class='row'>": "";
+				});
+			}
+
+			recommendedSongsContainer.html(body);
+		}
+	}).fail(function(){
+		alert('DEV_ERROR_Load Recommendations: Something went wrong.');
+	});
+}
+
+// load recomendations
+$('#recommendations').click(function(){
+	loadRecommendations();
+});
+
+/*------------------------------------------
+|			GET DISCOVERY SONGS
+ -------------------------------------------*/
+function loadDiscovery() {
+	var body = '';
+	$.ajax({
+		type: 'GET',
+		url: baseURL+'koffee/load_discovery',
+		dataType: 'json',
+		success: function(data) {
+			if(data.length == 0) {
+				body += `
+					<div id="placeholder">
+								<h1 class="light-font text-center">Discover music is not available</h1>
+								<p class="text-center">Interact with your playlist to discovery more of your songs.</p>
+							</div>
+				`;
+			} else {
+				body += '<div class="row">';
+				var counter = 0;
+					$.each(data, function(key, val){
+
+					body += `
+							<div class="col-lg-3">
+								<div class="song-thumb-parent center-block">
+									<div class="thumb-bg" style='background-image: url(`+val.album_art+`)'>
+										<p>`+val.artist+`&nbsp;&nbsp;&#8226;&nbsp;&nbsp;`+val.year +`</p>
+									</div>
+									<div class="thumb-label">
+										<h5>`+val.title+`</h5>
+										<span class="play-btn" data-title="`+val.title+`" data-artist="`+val.artist+`">
+											<i class="fa fa-play"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+					`;
+
+					counter++;
+
+					body += (counter % 4 == 0) ? "</div><div class='row'>": "";
+				});
+			}
+
+			$('#discovery-body').html(body);
+		}
+	}).fail(function(){
+		alert('DEV_ERROR_Discovery: Something went wrong');
+	});
+}
+
+// load discovery
+$('#discovery').click(function(){
+	loadDiscovery();
+});
+
+
+/*------------------------------------------
+|			SEARCH A SONG
+ -------------------------------------------*/
+
+ /* GET THE SONG */
+ var seachResultsContainer = $('#results');
+ seachResultsContainer.hide();
+
+$('#search-song').on('keyup', function(){
+	var res = '';
+	$.ajax({
+		type: 'GET',
+		url: baseURL+'koffee/search_song/'+$('#search-song').val(),
+		dataType: 'json',
+		success: function(data){
+			if($('#search-song').val() != '') {
+				if(data) {
+					$.each(data, function(key, val){
+						res += '<p class="search-result" data-artist="'+val.artist+'"><img src="'+val.album_art+'" class="list-group-thumb img-responsive" alt="" />'+val.title+'</p>';
+					});
+				}
+			}
+			setTimeout(function(){
+				seachResultsContainer.html(res).slideDown();
+			}, 1000);
+			
+		}
+	}).fail(function(){
+		alert('DEV_ERROR_Search song: Something went wrong.');
+	});
+});
+
+$('#results').on('click','.search-result',function(){
+	var searchAttr = $('#search-song');
+
+	searchAttr.val($(this).text());
+	searchAttr.attr('data-artist', $(this).attr('data-artist'));
+	searchAttr.attr('data-album-art', $(this).find('img').attr('src'));
+	seachResultsContainer.slideUp();
+});
+
+
+
+
